@@ -1,13 +1,17 @@
-# 毎日1回データを取得して、変化があればリポジトリに保存する
+# 毎日1回データを取得して、変化があればリポジトリに保存し、画面を GitHub Pages に公開する
 name: データ更新
 
 on:
   schedule:
     - cron: "0 21 * * *"   # 世界標準時 21:00 = 日本時間 6:00（混雑時は遅れることがある）
   workflow_dispatch:         # Actions タブから手動でも実行できる
+  push:
+    branches: [main]         # 行き先や画面を直して push したときも、取得と公開を行う
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: update
@@ -40,3 +44,24 @@ jobs:
             git commit -m "データ更新 $(TZ=Asia/Tokyo date +%Y-%m-%d)"
             git push
           fi
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main   # 直前に保存したデータ更新を含む、最新の main を使う
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+      - name: 公開する
+        id: deployment
+        uses: actions/deploy-pages@v5

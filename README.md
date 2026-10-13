@@ -2,12 +2,13 @@
 
 気になる旅行先の為替・天気予報・気候・祝日・海外安全情報を毎日自動で集めて、カードで並べて比べるための画面です。
 
+- 公開ページ：https://kaitohogehoge.github.io/destination-watcher/
 - データの取得：GitHub Actions が毎日 日本時間 6:00 ごろに実行（`.github/workflows/update.yml`）
 - 設計書：`docs/superpowers/specs/2026-10-13-destination-watcher-design.md`
 
 ## 行き先を足す
 
-`config/destinations.json` に1件分を足して、GitHub に push します。次の自動取得（または Actions タブからの手動実行）でカードが増えます。
+`config/destinations.json` に1件分を足して、GitHub に push します。push すると自動で取得と公開が行われ、数分でカードが増えます。
 
 ```json
 {
