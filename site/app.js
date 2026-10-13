@@ -7,6 +7,7 @@ const DATA_DIR = "data";
 
 const PROVIDER_NAMES = {
   frankfurter: "Frankfurter",
+  "open-meteo": "Open-Meteo",
 };
 
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
@@ -192,10 +193,53 @@ function renderExchange(data) {
   return wrap;
 }
 
+// ---------- 天気予報 ----------
+
+// WMO 天気コード → [絵文字, 短い名前]
+const WEATHER_CODES = [
+  [[0], "☀️", "快晴"],
+  [[1], "🌤️", "晴れ"],
+  [[2], "⛅", "晴れ時々曇り"],
+  [[3], "☁️", "曇り"],
+  [[45, 48], "🌫️", "霧"],
+  [[51, 53, 55, 56, 57], "🌦️", "霧雨"],
+  [[61, 63, 65, 66, 67, 80, 81, 82], "🌧️", "雨"],
+  [[71, 73, 75, 77, 85, 86], "❄️", "雪"],
+  [[95, 96, 99], "⛈️", "雷雨"],
+];
+
+function weatherOf(code) {
+  const found = WEATHER_CODES.find(([codes]) => codes.includes(code));
+  return found ? { icon: found[1], name: found[2] } : { icon: "—", name: "—" };
+}
+
+function fmtNumber(value, suffix, digits = 0) {
+  return value === null || value === undefined ? "—" : `${value.toFixed(digits)}${suffix}`;
+}
+
+function renderForecast(data) {
+  const row = el("div", "forecast-row");
+  for (const day of data.days) {
+    const weather = weatherOf(day.code);
+    const cell = el("div", "forecast-day");
+    cell.append(
+      el("div", "fc-date", fmtDate(day.date)),
+      el("div", "fc-icon", weather.icon),
+      el("div", "fc-name", weather.name),
+    );
+    const temps = el("div", "fc-temp");
+    temps.append(el("span", "up", fmtNumber(day.tmax, "°")), " / ", el("span", "down", fmtNumber(day.tmin, "°")));
+    cell.append(temps, el("div", "fc-prob", `☂ ${fmtNumber(day.precip_prob, "%")}`));
+    row.append(cell);
+  }
+  return row;
+}
+
 // ---------- 情報の種類と表示関数の対応 ----------
 
 const RENDERERS = {
   exchange: renderExchange,
+  forecast: renderForecast,
 };
 
 // ---------- 全体 ----------

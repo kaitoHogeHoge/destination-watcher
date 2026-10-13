@@ -107,4 +107,27 @@ body {
 .range-buttons button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
 .chart-box { position: relative; height: 180px; }
 
+/* 天気予報 */
+.forecast-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px 0 6px;
+  scroll-snap-type: x proximity;
+}
+.forecast-day {
+  flex: 0 0 76px;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 4px;
+  scroll-snap-align: start;
+  font-size: 0.75rem;
+}
+.fc-date { color: var(--muted); }
+.fc-icon { font-size: 1.4rem; line-height: 1.6; }
+.fc-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fc-temp { font-weight: 600; margin-top: 2px; }
+.fc-prob { color: var(--muted); }
+
 .page-footer { color: var(--muted); font-size: 0.75rem; padding-bottom: 32px; }

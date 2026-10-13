@@ -5,7 +5,9 @@
 """
 
 from fetcher.sources.exchange import ExchangeSource
+from fetcher.sources.forecast import ForecastSource
 
 SOURCES = [
     ExchangeSource(),
+    ForecastSource(),
 ]
