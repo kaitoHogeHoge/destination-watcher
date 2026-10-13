@@ -150,4 +150,16 @@ table.climate .current { background: color-mix(in srgb, var(--accent) 18%, trans
 .hol-date { flex: 0 0 6.5em; color: var(--muted); }
 .hol-en { color: var(--muted); font-size: 0.75rem; }
 
+/* 海外安全情報（色は外務省の危険レベルの色に合わせる） */
+.badge { display: inline-block; border-radius: 6px; padding: 4px 10px; margin: 8px 8px 0 0; font-size: 0.85rem; font-weight: 700; }
+.badge.small { font-size: 0.75rem; font-weight: 500; padding: 2px 8px; }
+.badge.level-0 { background: var(--line); color: var(--muted); }
+.badge.level-1 { background: #f5d000; color: #1f2328; }
+.badge.level-2 { background: #f39800; color: #1f2328; }
+.badge.level-3 { background: #e60012; color: #fff; }
+.badge.level-4 { background: #7b0000; color: #fff; }
+.change-alert { color: var(--alert); font-weight: 700; margin: 8px 0 0; }
+.safety-title { font-size: 0.85rem; margin: 8px 0 4px; }
+.safety-link { color: var(--accent); font-size: 0.85rem; }
+
 .page-footer { color: var(--muted); font-size: 0.75rem; padding-bottom: 32px; }

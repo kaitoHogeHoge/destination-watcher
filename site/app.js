@@ -9,6 +9,7 @@ const PROVIDER_NAMES = {
   frankfurter: "Frankfurter",
   "open-meteo": "Open-Meteo",
   "nager-date": "Nager.Date",
+  mofa: "外務省 海外安全情報オープンデータ",
 };
 
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
@@ -284,6 +285,48 @@ function renderHolidays(data) {
   return list;
 }
 
+// ---------- 海外安全情報 ----------
+
+const SAFETY_LEVELS = {
+  0: "情報なし",
+  1: "レベル1：十分注意してください",
+  2: "レベル2：不要不急の渡航は止めてください",
+  3: "レベル3：渡航は止めてください（渡航中止勧告）",
+  4: "レベル4：退避してください。渡航は止めてください（退避勧告）",
+};
+
+function levelBadge(prefix, level, small) {
+  const text = level === 0 ? `${prefix}：${SAFETY_LEVELS[0]}` : `${prefix} ${SAFETY_LEVELS[level]}`;
+  return el("p", `badge level-${level}${small ? " small" : ""}`, text);
+}
+
+function renderSafety(data, record, card) {
+  const wrap = el("div");
+  if (data.changed) {
+    card.classList.add("alert");
+    const parts = [];
+    if (data.previous_level !== data.level) parts.push(`危険レベル ${data.previous_level ?? "?"}→${data.level}`);
+    if (data.previous_infection_level !== data.infection_level) {
+      parts.push(`感染症危険レベル ${data.previous_infection_level ?? "?"}→${data.infection_level}`);
+    }
+    wrap.append(el("p", "change-alert", `⚠ 変化あり：${parts.join("、")}（${fmtDateTime(data.changed_at).split(" ")[0]} 検出）`));
+  }
+  wrap.append(levelBadge("危険情報", data.level, false));
+  wrap.append(levelBadge("感染症危険情報", data.infection_level, true));
+  if (data.title) wrap.append(el("p", "safety-title", data.title));
+  if (data.url) {
+    const link = el("a", "safety-link", "外務省 海外安全ホームページで詳しく見る ↗");
+    link.href = data.url;
+    link.target = "_blank";
+    link.rel = "noopener";
+    wrap.append(link);
+  }
+  if (data.level > 0) {
+    wrap.append(el("p", "note", "※国内の一部地域だけに出ている場合も、いちばん高いレベルを表示しています"));
+  }
+  return wrap;
+}
+
 // ---------- 情報の種類と表示関数の対応 ----------
 
 const RENDERERS = {
@@ -291,6 +334,7 @@ const RENDERERS = {
   forecast: renderForecast,
   climate: renderClimate,
   holidays: renderHolidays,
+  safety: renderSafety,
 };
 
 // ---------- 全体 ----------

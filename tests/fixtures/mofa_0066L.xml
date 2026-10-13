@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<opendata dataType="L" lastModified="2026/10/13 14:35:57" mailCount="96" odType="04">
+    <country areaCd="10" countryCd="7">
+        <cd>0066</cd>
+    </country>
+    <infoUrl>https://www.anzen.mofa.go.jp/od/ryojiMail.html?countryCd=007</infoUrl>
+    <riskLevel4>0</riskLevel4>
+    <riskLevel3>1</riskLevel3>
+    <riskLevel2>1</riskLevel2>
+    <riskLevel1>0</riskLevel1>
+    <infectionLevel4>0</infectionLevel4>
+    <infectionLevel3>0</infectionLevel3>
+    <infectionLevel2>0</infectionLevel2>
+    <infectionLevel1>0</infectionLevel1>
+    <riskTitle>タイの危険情報【一部地域の危険レベル引下げ】</riskTitle>
+    <riskLead>●タイ・カンボジア国境付近では重火器の撤去が進んでおらず、国境に近い地域（カンボジア国境から30km以内）では、今後も不測の事態が発生する可能性が否定できないことから、危険レベル３を継続します。どのような目的であってもこれら地域への渡航は止めてください。
+●一方、国境から30kmを越えて50km以内の地域については、緊張状態は継続しているものの、約６か月にわたり大規模な軍事衝突は発生しておらず、状況が一時期に比べて安定していることから危険レベルを２に引き下げます。</riskLead>
+    <riskUrl>https://www.anzen.mofa.go.jp/info/pchazardspecificinfo_2026T076.html</riskUrl>
+    <mail>
+        <keyCd>2026T076</keyCd>
+        <infoType>T40</infoType>
+        <contentInfo>治安情勢 戦争 一般情報</contentInfo>
+        <leaveDate>2026/07/02 00:00:00</leaveDate>
+        <area>
+            <cd>10</cd>
+        </area>
+        <country areaCd="10">
+            <cd>0066</cd>
+        </country>
+        <title>タイの危険情報【一部地域の危険レベル引下げ】</title>
+        <lead>●タイ・カンボジア国境付近では重火器の撤去が進んでおらず、国境に近い地域（カンボジア国境から30km以内）では、今後も不測の事態が発生する可能性が否定できないことから、危険レベル３を継続します。どのような目的であってもこれら地域への渡航は止めてください。
+●一方、国境から30kmを越えて50km以内の地域については、緊張状態は継続しているものの、約６か月にわたり大規模な軍事衝突は発生しておらず、状況が一時期に比べて安定していることから危険レベルを２に引き下げます。</lead>
+        <infoUrl>https://www.anzen.mofa.go.jp/info/pchazardspecificinfo_2026T076.html</infoUrl>
+        <xmlAllUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/2026T076A.xml</xmlAllUrl>
+        <xmlNormalUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/2026T076.xml</xmlNormalUrl>
+        <xmlLightUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/2026T076L.xml</xmlLightUrl>
+        <riskLevel4>0</riskLevel4>
+        <riskLevel3>1</riskLevel3>
+        <riskLevel2>1</riskLevel2>
+        <riskLevel1>0</riskLevel1>
+        <infectionLevel4>0</infectionLevel4>
+        <infectionLevel3>0</infectionLevel3>
+        <infectionLevel2>0</infectionLevel2>
+        <infectionLevel1>0</infectionLevel1>
+        <mapImageUrl>https://www.anzen.mofa.go.jp/info/map/2026T076_1_Detail.html</mapImageUrl>
+    </mail>
+    </opendata>

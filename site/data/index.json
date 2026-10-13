@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T14:56:20+09:00",
+  "generated_at": "2026-10-13T14:57:50+09:00",
   "destinations": [
     {
       "id": "london",
@@ -23,6 +23,10 @@
     {
       "name": "holidays",
       "label": "祝日（今後6か月）"
+    },
+    {
+      "name": "safety",
+      "label": "海外安全情報"
     }
   ]
 }

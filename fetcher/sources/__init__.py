@@ -8,10 +8,12 @@ from fetcher.sources.climate import ClimateSource
 from fetcher.sources.exchange import ExchangeSource
 from fetcher.sources.forecast import ForecastSource
 from fetcher.sources.holidays import HolidaysSource
+from fetcher.sources.safety import SafetySource
 
 SOURCES = [
     ExchangeSource(),
     ForecastSource(),
     ClimateSource(),
     HolidaysSource(),
+    SafetySource(),
 ]
