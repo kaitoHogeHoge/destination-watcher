@@ -130,4 +130,18 @@ body {
 .fc-temp { font-weight: 600; margin-top: 2px; }
 .fc-prob { color: var(--muted); }
 
+/* 月ごとの気候 */
+.table-scroll { overflow-x: auto; margin-top: 8px; }
+table.climate { border-collapse: collapse; font-size: 0.75rem; white-space: nowrap; }
+table.climate th, table.climate td { padding: 4px 6px; text-align: right; border-bottom: 1px solid var(--line); }
+table.climate tr > th:first-child {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  background: var(--card);
+  color: var(--muted);
+  font-weight: 500;
+}
+table.climate .current { background: color-mix(in srgb, var(--accent) 18%, transparent); font-weight: 700; }
+
 .page-footer { color: var(--muted); font-size: 0.75rem; padding-bottom: 32px; }

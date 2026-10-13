@@ -235,11 +235,44 @@ function renderForecast(data) {
   return row;
 }
 
+// ---------- 月ごとの気候 ----------
+
+function renderClimate(data) {
+  const wrap = el("div");
+  const scroller = el("div", "table-scroll");
+  const table = el("table", "climate");
+  const thisMonth = new Date().getMonth() + 1;
+  const rows = [
+    ["月", (m) => `${m.month}月`],
+    ["平均気温", (m) => fmtNumber(m.temp, "°", 1)],
+    ["降水量", (m) => fmtNumber(m.precip, "mm")],
+  ];
+  for (const [label, value] of rows) {
+    const tr = el("tr");
+    tr.append(el("th", null, label));
+    for (const m of data.months) {
+      const td = el(label === "月" ? "th" : "td", m.month === thisMonth ? "current" : null, value(m));
+      tr.append(td);
+    }
+    table.append(tr);
+  }
+  scroller.append(table);
+  wrap.append(scroller, el("p", "note", data.period));
+  // 今月が見えるように横スクロールしておく（左端の見出し列の分だけ手前にする）
+  requestAnimationFrame(() => {
+    const current = table.querySelector("th.current");
+    const header = table.querySelector("th");
+    if (current) scroller.scrollLeft = current.offsetLeft - header.offsetWidth - 40;
+  });
+  return wrap;
+}
+
 // ---------- 情報の種類と表示関数の対応 ----------
 
 const RENDERERS = {
   exchange: renderExchange,
   forecast: renderForecast,
+  climate: renderClimate,
 };
 
 // ---------- 全体 ----------

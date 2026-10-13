@@ -4,10 +4,12 @@
 「その行き先に対応しているか」を確かめ、最初に対応したものが使われる。
 """
 
+from fetcher.sources.climate import ClimateSource
 from fetcher.sources.exchange import ExchangeSource
 from fetcher.sources.forecast import ForecastSource
 
 SOURCES = [
     ExchangeSource(),
     ForecastSource(),
+    ClimateSource(),
 ]
