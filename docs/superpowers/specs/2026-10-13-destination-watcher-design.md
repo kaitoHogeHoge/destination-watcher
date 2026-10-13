@@ -22,7 +22,7 @@
 |---|---|
 | 置き場所 | `~/destination-watcher`（独立した Git リポジトリ） |
 | GitHub リポジトリ | 公開（Public）。無料プランで GitHub Pages を使うため。ウォッチリストの内容も公開される |
-| データ取得 | Python 3.12。外部ライブラリは `requests` のみ（テスト用に `pytest`） |
+| データ取得 | Python 3.12 以上。外部ライブラリは `requests` のみ（テスト用に `pytest`） |
 | 画面 | HTML / CSS / JavaScript。ビルド作業なし。グラフは Chart.js（CDN、版を固定） |
 | 構成方針 | 「取得結果を JSON としてリポジトリに保存し、画面がそれを読む」方式 |
 
@@ -124,9 +124,9 @@ class Source:
     def supports(self, dest):
         """この行き先に対応しているか（True / False）を返す。"""
 
-    def fetch(self, dest, previous):
+    def fetch(self, dest, previous, now):
         """行き先1つ分の情報を取得して dict を返す。
-        previous は前回保存した data（無ければ None）。
+        previous は前回保存した data（無ければ None）、now は実行日時（日本時間）。
         失敗したら例外を投げる（司令塔が受け止める）。"""
 ```
 
@@ -154,8 +154,7 @@ class Source:
 ### 5.2 為替（exchange.py）
 
 - API：Frankfurter `https://api.frankfurter.dev/v1/`（APIキー不要、欧州中央銀行の参考レート）
-- 取得：`/v1/{開始日}..?base=JPY&symbols={通貨}`
-- 表示用には「1外貨 = 何円」に換算する（API は「1円 = 何外貨」で返すため逆数を取る）
+- 取得：`/v1/{開始日}..?base={通貨}&symbols=JPY`（「1外貨 = 何円」で直接返る。`base=JPY` だと有効数字が3桁しかないため使わない）
 - 履歴：前回の履歴に、新しい日付の値を足して保存する
   - 初回（履歴が無いとき）は過去365日分をまとめて取得する
   - 2回目以降は「前回の最終日」以降だけ取得する
@@ -280,7 +279,7 @@ site/data/
 ## 11. テスト
 
 - `tests/fixtures/` に各 API の実際の応答を保存し、通信なしで次を確かめる
-  - 各 source が応答を正しく読み取れること（為替の逆数換算、気候の月平均、祝日の絞り込み、危険レベルの判定など）
+  - 各 source が応答を正しく読み取れること（為替の履歴の結合、気候の月平均、祝日の絞り込み、危険レベルの判定など）
   - 安全情報の変化検出（変化あり／なし／初回）
   - 1つの source が例外を出しても、他の source の保存が行われること
   - 失敗時に前回の `data` と `updated_at` が残ること
