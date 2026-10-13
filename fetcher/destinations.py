@@ -27,6 +27,7 @@ def search_city(city: str) -> list[dict]:
 
 
 def pick_result(results: list[dict], country: str | None) -> dict | None:
+    results = [r for r in results if r.get("country_code")]  # 海や南極など、国の無い地名は使わない
     if not country:
         return results[0] if results else None
     for r in results:

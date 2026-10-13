@@ -165,3 +165,9 @@ def test_remove_rejects_unsafe_id(tmp_path):
     with pytest.raises(DestinationError):
         remove_destination(path, make_data_dir(tmp_path), "悪い例")
     assert outside.exists()
+
+
+def test_pick_skips_results_without_country_code():
+    sea = {"id": 1, "name": "パリ", "latitude": 0, "longitude": 0}  # 海や南極の地名には国が無い
+    assert pick_result([sea, PARIS_FR], None) is PARIS_FR
+    assert pick_result([sea], None) is None

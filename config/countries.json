@@ -200,7 +200,7 @@
   "mofa_code": "0506"
  },
  "CU": {
-  "currency": "CUC",
+  "currency": "CUP",
   "mofa_code": "0053"
  },
  "CV": {
@@ -688,7 +688,7 @@
   "mofa_code": "0968"
  },
  "PA": {
-  "currency": "PAB",
+  "currency": "USD",
   "mofa_code": "0507"
  },
  "PE": {
@@ -728,7 +728,7 @@
   "mofa_code": null
  },
  "PS": {
-  "currency": "EGP",
+  "currency": "ILS",
   "mofa_code": "0970"
  },
  "PT": {
@@ -996,7 +996,7 @@
   "mofa_code": "0260"
  },
  "ZW": {
-  "currency": "BWP",
+  "currency": "USD",
   "mofa_code": "0263"
  }
 }

@@ -38,6 +38,14 @@ OVERRIDES = {
     "JM": "0876",  # ジャマイカ
 }
 
+# 元データの最初の通貨が適切でない国（実際に使われていて、為替データ元が対応している通貨にする）
+CURRENCY_OVERRIDES = {
+    "ZW": "USD",  # ジンバブエ（元データの先頭はボツワナ・プラ）
+    "PS": "ILS",  # パレスチナ
+    "CU": "CUP",  # キューバ（CUC は 2021年に廃止）
+    "PA": "USD",  # パナマ（米ドルが流通）
+}
+
 # 電話番号のデータが他の国と重なってしまい、正しく決められない地域（国番号を付けない）
 NO_MOFA_CODE = {"UM"}  # 合衆国領有小離島（エスワティニの番号と重なる）
 
@@ -65,7 +73,7 @@ def build_table(countries: list[dict], mofa_codes: set[str]) -> dict[str, dict]:
             code = _calling_code(c.get("idd") or {})
             mofa_code = code.zfill(4) if code else None
         table[c["cca2"]] = {
-            "currency": currencies[0] if currencies else None,
+            "currency": CURRENCY_OVERRIDES.get(c["cca2"]) or (currencies[0] if currencies else None),
             "mofa_code": mofa_code if mofa_code in mofa_codes else None,
         }
     return table

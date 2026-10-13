@@ -58,3 +58,9 @@ def test_wrong_calling_code_excluded():
     # 合衆国領有小離島（UM）の電話番号データはエスワティニと重なるので、国番号を付けない
     table = build_table([country("UM", ("USD",), "+2", ("68",))], {"0268"})
     assert table["UM"]["mofa_code"] is None
+
+
+def test_currency_overrides():
+    table = build_table([country("ZW", ("BWP", "USD"), "+2", ("63",)), country("PS", ("EGP", "ILS"), "+9", ("70",))], set())
+    assert table["ZW"]["currency"] == "USD"
+    assert table["PS"]["currency"] == "ILS"

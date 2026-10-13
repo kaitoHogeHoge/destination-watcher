@@ -13,9 +13,9 @@ permissions:
   contents: write
   actions: write   # 「データ更新」を呼び出すため
 
-concurrency:
-  group: update
-  cancel-in-progress: false
+# 「データ更新」と同じ concurrency グループには入れない。
+# GitHub は待ちの実行を1つしか残さず、後から来た実行が待ちの実行を黙って取り消してしまうため。
+# 2つの追加・削除が同時に動いてぶつかった場合は、保存の手順が ❌ で止まる（もう一度実行すればよい）。
 
 jobs:
   remove:
