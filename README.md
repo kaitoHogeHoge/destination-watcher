@@ -47,7 +47,8 @@ git pull
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m fetcher.main      # データを取得する
-.venv/bin/pytest                      # 自動テスト
+.venv/bin/pytest                      # 自動テスト（取得）
+node --test tests/js/*.test.js        # 自動テスト（画面の計算）
 python3 -m http.server 8000 -d site   # 画面を http://localhost:8000 で見る
 ```
 

@@ -103,12 +103,6 @@ function renderSection(record, source, card) {
 
 // ---------- 為替 ----------
 
-function daysBefore(isoDate, days) {
-  const [y, m, d] = isoDate.split("-").map(Number);
-  const t = new Date(Date.UTC(y, m - 1, d - days));
-  return t.toISOString().slice(0, 10);
-}
-
 function changeText(label, now, before) {
   const span = el("span");
   if (before === undefined) {
@@ -354,6 +348,122 @@ const RENDERERS = {
 
 // ---------- 全体 ----------
 
+// ---------- 古いデータの警告 ----------
+
+const ACTIONS_URL = "https://github.com/kaitoHogeHoge/destination-watcher/actions";
+
+function renderStaleBanner(generatedAt) {
+  const banner = el("div", "stale-banner");
+  banner.setAttribute("role", "alert");
+  const when = fmtDateTime(generatedAt);
+  const age = ageText(generatedAt, Date.now());
+  banner.append(
+    el("strong", null, "⚠ データが古くなっています"),
+    el("span", null, `（最終実行：${when}${age ? `・${age}` : ""}）。毎日の自動更新が止まっている可能性があります。`),
+  );
+  const link = el("a", null, "GitHub の実行結果を見る ↗");
+  link.href = ACTIONS_URL;
+  link.target = "_blank";
+  link.rel = "noopener";
+  banner.append(link);
+  return banner;
+}
+
+// ---------- 比較の一覧 ----------
+
+function todayLocal() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+// 1マス分の表示。status に応じて「—」「対象外」「⚠」を付ける
+function compareCell(cell, render) {
+  const td = el("td");
+  if (cell.status === "unsupported") {
+    td.append(el("span", "flat", "対象外"));
+  } else if (cell.status === "missing" || cell.status === "broken") {
+    td.append(el("span", "flat", "—"));
+  } else {
+    if (cell.status === "error") {
+      const mark = el("span", "cell-warn", "⚠ ");
+      mark.title = "今回の取得に失敗したため、前回のデータです";
+      td.append(mark);
+    }
+    td.append(render(cell));
+  }
+  return td;
+}
+
+const COMPARE_COLUMNS = [
+  {
+    label: "為替（30日前比）",
+    name: "exchange",
+    render: (c) => {
+      if (c.pct === null) return el("span", "flat", "—");
+      const cls = c.pct > 0 ? "up" : c.pct < 0 ? "down" : "flat";
+      const sign = c.pct > 0 ? "+" : c.pct < 0 ? "−" : "±";
+      return el("span", cls, `${sign}${Math.abs(c.pct).toFixed(2)}%・${c.word}`);
+    },
+  },
+  {
+    label: "来週の天気（7日間）",
+    name: "forecast",
+    render: (c) => {
+      const span = el("span");
+      span.append(el("span", "up", fmtNumber(c.tmax, "°", 1)), " / ", el("span", "down", fmtNumber(c.tmin, "°", 1)));
+      span.append(`・☂ ${c.rainyDays}日`);
+      return span;
+    },
+  },
+  {
+    label: "今月の気候",
+    name: "climate",
+    render: (c) => el("span", null, `${fmtNumber(c.temp, "°", 1)}・${fmtNumber(c.precip, "mm")}`),
+  },
+  {
+    label: "次の祝日",
+    name: "holidays",
+    render: (c) => (c.date ? el("span", null, `${fmtDate(c.date)} ${c.name}`) : el("span", "flat", "6か月内なし")),
+  },
+  {
+    label: "危険レベル",
+    name: "safety",
+    render: (c) => el("span", `badge small level-${c.level}`, c.level === 0 ? "なし" : `レベル${c.level}`),
+  },
+];
+
+function renderCompare(rows) {
+  const section = el("section", "compare");
+  section.append(el("h2", null, "比較"));
+  const scroller = el("div", "table-scroll");
+  const table = el("table", "compare-table");
+  const head = el("tr");
+  head.append(el("th", null, "行き先"));
+  for (const col of COMPARE_COLUMNS) head.append(el("th", null, col.label));
+  table.append(head);
+
+  const today = todayLocal();
+  for (const { dest, records } of rows) {
+    const tr = el("tr");
+    const nameCell = el("th");
+    const link = el("a", null, dest.name);
+    link.href = `#dest-${dest.id}`;
+    nameCell.append(link);
+    tr.append(nameCell);
+    const summary = summarize(records, today);
+    for (const col of COMPARE_COLUMNS) {
+      tr.append(compareCell(summary[col.name] || { status: "missing" }, col.render));
+    }
+    table.append(tr);
+  }
+  scroller.append(table);
+  section.append(scroller);
+  section.append(el("p", "note", "☂ は降水確率50%以上の日数。為替は「1外貨＝何円」が30日前より上がっていれば円安です。"));
+  return section;
+}
+
+// ---------- 全体 ----------
+
 async function main() {
   const generated = document.getElementById("generated");
   const cards = document.getElementById("cards");
@@ -363,17 +473,36 @@ async function main() {
     return;
   }
   generated.textContent = `最終実行：${fmtDateTime(index.generated_at)}`;
+  if (isStale(index.generated_at, Date.now())) {
+    document.querySelector(".page-header").after(renderStaleBanner(index.generated_at));
+  }
 
-  for (const dest of index.destinations) {
+  // 先に全行き先のデータを読み込む（比較の一覧とカードの両方で使う）
+  const rows = await Promise.all(
+    index.destinations.map(async (dest) => {
+      const list = await Promise.all(
+        index.sources.map((s) => loadJson(`${DATA_DIR}/${dest.id}/${s.name}.json`).catch(() => null)),
+      );
+      const records = {};
+      index.sources.forEach((s, i) => (records[s.name] = list[i]));
+      return { dest, records };
+    }),
+  );
+
+  try {
+    cards.before(renderCompare(rows));
+  } catch (e) {
+    console.error("compare", e);
+  }
+
+  for (const { dest, records } of rows) {
     const card = el("article", "card");
+    card.id = `dest-${dest.id}`;
     card.append(el("h2", null, dest.name), el("p", "country", dest.country));
     cards.append(card);
-    const records = await Promise.all(
-      index.sources.map((s) => loadJson(`${DATA_DIR}/${dest.id}/${s.name}.json`).catch(() => null)),
-    );
-    index.sources.forEach((source, i) => {
+    for (const source of index.sources) {
       try {
-        card.append(renderSection(records[i], source, card));
+        card.append(renderSection(records[source.name], source, card));
       } catch (e) {
         // 1つの区切りが壊れていても、他の区切り・他の行き先は表示する
         console.error(dest.id, source.name, e);
@@ -381,7 +510,7 @@ async function main() {
         section.append(el("h3", null, source.label), el("p", "note", "表示中に問題が起きました"));
         card.append(section);
       }
-    });
+    }
   }
 }
 
