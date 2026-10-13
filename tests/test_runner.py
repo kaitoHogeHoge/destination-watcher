@@ -149,3 +149,40 @@ def test_broken_supports_check_still_fetches(tmp_path):
     summary = run([LONDON], [source, FakeSource("b", result={})], tmp_path, NOW)
     assert read_record(tmp_path, "london", "a")["status"] == "ok"
     assert summary.ok == 2
+
+
+def test_naive_updated_at_does_not_crash(tmp_path):
+    record = ok_record("a", "fake", {"old": True}, NOW - timedelta(days=1))
+    record["updated_at"] = "2026-10-01T06:00:00"  # 手で書き換えて時間帯が消えた
+    write_record(tmp_path, "london", record)
+    source = FakeSource("a", result={"new": True}, refresh_days=30)
+    summary = run([LONDON, TROMSO], [source], tmp_path, NOW)
+    assert summary.ok == 2
+    assert (tmp_path / "index.json").exists()
+
+
+class ShapeSensitiveSource(FakeSource):
+    """前回のデータの形がおかしいと KeyError になる部品。"""
+
+    def fetch(self, dest, previous, now):
+        self.calls.append({"dest": dest["id"], "previous": previous})
+        if previous is not None:
+            previous["history"]
+        return {"history": []}
+
+
+def test_broken_previous_data_retries_without_previous(tmp_path):
+    write_record(tmp_path, "london", ok_record("a", "fake", {"wrong": "shape"}, NOW - timedelta(days=1)))
+    source = ShapeSensitiveSource("a")
+    summary = run([LONDON], [source], tmp_path, NOW)
+    record = read_record(tmp_path, "london", "a")
+    assert record["status"] == "ok" and record["data"] == {"history": []}
+    assert [c["previous"] for c in source.calls] == [{"wrong": "shape"}, None]
+    assert summary.ok == 1
+
+
+def test_fetch_error_is_not_retried_without_previous(tmp_path):
+    write_record(tmp_path, "london", ok_record("a", "fake", {"v": 1}, NOW - timedelta(days=1)))
+    source = FakeSource("a", error=FetchError("通信に失敗しました"))
+    run([LONDON], [source], tmp_path, NOW)
+    assert len(source.calls) == 1

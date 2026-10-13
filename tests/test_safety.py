@@ -94,3 +94,22 @@ def test_fetch_uses_light_xml_and_previous(fake_http):
     previous = apply_change(current(level=2), None, NOW - timedelta(days=1))
     data = SafetySource().fetch({"id": "bkk", "mofa_code": "0066"}, previous, NOW)
     assert data["level"] == 3 and data["changed"] is True and data["previous_level"] == 2
+
+
+def test_mofa_code_change_not_reported_as_change():
+    previous = apply_change({**current(level=0), "mofa_code": "0044"}, None, NOW - timedelta(days=1))
+    result = apply_change({**current(level=3), "mofa_code": "0066"}, previous, NOW)
+    assert result["changed"] is False and result["previous_level"] is None
+
+
+def test_broken_changed_at_counts_as_not_changed():
+    previous = {**current(level=1), "changed": True, "changed_at": "2026-10-10T06:00:00",
+                "previous_level": 0, "previous_infection_level": 0}
+    result = apply_change(current(level=1), previous, NOW)
+    assert result["changed"] is False
+
+
+def test_fetch_stores_mofa_code(fake_http):
+    fake_http.add("https://www.ezairyu.mofa.go.jp/opendata/country/0044L.xml", load_fixture("mofa_0044L.xml"))
+    data = SafetySource().fetch({"id": "london", "mofa_code": "0044"}, None, NOW)
+    assert data["mofa_code"] == "0044"

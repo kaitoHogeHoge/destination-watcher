@@ -37,15 +37,29 @@ def needs_refresh(previous: dict | None, source: Source, now: datetime) -> bool:
         return True
     try:
         updated_at = datetime.fromisoformat(previous["updated_at"])
-    except (KeyError, TypeError, ValueError):
+        return now - updated_at >= timedelta(days=source.refresh_days)
+    except (KeyError, TypeError, ValueError):  # 日時が壊れている・時間帯が無い → 取り直す
         return True
-    return now - updated_at >= timedelta(days=source.refresh_days)
 
 
 def _error_message(e: Exception) -> str:
     if isinstance(e, FetchError):
         return str(e)
     return f"{type(e).__name__}: {e}"[:200]
+
+
+def _fetch(source: Source, dest: dict, previous_data, now: datetime):
+    """取得する。通信以外の理由で失敗し、前回のデータがあるときは、
+    前回のデータが壊れている可能性があるので「前回なし」でもう一度だけ試す。"""
+    try:
+        return source.fetch(dest, previous_data, now)
+    except FetchError:
+        raise
+    except Exception as e:
+        if previous_data is None:
+            raise
+        log.warning("%s %s：前回のデータを使わずに取り直します（%s）", dest["id"], source.name, _error_message(e))
+        return source.fetch(dest, None, now)
 
 
 def _group_by_name(sources: list[Source]) -> dict[str, list[Source]]:
@@ -81,7 +95,7 @@ def run(destinations: list[dict], sources: list[Source], data_dir: Path, now: da
 
             previous_data = previous.get("data") if previous else None
             try:
-                data = source.fetch(dest, previous_data, now)
+                data = _fetch(source, dest, previous_data, now)
             except Exception as e:
                 message = _error_message(e)
                 storage.write_record(

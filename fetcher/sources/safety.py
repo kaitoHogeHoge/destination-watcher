@@ -41,6 +41,8 @@ def parse_safety(xml_bytes: bytes) -> dict:
 def apply_change(current: dict, previous: dict | None, now: datetime) -> dict:
     """前回と比べて、変化の情報（changed / changed_at / previous_*）を足して返す。"""
     result = dict(current)
+    if previous and previous.get("mofa_code") and previous.get("mofa_code") != current.get("mofa_code"):
+        previous = None  # 国が変わったときは比べない
     if not previous:
         result.update(changed=False, changed_at=None, previous_level=None, previous_infection_level=None)
         return result
@@ -59,9 +61,17 @@ def apply_change(current: dict, previous: dict | None, now: datetime) -> dict:
         changed_at=changed_at,
         previous_level=previous.get("previous_level"),
         previous_infection_level=previous.get("previous_infection_level"),
-        changed=bool(changed_at) and now - datetime.fromisoformat(changed_at) <= timedelta(days=CHANGED_DAYS),
+        changed=_within_days(changed_at, now, CHANGED_DAYS),
     )
     return result
+
+
+def _within_days(value, now: datetime, days: int) -> bool:
+    """value（ISO 日時の文字列）が now から days 日以内なら True。読めない値は False。"""
+    try:
+        return now - datetime.fromisoformat(value) <= timedelta(days=days)
+    except (TypeError, ValueError):
+        return False
 
 
 class SafetySource(Source):
@@ -71,4 +81,5 @@ class SafetySource(Source):
 
     def fetch(self, dest, previous, now):
         current = parse_safety(http.get_bytes(f"{API}/{dest['mofa_code']}L.xml"))
+        current["mofa_code"] = dest["mofa_code"]
         return apply_change(current, previous, now)

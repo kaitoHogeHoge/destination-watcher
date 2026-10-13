@@ -24,10 +24,17 @@ function fmtDate(isoDate) {
 
 function fmtDateTime(iso) {
   // 保存は日本時間なので、文字列から直接読み取る（閲覧者の時間帯に左右されない）
-  const [date, time] = iso.split("T");
-  const [, m, d] = date.split("-").map(Number);
-  const [hh, mm] = time.split(":");
-  return `${m}/${d} ${Number(hh)}:${mm}`;
+  const match = typeof iso === "string" && iso.match(/^\d{4}-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if (!match) return "—";
+  const [, m, d, hh, mm] = match;
+  return `${Number(m)}/${Number(d)} ${Number(hh)}:${mm}`;
+}
+
+// 変化の検出から CHANGED_DAYS 日以内か（取得が失敗し続けても、古い「変化あり」を出し続けない）
+const CHANGED_DAYS = 7;
+function isRecentChange(changedAt) {
+  const t = Date.parse(changedAt);
+  return Number.isFinite(t) && Date.now() - t <= CHANGED_DAYS * 24 * 60 * 60 * 1000;
 }
 
 function el(tag, className, text) {
@@ -310,7 +317,7 @@ function levelBadge(prefix, level, small) {
 
 function renderSafety(data, record, card) {
   const wrap = el("div");
-  if (data.changed) {
+  if (data.changed && isRecentChange(data.changed_at)) {
     card.classList.add("alert");
     const parts = [];
     if (data.previous_level !== data.level) parts.push(`危険レベル ${data.previous_level ?? "?"}→${data.level}`);
@@ -364,7 +371,17 @@ async function main() {
     const records = await Promise.all(
       index.sources.map((s) => loadJson(`${DATA_DIR}/${dest.id}/${s.name}.json`).catch(() => null)),
     );
-    index.sources.forEach((source, i) => card.append(renderSection(records[i], source, card)));
+    index.sources.forEach((source, i) => {
+      try {
+        card.append(renderSection(records[i], source, card));
+      } catch (e) {
+        // 1つの区切りが壊れていても、他の区切り・他の行き先は表示する
+        console.error(dest.id, source.name, e);
+        const section = el("section", "section");
+        section.append(el("h3", null, source.label), el("p", "note", "表示中に問題が起きました"));
+        card.append(section);
+      }
+    });
   }
 }
 
