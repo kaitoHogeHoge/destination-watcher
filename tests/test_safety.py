@@ -113,3 +113,8 @@ def test_fetch_stores_mofa_code(fake_http):
     fake_http.add("https://www.ezairyu.mofa.go.jp/opendata/country/0044L.xml", load_fixture("mofa_0044L.xml"))
     data = SafetySource().fetch({"id": "london", "mofa_code": "0044"}, None, NOW)
     assert data["mofa_code"] == "0044"
+
+
+def test_supports_false_without_mofa_code():
+    assert SafetySource().supports({"mofa_code": None}) is False
+    assert SafetySource().supports({"mofa_code": "0044"}) is True

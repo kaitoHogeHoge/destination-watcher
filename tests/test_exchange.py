@@ -86,3 +86,9 @@ def test_supports_listed_currency_only(fake_http):
 def test_supports_true_when_currency_list_fails(fake_http):
     fake_http.add(CURRENCIES_URL, FetchError("通信に失敗しました"))
     assert ExchangeSource().supports({"currency": "TWD"}) is True
+
+
+def test_supports_false_without_currency(fake_http):
+    # 通貨一覧を取りに行かずに False（fake_http に経路が無いので、取りに行けば AssertionError）
+    assert ExchangeSource().supports({"currency": None}) is False
+    assert fake_http.calls == []

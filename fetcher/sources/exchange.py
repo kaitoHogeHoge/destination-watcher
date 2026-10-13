@@ -25,6 +25,8 @@ class ExchangeSource(Source):
     label = "為替レート"
 
     def supports(self, dest):
+        if not dest.get("currency"):
+            return False
         currencies = supported_currencies()
         return currencies is None or dest["currency"] in currencies
 

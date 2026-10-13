@@ -79,6 +79,9 @@ class SafetySource(Source):
     provider = "mofa"
     label = "海外安全情報"
 
+    def supports(self, dest):
+        return bool(dest.get("mofa_code"))
+
     def fetch(self, dest, previous, now):
         current = parse_safety(http.get_bytes(f"{API}/{dest['mofa_code']}L.xml"))
         current["mofa_code"] = dest["mofa_code"]

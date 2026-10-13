@@ -46,3 +46,28 @@ def test_skips_bad_id_and_duplicate_id(tmp_path):
 def test_unreadable_file_raises(tmp_path):
     with pytest.raises(FileNotFoundError):
         load_destinations(tmp_path / "missing.json")
+
+
+def test_null_mofa_code_and_currency_allowed(tmp_path):
+    dest = {**LONDON, "mofa_code": None, "currency": None}
+    assert len(load_destinations(write(tmp_path, [dest]))) == 1
+
+
+def test_numeric_mofa_code_skipped(tmp_path):
+    dest = {**LONDON, "mofa_code": 44}
+    assert load_destinations(write(tmp_path, [dest])) == []
+
+
+def test_non_string_name_or_number_lat_skipped(tmp_path):
+    bad_name = {**LONDON, "id": "a", "name": 1}
+    bad_lat = {**LONDON, "id": "b", "lat": "51.5"}
+    assert load_destinations(write(tmp_path, [bad_name, bad_lat])) == []
+
+
+def test_non_dict_entry_skipped(tmp_path):
+    assert [d["id"] for d in load_destinations(write(tmp_path, ["london", LONDON]))] == ["london"]
+
+
+def test_top_level_not_list_raises(tmp_path):
+    with pytest.raises(ValueError):
+        load_destinations(write(tmp_path, {"london": LONDON}))
