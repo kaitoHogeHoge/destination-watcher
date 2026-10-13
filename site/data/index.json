@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T14:55:10+09:00",
+  "generated_at": "2026-10-13T14:56:20+09:00",
   "destinations": [
     {
       "id": "london",
@@ -19,6 +19,10 @@
     {
       "name": "climate",
       "label": "月ごとの気候"
+    },
+    {
+      "name": "holidays",
+      "label": "祝日（今後6か月）"
     }
   ]
 }

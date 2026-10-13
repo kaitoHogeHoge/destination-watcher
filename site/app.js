@@ -8,6 +8,7 @@ const DATA_DIR = "data";
 const PROVIDER_NAMES = {
   frankfurter: "Frankfurter",
   "open-meteo": "Open-Meteo",
+  "nager-date": "Nager.Date",
 };
 
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
@@ -267,12 +268,29 @@ function renderClimate(data) {
   return wrap;
 }
 
+// ---------- 祝日 ----------
+
+function renderHolidays(data) {
+  if (data.holidays.length === 0) return el("p", "note", "今後6か月の祝日はありません");
+  const list = el("ul", "holiday-list");
+  for (const h of data.holidays) {
+    const li = el("li");
+    li.append(el("span", "hol-date", fmtDate(h.date)));
+    const names = el("span", "hol-name", h.local_name);
+    if (h.name && h.name !== h.local_name) names.append(el("span", "hol-en", `（${h.name}）`));
+    li.append(names);
+    list.append(li);
+  }
+  return list;
+}
+
 // ---------- 情報の種類と表示関数の対応 ----------
 
 const RENDERERS = {
   exchange: renderExchange,
   forecast: renderForecast,
   climate: renderClimate,
+  holidays: renderHolidays,
 };
 
 // ---------- 全体 ----------
