@@ -29,5 +29,15 @@
     "lat": 1.29,
     "lon": 103.85,
     "currency": "SGD"
+  },
+  {
+    "id": "fr-2988507",
+    "name": "パリ",
+    "country": "フランス",
+    "country_code": "FR",
+    "mofa_code": "0033",
+    "lat": 48.85,
+    "lon": 2.35,
+    "currency": "EUR"
   }
 ]
