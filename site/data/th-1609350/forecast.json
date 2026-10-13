@@ -1,0 +1,141 @@
+{
+  "source": "forecast",
+  "provider": "open-meteo",
+  "status": "ok",
+  "updated_at": "2026-10-13T16:24:15+09:00",
+  "attempted_at": "2026-10-13T16:24:15+09:00",
+  "error": null,
+  "data": {
+    "timezone": "Asia/Bangkok",
+    "days": [
+      {
+        "date": "2026-10-13",
+        "tmax": 32.4,
+        "tmin": 25.4,
+        "code": 95,
+        "precip": 10.8,
+        "precip_prob": 78
+      },
+      {
+        "date": "2026-10-14",
+        "tmax": 30.1,
+        "tmin": 23.7,
+        "code": 95,
+        "precip": 18.3,
+        "precip_prob": 85
+      },
+      {
+        "date": "2026-10-15",
+        "tmax": 30.7,
+        "tmin": 23.4,
+        "code": 81,
+        "precip": 12.1,
+        "precip_prob": 68
+      },
+      {
+        "date": "2026-10-16",
+        "tmax": 30.8,
+        "tmin": 24.3,
+        "code": 80,
+        "precip": 4.3,
+        "precip_prob": 83
+      },
+      {
+        "date": "2026-10-17",
+        "tmax": 30.4,
+        "tmin": 24.7,
+        "code": 51,
+        "precip": 2.7,
+        "precip_prob": 84
+      },
+      {
+        "date": "2026-10-18",
+        "tmax": 30.2,
+        "tmin": 24.6,
+        "code": 95,
+        "precip": 9.3,
+        "precip_prob": 78
+      },
+      {
+        "date": "2026-10-19",
+        "tmax": 30.3,
+        "tmin": 24.7,
+        "code": 95,
+        "precip": 6.6,
+        "precip_prob": 73
+      },
+      {
+        "date": "2026-10-20",
+        "tmax": 30.4,
+        "tmin": 24.9,
+        "code": 95,
+        "precip": 4.8,
+        "precip_prob": 69
+      },
+      {
+        "date": "2026-10-21",
+        "tmax": 30.2,
+        "tmin": 24.6,
+        "code": 95,
+        "precip": 9.2,
+        "precip_prob": 75
+      },
+      {
+        "date": "2026-10-22",
+        "tmax": 29.9,
+        "tmin": 23.8,
+        "code": 53,
+        "precip": 7.0,
+        "precip_prob": 75
+      },
+      {
+        "date": "2026-10-23",
+        "tmax": 31.2,
+        "tmin": 24.6,
+        "code": 53,
+        "precip": 5.4,
+        "precip_prob": 67
+      },
+      {
+        "date": "2026-10-24",
+        "tmax": 31.3,
+        "tmin": 24.2,
+        "code": 95,
+        "precip": 7.6,
+        "precip_prob": 53
+      },
+      {
+        "date": "2026-10-25",
+        "tmax": 30.6,
+        "tmin": 23.7,
+        "code": 51,
+        "precip": 2.2,
+        "precip_prob": 74
+      },
+      {
+        "date": "2026-10-26",
+        "tmax": 31.1,
+        "tmin": 24.5,
+        "code": 53,
+        "precip": 3.0,
+        "precip_prob": 69
+      },
+      {
+        "date": "2026-10-27",
+        "tmax": 30.4,
+        "tmin": 23.8,
+        "code": 53,
+        "precip": 2.8,
+        "precip_prob": 45
+      },
+      {
+        "date": "2026-10-28",
+        "tmax": 32.0,
+        "tmin": 23.9,
+        "code": 3,
+        "precip": 0.0,
+        "precip_prob": 32
+      }
+    ]
+  }
+}

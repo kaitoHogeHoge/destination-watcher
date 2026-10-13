@@ -1,0 +1,20 @@
+{
+  "source": "safety",
+  "provider": "mofa",
+  "status": "ok",
+  "updated_at": "2026-10-13T16:24:15+09:00",
+  "attempted_at": "2026-10-13T16:24:15+09:00",
+  "error": null,
+  "data": {
+    "level": 3,
+    "infection_level": 0,
+    "title": "タイの危険情報【一部地域の危険レベル引下げ】",
+    "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_007.html",
+    "mofa_updated": "2026/10/13 16:01:00",
+    "mofa_code": "0066",
+    "changed": false,
+    "changed_at": null,
+    "previous_level": null,
+    "previous_infection_level": null
+  }
+}
