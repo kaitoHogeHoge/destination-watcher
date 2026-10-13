@@ -29,5 +29,15 @@
     "lat": 1.29,
     "lon": 103.85,
     "currency": "SGD"
+  },
+  {
+    "id": "th-1609350",
+    "name": "バンコク",
+    "country": "タイ",
+    "country_code": "TH",
+    "mofa_code": "0066",
+    "lat": 13.75,
+    "lon": 100.5,
+    "currency": "THB"
   }
 ]
