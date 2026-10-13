@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-10-13T14:47:30+09:00",
+  "destinations": [
+    {
+      "id": "london",
+      "name": "ロンドン",
+      "country": "イギリス"
+    }
+  ],
+  "sources": [
+    {
+      "name": "exchange",
+      "label": "為替レート"
+    }
+  ]
+}
