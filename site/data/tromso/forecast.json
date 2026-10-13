@@ -2,8 +2,8 @@
   "source": "forecast",
   "provider": "open-meteo",
   "status": "ok",
-  "updated_at": "2026-10-13T15:14:08+09:00",
-  "attempted_at": "2026-10-13T15:14:08+09:00",
+  "updated_at": "2026-10-13T15:39:41+09:00",
+  "attempted_at": "2026-10-13T15:39:41+09:00",
   "error": null,
   "data": {
     "timezone": "Europe/Oslo",
