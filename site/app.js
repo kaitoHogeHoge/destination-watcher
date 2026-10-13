@@ -109,13 +109,21 @@ function changeText(label, now, before) {
     span.textContent = `${label}：—`;
     return span;
   }
-  const diff = now - before;
+  // 表示する桁で丸めてから向きを決める（-0.00「円高」のような表示を防ぐ）
+  const digits = yenDigits(now);
+  const scale = 10 ** digits;
+  const diff = Math.round((now - before) * scale) / scale;
   const pct = (diff / before) * 100;
   const sign = diff > 0 ? "+" : diff < 0 ? "−" : "±";
   const word = diff > 0 ? "円安" : diff < 0 ? "円高" : "変化なし";
   span.className = diff > 0 ? "up" : diff < 0 ? "down" : "flat";
-  span.textContent = `${label}：${sign}${Math.abs(diff).toFixed(2)}円（${sign}${Math.abs(pct).toFixed(1)}%・${word}）`;
+  span.textContent = `${label}：${sign}${Math.abs(diff).toFixed(digits)}円（${sign}${Math.abs(pct).toFixed(2)}%・${word}）`;
   return span;
+}
+
+// 1外貨が10円未満の通貨（タイバーツなど）は小数3桁まで出す
+function yenDigits(value) {
+  return value < 10 ? 3 : 2;
 }
 
 function renderExchange(data) {
@@ -130,7 +138,7 @@ function renderExchange(data) {
   const target30 = daysBefore(latest.date, 30);
   const ago30 = [...history].reverse().find((h) => h.date <= target30);
 
-  wrap.append(el("p", "fx-now", `1 ${data.currency} = ${latest.jpy.toFixed(2)} 円`));
+  wrap.append(el("p", "fx-now", `1 ${data.currency} = ${latest.jpy.toFixed(yenDigits(latest.jpy))} 円`));
   wrap.append(el("p", "note", `${fmtDate(latest.date)} のレート`));
   const changes = el("div", "fx-changes");
   changes.append(changeText("前日比", latest.jpy, previous && previous.jpy));
