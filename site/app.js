@@ -1,0 +1,224 @@
+// 行き先ウォッチャーの画面。site/data/ の JSON を読んでカードを描く。
+//
+// 新しい情報を足すときは、RENDERERS に「情報の種類: 表示する関数」を足す。
+// 表示する関数は (data, record, card) を受け取り、区切りの中身の要素を返す。
+
+const DATA_DIR = "data";
+
+const PROVIDER_NAMES = {
+  frankfurter: "Frankfurter",
+};
+
+const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
+
+// ---------- 書式 ----------
+
+function fmtDate(isoDate) {
+  const [y, m, d] = isoDate.split("-").map(Number);
+  const weekday = WEEKDAYS[new Date(y, m - 1, d).getDay()];
+  return `${m}/${d}（${weekday}）`;
+}
+
+function fmtDateTime(iso) {
+  // 保存は日本時間なので、文字列から直接読み取る（閲覧者の時間帯に左右されない）
+  const [date, time] = iso.split("T");
+  const [, m, d] = date.split("-").map(Number);
+  const [hh, mm] = time.split(":");
+  return `${m}/${d} ${Number(hh)}:${mm}`;
+}
+
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+// ---------- データの読み込み ----------
+
+async function loadJson(path) {
+  const response = await fetch(`${path}?t=${Date.now()}`);
+  if (!response.ok) return null;
+  return response.json();
+}
+
+// ---------- 区切り（情報1つ分）の共通部分 ----------
+
+function renderSection(record, source, card) {
+  const section = el("section", "section");
+  const head = el("div", "section-head");
+  head.append(el("h3", null, source.label));
+  if (record && record.updated_at) {
+    head.append(el("span", "updated", `最終更新：${fmtDateTime(record.updated_at)}`));
+  }
+  section.append(head);
+
+  if (!record) {
+    section.append(el("p", "note", "データがまだありません"));
+    return section;
+  }
+  if (record.status === "unsupported") {
+    section.append(el("p", "note", "この国は対象外です（データ元が未対応）"));
+    return section;
+  }
+  if (record.status === "error") {
+    const when = record.updated_at ? `（${fmtDateTime(record.updated_at)} 時点のデータを表示中）` : "";
+    section.append(el("p", "warning", `⚠ 取得に失敗しました${when}`));
+  }
+  if (record.data === null || record.data === undefined) {
+    section.append(el("p", "note", "データがまだありません"));
+  } else {
+    const renderer = RENDERERS[source.name];
+    if (renderer) {
+      try {
+        section.append(renderer(record.data, record, card));
+      } catch (e) {
+        console.error(source.name, e);
+        section.append(el("p", "note", "表示中に問題が起きました"));
+      }
+    } else {
+      section.append(el("p", "note", "この情報の表示はまだ用意されていません"));
+    }
+  }
+  if (record.provider) {
+    const name = PROVIDER_NAMES[record.provider] || record.provider;
+    section.append(el("p", "provider", `出典：${name}`));
+  }
+  return section;
+}
+
+// ---------- 為替 ----------
+
+function daysBefore(isoDate, days) {
+  const [y, m, d] = isoDate.split("-").map(Number);
+  const t = new Date(Date.UTC(y, m - 1, d - days));
+  return t.toISOString().slice(0, 10);
+}
+
+function changeText(label, now, before) {
+  const span = el("span");
+  if (before === undefined) {
+    span.className = "flat";
+    span.textContent = `${label}：—`;
+    return span;
+  }
+  const diff = now - before;
+  const pct = (diff / before) * 100;
+  const sign = diff > 0 ? "+" : diff < 0 ? "−" : "±";
+  const word = diff > 0 ? "円安" : diff < 0 ? "円高" : "変化なし";
+  span.className = diff > 0 ? "up" : diff < 0 ? "down" : "flat";
+  span.textContent = `${label}：${sign}${Math.abs(diff).toFixed(2)}円（${sign}${Math.abs(pct).toFixed(1)}%・${word}）`;
+  return span;
+}
+
+function renderExchange(data) {
+  const wrap = el("div");
+  const history = data.history;
+  if (history.length === 0) {
+    wrap.append(el("p", "note", "データがまだありません"));
+    return wrap;
+  }
+  const latest = history[history.length - 1];
+  const previous = history.length > 1 ? history[history.length - 2] : undefined;
+  const target30 = daysBefore(latest.date, 30);
+  const ago30 = [...history].reverse().find((h) => h.date <= target30);
+
+  wrap.append(el("p", "fx-now", `1 ${data.currency} = ${latest.jpy.toFixed(2)} 円`));
+  wrap.append(el("p", "note", `${fmtDate(latest.date)} のレート`));
+  const changes = el("div", "fx-changes");
+  changes.append(changeText("前日比", latest.jpy, previous && previous.jpy));
+  changes.append(changeText("30日前比", latest.jpy, ago30 && ago30.jpy));
+  wrap.append(changes);
+
+  const ranges = [
+    { label: "30日", days: 30 },
+    { label: "90日", days: 90 },
+    { label: "1年", days: 365 },
+  ];
+  const buttons = el("div", "range-buttons");
+  const box = el("div", "chart-box");
+  const canvas = el("canvas");
+  canvas.setAttribute("aria-label", `${data.currency} の円レートの推移`);
+  box.append(canvas);
+  wrap.append(buttons, box);
+
+  let chart = null;
+  function draw(days) {
+    const from = daysBefore(latest.date, days);
+    const points = history.filter((h) => h.date >= from);
+    if (chart) chart.destroy();
+    if (!window.Chart) {
+      box.replaceChildren(el("p", "note", "グラフを読み込めませんでした"));
+      return;
+    }
+    const color = cssVar("--accent");
+    chart = new Chart(canvas, {
+      type: "line",
+      data: {
+        labels: points.map((h) => h.date),
+        datasets: [{ data: points.map((h) => h.jpy), borderColor: color, borderWidth: 2, pointRadius: 0, tension: 0.2 }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { title: (items) => fmtDate(items[0].label), label: (item) => `${item.parsed.y.toFixed(2)} 円` } },
+        },
+        interaction: { mode: "index", intersect: false },
+        scales: {
+          x: { ticks: { color: cssVar("--muted"), maxTicksLimit: 5, callback: function (v) { return fmtDate(this.getLabelForValue(v)).replace(/（.）/, ""); } }, grid: { display: false } },
+          y: { ticks: { color: cssVar("--muted") }, grid: { color: cssVar("--line") } },
+        },
+      },
+    });
+  }
+
+  for (const range of ranges) {
+    const button = el("button", null, range.label);
+    button.type = "button";
+    button.setAttribute("aria-pressed", String(range.days === 90));
+    button.addEventListener("click", () => {
+      for (const b of buttons.children) b.setAttribute("aria-pressed", String(b === button));
+      draw(range.days);
+    });
+    buttons.append(button);
+  }
+  // Chart.js は defer で読み込むので、描画は要素が画面に入った後に行う
+  requestAnimationFrame(() => draw(90));
+  return wrap;
+}
+
+// ---------- 情報の種類と表示関数の対応 ----------
+
+const RENDERERS = {
+  exchange: renderExchange,
+};
+
+// ---------- 全体 ----------
+
+async function main() {
+  const generated = document.getElementById("generated");
+  const cards = document.getElementById("cards");
+  const index = await loadJson(`${DATA_DIR}/index.json`).catch(() => null);
+  if (!index) {
+    generated.textContent = "データを読み込めませんでした";
+    return;
+  }
+  generated.textContent = `最終実行：${fmtDateTime(index.generated_at)}`;
+
+  for (const dest of index.destinations) {
+    const card = el("article", "card");
+    card.append(el("h2", null, dest.name), el("p", "country", dest.country));
+    cards.append(card);
+    const records = await Promise.all(
+      index.sources.map((s) => loadJson(`${DATA_DIR}/${dest.id}/${s.name}.json`).catch(() => null)),
+    );
+    index.sources.forEach((source, i) => card.append(renderSection(records[i], source, card)));
+  }
+}
+
+main();
