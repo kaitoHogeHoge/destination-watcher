@@ -42,6 +42,8 @@ jobs:
             echo "データに変化はありません"
           else
             git commit -m "データ更新 $(TZ=Asia/Tokyo date +%Y-%m-%d)"
+            # 実行中に別の push があっても失敗しないよう、最新の main に載せ直してから送る
+            git pull --rebase origin main
             git push
           fi
 

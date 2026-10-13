@@ -8,6 +8,12 @@
 
 ## 行き先を足す
 
+GitHub の自動実行が毎朝データを保存しているので、編集を始める前に必ず最新を取り込みます。
+
+```bash
+git pull
+```
+
 `config/destinations.json` に1件分を足して、GitHub に push します。push すると自動で取得と公開が行われ、数分でカードが増えます。
 
 ```json
@@ -43,6 +49,12 @@ python3 -m venv .venv
 .venv/bin/python -m fetcher.main      # データを取得する
 .venv/bin/pytest                      # 自動テスト
 python3 -m http.server 8000 -d site   # 画面を http://localhost:8000 で見る
+```
+
+手元で取得すると `site/data` が書き換わります。データは GitHub の自動実行が保存するので、手元の分は送らずに元に戻してください。
+
+```bash
+git restore site/data
 ```
 
 ## データ元
