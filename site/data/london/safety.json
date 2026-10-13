@@ -2,8 +2,8 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-13T14:57:50+09:00",
-  "attempted_at": "2026-10-13T14:57:50+09:00",
+  "updated_at": "2026-10-13T15:00:06+09:00",
+  "attempted_at": "2026-10-13T15:00:06+09:00",
   "error": null,
   "data": {
     "level": 0,
@@ -11,9 +11,9 @@
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_154.html",
     "mofa_updated": "2026/10/13 14:37:56",
-    "changed": false,
     "changed_at": null,
     "previous_level": null,
-    "previous_infection_level": null
+    "previous_infection_level": null,
+    "changed": false
   }
 }

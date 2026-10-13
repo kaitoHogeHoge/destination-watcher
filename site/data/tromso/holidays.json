@@ -1,0 +1,52 @@
+{
+  "source": "holidays",
+  "provider": "nager-date",
+  "status": "ok",
+  "updated_at": "2026-10-13T15:00:06+09:00",
+  "attempted_at": "2026-10-13T15:00:06+09:00",
+  "error": null,
+  "data": {
+    "holidays": [
+      {
+        "date": "2026-12-24",
+        "local_name": "Julaften",
+        "name": "Christmas Eve"
+      },
+      {
+        "date": "2026-12-25",
+        "local_name": "Første juledag",
+        "name": "Christmas Day"
+      },
+      {
+        "date": "2026-12-26",
+        "local_name": "Andre juledag",
+        "name": "St. Stephen's Day"
+      },
+      {
+        "date": "2027-01-01",
+        "local_name": "Første nyttårsdag",
+        "name": "New Year's Day"
+      },
+      {
+        "date": "2027-03-25",
+        "local_name": "Skjærtorsdag",
+        "name": "Maundy Thursday"
+      },
+      {
+        "date": "2027-03-26",
+        "local_name": "Langfredag",
+        "name": "Good Friday"
+      },
+      {
+        "date": "2027-03-28",
+        "local_name": "Første påskedag",
+        "name": "Easter Sunday"
+      },
+      {
+        "date": "2027-03-29",
+        "local_name": "Andre påskedag",
+        "name": "Easter Monday"
+      }
+    ]
+  }
+}

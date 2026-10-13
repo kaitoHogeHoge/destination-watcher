@@ -1,0 +1,47 @@
+{
+  "source": "holidays",
+  "provider": "nager-date",
+  "status": "ok",
+  "updated_at": "2026-10-13T15:00:06+09:00",
+  "attempted_at": "2026-10-13T15:00:06+09:00",
+  "error": null,
+  "data": {
+    "holidays": [
+      {
+        "date": "2026-11-09",
+        "local_name": "Deepavali",
+        "name": "Deepavali"
+      },
+      {
+        "date": "2026-12-25",
+        "local_name": "Christmas Day",
+        "name": "Christmas Day"
+      },
+      {
+        "date": "2027-01-01",
+        "local_name": "New Year's Day",
+        "name": "New Year's Day"
+      },
+      {
+        "date": "2027-02-06",
+        "local_name": "Chinese New Year",
+        "name": "Chinese New Year"
+      },
+      {
+        "date": "2027-02-08",
+        "local_name": "Chinese New Year",
+        "name": "Chinese New Year"
+      },
+      {
+        "date": "2027-03-10",
+        "local_name": "Hari Raya Puasa",
+        "name": "Hari Raya Puasa"
+      },
+      {
+        "date": "2027-03-26",
+        "local_name": "Good Friday",
+        "name": "Good Friday"
+      }
+    ]
+  }
+}

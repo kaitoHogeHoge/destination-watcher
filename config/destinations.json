@@ -9,5 +9,25 @@
     "lat": 51.51,
     "lon": -0.13,
     "currency": "GBP"
+  },
+  {
+    "id": "tromso",
+    "name": "トロムソ",
+    "country": "ノルウェー",
+    "country_code": "NO",
+    "mofa_code": "0047",
+    "lat": 69.65,
+    "lon": 18.96,
+    "currency": "NOK"
+  },
+  {
+    "id": "singapore",
+    "name": "シンガポール",
+    "country": "シンガポール",
+    "country_code": "SG",
+    "mofa_code": "0065",
+    "lat": 1.29,
+    "lon": 103.85,
+    "currency": "SGD"
   }
 ]

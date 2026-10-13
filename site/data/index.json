@@ -1,10 +1,20 @@
 {
-  "generated_at": "2026-10-13T14:57:50+09:00",
+  "generated_at": "2026-10-13T15:00:06+09:00",
   "destinations": [
     {
       "id": "london",
       "name": "ロンドン",
       "country": "イギリス"
+    },
+    {
+      "id": "tromso",
+      "name": "トロムソ",
+      "country": "ノルウェー"
+    },
+    {
+      "id": "singapore",
+      "name": "シンガポール",
+      "country": "シンガポール"
     }
   ],
   "sources": [
