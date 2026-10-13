@@ -1,0 +1,58 @@
+# Actions ページから都市名を入れて、行き先を追加する
+name: 行き先を追加
+
+on:
+  workflow_dispatch:
+    inputs:
+      city:
+        description: "都市名（例：バンコク。見つからないときは英語名 例：Reykjavik）"
+        required: true
+        type: string
+      country:
+        description: "国名（任意。同じ名前の都市が他の国にあるとき 例：フランス）"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  actions: write   # 「データ更新」を呼び出すため
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: ライブラリを入れる
+        run: pip install -r requirements.txt
+
+      # 入力は環境変数で渡す（入力に記号が入っていても、コマンドとして実行されないようにするため）
+      - name: 行き先を追加する
+        env:
+          CITY: ${{ inputs.city }}
+          COUNTRY: ${{ inputs.country }}
+        run: python -m fetcher.add --city="$CITY" --country="$COUNTRY"
+
+      - name: 設定を保存する
+        env:
+          CITY: ${{ inputs.city }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/destinations.json
+          git commit -m "行き先を追加：$CITY"
+          git pull --rebase origin main
+          git push
+
+      - name: データ更新を呼び出す
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run update.yml --ref main

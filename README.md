@@ -6,15 +6,32 @@
 - データの取得：GitHub Actions が毎日 日本時間 6:00 ごろに実行（`.github/workflows/update.yml`）
 - 設計書：`docs/superpowers/specs/2026-10-13-destination-watcher-design.md`
 
-## 行き先を足す
+## 行き先を足す・消す（おすすめ：GitHub のボタンから）
 
-GitHub の自動実行が毎朝データを保存しているので、編集を始める前に必ず最新を取り込みます。
+スマホのブラウザからもできます。
+
+**追加**
+1. https://github.com/kaitoHogeHoge/destination-watcher/actions を開く
+2. 左の一覧から「行き先を追加」を選び、右の「Run workflow」を押す
+3. 「都市名」を入れて「Run workflow」で実行する（例：バンコク）
+   - 見つからないときは英語名で（例：Reykjavik）
+   - 同じ名前の都市が他の国にもあるときは「国名」も入れる（例：フランス）
+4. 実行結果を開くと「バンコク（タイ）を追加しました」と、対象外になる情報が出る
+5. 続けて「データ更新」が自動で動き、数分で公開ページにカードが増える
+
+**削除**
+1. 同じページで「行き先を削除」を選び、画面に出ている都市名を入れて実行する
+2. 設定とその都市のデータが消え、数分で公開ページから消える
+
+## 行き先を手で足す
+
+`config/destinations.json` を直接編集することもできます。GitHub の自動実行が毎朝データを保存しているので、編集を始める前に必ず最新を取り込みます。
 
 ```bash
 git pull
 ```
 
-`config/destinations.json` に1件分を足して、GitHub に push します。push すると自動で取得と公開が行われ、数分でカードが増えます。
+1件分を足して GitHub に push すると、自動で取得と公開が行われます。
 
 ```json
 {
@@ -35,9 +52,9 @@ git pull
 | `name` / `country` | 画面に出す名前 |
 | `country_code` | 2文字の国コード（例：GB、NO、SG） |
 | `holiday_region` | 省略可。地域ごとに祝日が違う国で、その地域だけに絞る（例：`GB-ENG`） |
-| `mofa_code` | 外務省の国番号（国際電話の国番号を4桁にしたもの。例：イギリス `0044`） |
+| `mofa_code` | 外務省の国番号（`config/countries.json` で調べられる）。`null` なら安全情報は対象外 |
 | `lat` / `lon` | 緯度・経度 |
-| `currency` | 3文字の通貨コード（例：GBP） |
+| `currency` | 3文字の通貨コード（例：GBP）。`null` なら為替は対象外 |
 
 データ元が対応していない国・通貨は、その情報だけ「対象外」と表示されます。
 
@@ -64,3 +81,5 @@ git restore site/data
 - 天気予報・気候：[Open-Meteo](https://open-meteo.com/)
 - 祝日：[Nager.Date](https://date.nager.at/)
 - 海外安全情報：[外務省 海外安全情報オープンデータ](https://www.ezairyu.mofa.go.jp/html/opendata/)
+- 地名検索：[Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api)
+- 国と通貨の対応表（`config/countries.json`）：[mledoze/countries](https://github.com/mledoze/countries) 5.1.0（ODbL-1.0）と外務省の国コード一覧から `scripts/build_countries.py` で作成
