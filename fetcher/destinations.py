@@ -5,6 +5,7 @@
 """
 
 import json
+import os
 import shutil
 from pathlib import Path
 
@@ -104,3 +105,14 @@ def remove_destination(config_path: Path, data_dir: Path, key: str) -> dict:
     if folder.exists():
         shutil.rmtree(folder)
     return target
+
+
+# ---------- 結果の表示 ----------
+
+def report(text: str) -> None:
+    """結果を表示する。GitHub Actions の中では、実行結果の画面（Summary）にも書く。"""
+    print(text)
+    summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary:
+        with open(summary, "a", encoding="utf-8") as f:
+            f.write(text + "\n")
