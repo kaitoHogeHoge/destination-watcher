@@ -1,0 +1,1002 @@
+{
+ "AD": {
+  "currency": "EUR",
+  "mofa_code": "0376"
+ },
+ "AE": {
+  "currency": "AED",
+  "mofa_code": "0971"
+ },
+ "AF": {
+  "currency": "AFN",
+  "mofa_code": "0093"
+ },
+ "AG": {
+  "currency": "XCD",
+  "mofa_code": "1268"
+ },
+ "AI": {
+  "currency": "XCD",
+  "mofa_code": null
+ },
+ "AL": {
+  "currency": "ALL",
+  "mofa_code": "0355"
+ },
+ "AM": {
+  "currency": "AMD",
+  "mofa_code": "0374"
+ },
+ "AO": {
+  "currency": "AOA",
+  "mofa_code": "0244"
+ },
+ "AQ": {
+  "currency": null,
+  "mofa_code": null
+ },
+ "AR": {
+  "currency": "ARS",
+  "mofa_code": "0054"
+ },
+ "AS": {
+  "currency": "USD",
+  "mofa_code": "1684"
+ },
+ "AT": {
+  "currency": "EUR",
+  "mofa_code": "0043"
+ },
+ "AU": {
+  "currency": "AUD",
+  "mofa_code": "0061"
+ },
+ "AW": {
+  "currency": "AWG",
+  "mofa_code": null
+ },
+ "AX": {
+  "currency": "EUR",
+  "mofa_code": null
+ },
+ "AZ": {
+  "currency": "AZN",
+  "mofa_code": "0994"
+ },
+ "BA": {
+  "currency": "BAM",
+  "mofa_code": "0387"
+ },
+ "BB": {
+  "currency": "BBD",
+  "mofa_code": "1246"
+ },
+ "BD": {
+  "currency": "BDT",
+  "mofa_code": "0880"
+ },
+ "BE": {
+  "currency": "EUR",
+  "mofa_code": "0032"
+ },
+ "BF": {
+  "currency": "XOF",
+  "mofa_code": "0226"
+ },
+ "BG": {
+  "currency": "BGN",
+  "mofa_code": "0359"
+ },
+ "BH": {
+  "currency": "BHD",
+  "mofa_code": "0973"
+ },
+ "BI": {
+  "currency": "BIF",
+  "mofa_code": "0257"
+ },
+ "BJ": {
+  "currency": "XOF",
+  "mofa_code": "0229"
+ },
+ "BL": {
+  "currency": "EUR",
+  "mofa_code": null
+ },
+ "BM": {
+  "currency": "BMD",
+  "mofa_code": null
+ },
+ "BN": {
+  "currency": "BND",
+  "mofa_code": "0673"
+ },
+ "BO": {
+  "currency": "BOB",
+  "mofa_code": "0591"
+ },
+ "BQ": {
+  "currency": "USD",
+  "mofa_code": null
+ },
+ "BR": {
+  "currency": "BRL",
+  "mofa_code": "0055"
+ },
+ "BS": {
+  "currency": "BSD",
+  "mofa_code": "1242"
+ },
+ "BT": {
+  "currency": "BTN",
+  "mofa_code": "0975"
+ },
+ "BV": {
+  "currency": null,
+  "mofa_code": "0047"
+ },
+ "BW": {
+  "currency": "BWP",
+  "mofa_code": "0267"
+ },
+ "BY": {
+  "currency": "BYN",
+  "mofa_code": "0375"
+ },
+ "BZ": {
+  "currency": "BZD",
+  "mofa_code": "0501"
+ },
+ "CA": {
+  "currency": "CAD",
+  "mofa_code": "9001"
+ },
+ "CC": {
+  "currency": "AUD",
+  "mofa_code": "0061"
+ },
+ "CD": {
+  "currency": "CDF",
+  "mofa_code": "0243"
+ },
+ "CF": {
+  "currency": "XAF",
+  "mofa_code": "0236"
+ },
+ "CG": {
+  "currency": "XAF",
+  "mofa_code": "0242"
+ },
+ "CH": {
+  "currency": "CHF",
+  "mofa_code": "0041"
+ },
+ "CI": {
+  "currency": "XOF",
+  "mofa_code": "0225"
+ },
+ "CK": {
+  "currency": "CKD",
+  "mofa_code": "0682"
+ },
+ "CL": {
+  "currency": "CLP",
+  "mofa_code": "0056"
+ },
+ "CM": {
+  "currency": "XAF",
+  "mofa_code": "0237"
+ },
+ "CN": {
+  "currency": "CNY",
+  "mofa_code": "0086"
+ },
+ "CO": {
+  "currency": "COP",
+  "mofa_code": "0057"
+ },
+ "CR": {
+  "currency": "CRC",
+  "mofa_code": "0506"
+ },
+ "CU": {
+  "currency": "CUC",
+  "mofa_code": "0053"
+ },
+ "CV": {
+  "currency": "CVE",
+  "mofa_code": "0238"
+ },
+ "CW": {
+  "currency": "ANG",
+  "mofa_code": null
+ },
+ "CX": {
+  "currency": "AUD",
+  "mofa_code": "0061"
+ },
+ "CY": {
+  "currency": "EUR",
+  "mofa_code": "0357"
+ },
+ "CZ": {
+  "currency": "CZK",
+  "mofa_code": "0420"
+ },
+ "DE": {
+  "currency": "EUR",
+  "mofa_code": "0049"
+ },
+ "DJ": {
+  "currency": "DJF",
+  "mofa_code": "0253"
+ },
+ "DK": {
+  "currency": "DKK",
+  "mofa_code": "0045"
+ },
+ "DM": {
+  "currency": "XCD",
+  "mofa_code": "0767"
+ },
+ "DO": {
+  "currency": "DOP",
+  "mofa_code": "0809"
+ },
+ "DZ": {
+  "currency": "DZD",
+  "mofa_code": "0213"
+ },
+ "EC": {
+  "currency": "USD",
+  "mofa_code": "0593"
+ },
+ "EE": {
+  "currency": "EUR",
+  "mofa_code": "0372"
+ },
+ "EG": {
+  "currency": "EGP",
+  "mofa_code": "0020"
+ },
+ "EH": {
+  "currency": "DZD",
+  "mofa_code": "9212"
+ },
+ "ER": {
+  "currency": "ERN",
+  "mofa_code": "0291"
+ },
+ "ES": {
+  "currency": "EUR",
+  "mofa_code": "0034"
+ },
+ "ET": {
+  "currency": "ETB",
+  "mofa_code": "0251"
+ },
+ "FI": {
+  "currency": "EUR",
+  "mofa_code": "0358"
+ },
+ "FJ": {
+  "currency": "FJD",
+  "mofa_code": "0679"
+ },
+ "FK": {
+  "currency": "FKP",
+  "mofa_code": null
+ },
+ "FM": {
+  "currency": null,
+  "mofa_code": "0691"
+ },
+ "FO": {
+  "currency": "DKK",
+  "mofa_code": null
+ },
+ "FR": {
+  "currency": "EUR",
+  "mofa_code": "0033"
+ },
+ "GA": {
+  "currency": "XAF",
+  "mofa_code": "0241"
+ },
+ "GB": {
+  "currency": "GBP",
+  "mofa_code": "0044"
+ },
+ "GD": {
+  "currency": "XCD",
+  "mofa_code": "0473"
+ },
+ "GE": {
+  "currency": "GEL",
+  "mofa_code": "0995"
+ },
+ "GF": {
+  "currency": "EUR",
+  "mofa_code": null
+ },
+ "GG": {
+  "currency": "GBP",
+  "mofa_code": "0044"
+ },
+ "GH": {
+  "currency": "GHS",
+  "mofa_code": "0233"
+ },
+ "GI": {
+  "currency": "GIP",
+  "mofa_code": null
+ },
+ "GL": {
+  "currency": "DKK",
+  "mofa_code": null
+ },
+ "GM": {
+  "currency": "GMD",
+  "mofa_code": "0220"
+ },
+ "GN": {
+  "currency": "GNF",
+  "mofa_code": "0224"
+ },
+ "GP": {
+  "currency": "EUR",
+  "mofa_code": null
+ },
+ "GQ": {
+  "currency": "XAF",
+  "mofa_code": "0240"
+ },
+ "GR": {
+  "currency": "EUR",
+  "mofa_code": "0030"
+ },
+ "GS": {
+  "currency": "SHP",
+  "mofa_code": null
+ },
+ "GT": {
+  "currency": "GTQ",
+  "mofa_code": "0502"
+ },
+ "GU": {
+  "currency": "USD",
+  "mofa_code": "1002"
+ },
+ "GW": {
+  "currency": "XOF",
+  "mofa_code": "0245"
+ },
+ "GY": {
+  "currency": "GYD",
+  "mofa_code": "0592"
+ },
+ "HK": {
+  "currency": "HKD",
+  "mofa_code": "0852"
+ },
+ "HM": {
+  "currency": null,
+  "mofa_code": null
+ },
+ "HN": {
+  "currency": "HNL",
+  "mofa_code": "0504"
+ },
+ "HR": {
+  "currency": "EUR",
+  "mofa_code": "0385"
+ },
+ "HT": {
+  "currency": "HTG",
+  "mofa_code": "0509"
+ },
+ "HU": {
+  "currency": "HUF",
+  "mofa_code": "0036"
+ },
+ "ID": {
+  "currency": "IDR",
+  "mofa_code": "0062"
+ },
+ "IE": {
+  "currency": "EUR",
+  "mofa_code": "0353"
+ },
+ "IL": {
+  "currency": "ILS",
+  "mofa_code": "0972"
+ },
+ "IM": {
+  "currency": "GBP",
+  "mofa_code": "0044"
+ },
+ "IN": {
+  "currency": "INR",
+  "mofa_code": "0091"
+ },
+ "IO": {
+  "currency": "USD",
+  "mofa_code": null
+ },
+ "IQ": {
+  "currency": "IQD",
+  "mofa_code": "0964"
+ },
+ "IR": {
+  "currency": "IRR",
+  "mofa_code": "0098"
+ },
+ "IS": {
+  "currency": "ISK",
+  "mofa_code": "0354"
+ },
+ "IT": {
+  "currency": "EUR",
+  "mofa_code": "0039"
+ },
+ "JE": {
+  "currency": "GBP",
+  "mofa_code": "0044"
+ },
+ "JM": {
+  "currency": "JMD",
+  "mofa_code": "0876"
+ },
+ "JO": {
+  "currency": "JOD",
+  "mofa_code": "0962"
+ },
+ "JP": {
+  "currency": "JPY",
+  "mofa_code": null
+ },
+ "KE": {
+  "currency": "KES",
+  "mofa_code": "0254"
+ },
+ "KG": {
+  "currency": "KGS",
+  "mofa_code": "0996"
+ },
+ "KH": {
+  "currency": "KHR",
+  "mofa_code": "0855"
+ },
+ "KI": {
+  "currency": "AUD",
+  "mofa_code": "0686"
+ },
+ "KM": {
+  "currency": "KMF",
+  "mofa_code": "0269"
+ },
+ "KN": {
+  "currency": "XCD",
+  "mofa_code": "0869"
+ },
+ "KP": {
+  "currency": "KPW",
+  "mofa_code": "0850"
+ },
+ "KR": {
+  "currency": "KRW",
+  "mofa_code": "0082"
+ },
+ "KW": {
+  "currency": "KWD",
+  "mofa_code": "0965"
+ },
+ "KY": {
+  "currency": "KYD",
+  "mofa_code": null
+ },
+ "KZ": {
+  "currency": "KZT",
+  "mofa_code": "0007"
+ },
+ "LA": {
+  "currency": "LAK",
+  "mofa_code": "0856"
+ },
+ "LB": {
+  "currency": "LBP",
+  "mofa_code": "0961"
+ },
+ "LC": {
+  "currency": "XCD",
+  "mofa_code": "0758"
+ },
+ "LI": {
+  "currency": "CHF",
+  "mofa_code": "0423"
+ },
+ "LK": {
+  "currency": "LKR",
+  "mofa_code": "0094"
+ },
+ "LR": {
+  "currency": "LRD",
+  "mofa_code": "0231"
+ },
+ "LS": {
+  "currency": "LSL",
+  "mofa_code": "0266"
+ },
+ "LT": {
+  "currency": "EUR",
+  "mofa_code": "0370"
+ },
+ "LU": {
+  "currency": "EUR",
+  "mofa_code": "0352"
+ },
+ "LV": {
+  "currency": "EUR",
+  "mofa_code": "0371"
+ },
+ "LY": {
+  "currency": "LYD",
+  "mofa_code": "0218"
+ },
+ "MA": {
+  "currency": "MAD",
+  "mofa_code": "0212"
+ },
+ "MC": {
+  "currency": "EUR",
+  "mofa_code": "0377"
+ },
+ "MD": {
+  "currency": "MDL",
+  "mofa_code": "0373"
+ },
+ "ME": {
+  "currency": "EUR",
+  "mofa_code": "0382"
+ },
+ "MF": {
+  "currency": "EUR",
+  "mofa_code": null
+ },
+ "MG": {
+  "currency": "MGA",
+  "mofa_code": "0261"
+ },
+ "MH": {
+  "currency": "USD",
+  "mofa_code": "0692"
+ },
+ "MK": {
+  "currency": "MKD",
+  "mofa_code": "0389"
+ },
+ "ML": {
+  "currency": "XOF",
+  "mofa_code": "0223"
+ },
+ "MM": {
+  "currency": "MMK",
+  "mofa_code": "0095"
+ },
+ "MN": {
+  "currency": "MNT",
+  "mofa_code": "0976"
+ },
+ "MO": {
+  "currency": "MOP",
+  "mofa_code": "0853"
+ },
+ "MP": {
+  "currency": "USD",
+  "mofa_code": "1001"
+ },
+ "MQ": {
+  "currency": "EUR",
+  "mofa_code": null
+ },
+ "MR": {
+  "currency": "MRU",
+  "mofa_code": "0222"
+ },
+ "MS": {
+  "currency": "XCD",
+  "mofa_code": null
+ },
+ "MT": {
+  "currency": "EUR",
+  "mofa_code": "0356"
+ },
+ "MU": {
+  "currency": "MUR",
+  "mofa_code": "0230"
+ },
+ "MV": {
+  "currency": "MVR",
+  "mofa_code": "0960"
+ },
+ "MW": {
+  "currency": "MWK",
+  "mofa_code": "0265"
+ },
+ "MX": {
+  "currency": "MXN",
+  "mofa_code": "0052"
+ },
+ "MY": {
+  "currency": "MYR",
+  "mofa_code": "0060"
+ },
+ "MZ": {
+  "currency": "MZN",
+  "mofa_code": "0258"
+ },
+ "NA": {
+  "currency": "NAD",
+  "mofa_code": "0264"
+ },
+ "NC": {
+  "currency": "XPF",
+  "mofa_code": "0687"
+ },
+ "NE": {
+  "currency": "XOF",
+  "mofa_code": "0227"
+ },
+ "NF": {
+  "currency": "AUD",
+  "mofa_code": null
+ },
+ "NG": {
+  "currency": "NGN",
+  "mofa_code": "0234"
+ },
+ "NI": {
+  "currency": "NIO",
+  "mofa_code": "0505"
+ },
+ "NL": {
+  "currency": "EUR",
+  "mofa_code": "0031"
+ },
+ "NO": {
+  "currency": "NOK",
+  "mofa_code": "0047"
+ },
+ "NP": {
+  "currency": "NPR",
+  "mofa_code": "0977"
+ },
+ "NR": {
+  "currency": "AUD",
+  "mofa_code": "0674"
+ },
+ "NU": {
+  "currency": "NZD",
+  "mofa_code": "0683"
+ },
+ "NZ": {
+  "currency": "NZD",
+  "mofa_code": "0064"
+ },
+ "OM": {
+  "currency": "OMR",
+  "mofa_code": "0968"
+ },
+ "PA": {
+  "currency": "PAB",
+  "mofa_code": "0507"
+ },
+ "PE": {
+  "currency": "PEN",
+  "mofa_code": "0051"
+ },
+ "PF": {
+  "currency": "XPF",
+  "mofa_code": "9689"
+ },
+ "PG": {
+  "currency": "PGK",
+  "mofa_code": "0675"
+ },
+ "PH": {
+  "currency": "PHP",
+  "mofa_code": "0063"
+ },
+ "PK": {
+  "currency": "PKR",
+  "mofa_code": "0092"
+ },
+ "PL": {
+  "currency": "PLN",
+  "mofa_code": "0048"
+ },
+ "PM": {
+  "currency": "EUR",
+  "mofa_code": null
+ },
+ "PN": {
+  "currency": "NZD",
+  "mofa_code": "0064"
+ },
+ "PR": {
+  "currency": "USD",
+  "mofa_code": null
+ },
+ "PS": {
+  "currency": "EGP",
+  "mofa_code": "0970"
+ },
+ "PT": {
+  "currency": "EUR",
+  "mofa_code": "0351"
+ },
+ "PW": {
+  "currency": "USD",
+  "mofa_code": "0680"
+ },
+ "PY": {
+  "currency": "PYG",
+  "mofa_code": "0595"
+ },
+ "QA": {
+  "currency": "QAR",
+  "mofa_code": "0974"
+ },
+ "RE": {
+  "currency": "EUR",
+  "mofa_code": null
+ },
+ "RO": {
+  "currency": "RON",
+  "mofa_code": "0040"
+ },
+ "RS": {
+  "currency": "RSD",
+  "mofa_code": "0381"
+ },
+ "RU": {
+  "currency": "RUB",
+  "mofa_code": "9007"
+ },
+ "RW": {
+  "currency": "RWF",
+  "mofa_code": "0250"
+ },
+ "SA": {
+  "currency": "SAR",
+  "mofa_code": "0966"
+ },
+ "SB": {
+  "currency": "SBD",
+  "mofa_code": "0677"
+ },
+ "SC": {
+  "currency": "SCR",
+  "mofa_code": "0248"
+ },
+ "SD": {
+  "currency": "SDG",
+  "mofa_code": "0249"
+ },
+ "SE": {
+  "currency": "SEK",
+  "mofa_code": "0046"
+ },
+ "SG": {
+  "currency": "SGD",
+  "mofa_code": "0065"
+ },
+ "SH": {
+  "currency": "GBP",
+  "mofa_code": null
+ },
+ "SI": {
+  "currency": "EUR",
+  "mofa_code": "0386"
+ },
+ "SJ": {
+  "currency": "NOK",
+  "mofa_code": null
+ },
+ "SK": {
+  "currency": "EUR",
+  "mofa_code": "0421"
+ },
+ "SL": {
+  "currency": "SLL",
+  "mofa_code": "0232"
+ },
+ "SM": {
+  "currency": "EUR",
+  "mofa_code": "0378"
+ },
+ "SN": {
+  "currency": "XOF",
+  "mofa_code": "0221"
+ },
+ "SO": {
+  "currency": "SOS",
+  "mofa_code": "0252"
+ },
+ "SR": {
+  "currency": "SRD",
+  "mofa_code": "0597"
+ },
+ "SS": {
+  "currency": "SSP",
+  "mofa_code": "0211"
+ },
+ "ST": {
+  "currency": "STN",
+  "mofa_code": "0239"
+ },
+ "SV": {
+  "currency": "USD",
+  "mofa_code": "0503"
+ },
+ "SX": {
+  "currency": "ANG",
+  "mofa_code": null
+ },
+ "SY": {
+  "currency": "SYP",
+  "mofa_code": "0963"
+ },
+ "SZ": {
+  "currency": "SZL",
+  "mofa_code": "0268"
+ },
+ "TC": {
+  "currency": "USD",
+  "mofa_code": null
+ },
+ "TD": {
+  "currency": "XAF",
+  "mofa_code": "0235"
+ },
+ "TF": {
+  "currency": "EUR",
+  "mofa_code": null
+ },
+ "TG": {
+  "currency": "XOF",
+  "mofa_code": "0228"
+ },
+ "TH": {
+  "currency": "THB",
+  "mofa_code": "0066"
+ },
+ "TJ": {
+  "currency": "TJS",
+  "mofa_code": "0992"
+ },
+ "TK": {
+  "currency": "NZD",
+  "mofa_code": null
+ },
+ "TL": {
+  "currency": "USD",
+  "mofa_code": "0670"
+ },
+ "TM": {
+  "currency": "TMT",
+  "mofa_code": "0993"
+ },
+ "TN": {
+  "currency": "TND",
+  "mofa_code": "0216"
+ },
+ "TO": {
+  "currency": "TOP",
+  "mofa_code": "0676"
+ },
+ "TR": {
+  "currency": "TRY",
+  "mofa_code": "0090"
+ },
+ "TT": {
+  "currency": "TTD",
+  "mofa_code": "0868"
+ },
+ "TV": {
+  "currency": "AUD",
+  "mofa_code": "0688"
+ },
+ "TW": {
+  "currency": "TWD",
+  "mofa_code": "0886"
+ },
+ "TZ": {
+  "currency": "TZS",
+  "mofa_code": "0255"
+ },
+ "UA": {
+  "currency": "UAH",
+  "mofa_code": "0380"
+ },
+ "UG": {
+  "currency": "UGX",
+  "mofa_code": "0256"
+ },
+ "UM": {
+  "currency": "USD",
+  "mofa_code": null
+ },
+ "US": {
+  "currency": "USD",
+  "mofa_code": "1000"
+ },
+ "UY": {
+  "currency": "UYU",
+  "mofa_code": "0598"
+ },
+ "UZ": {
+  "currency": "UZS",
+  "mofa_code": "0998"
+ },
+ "VA": {
+  "currency": "EUR",
+  "mofa_code": "9039"
+ },
+ "VC": {
+  "currency": "XCD",
+  "mofa_code": "0784"
+ },
+ "VE": {
+  "currency": "VES",
+  "mofa_code": "0058"
+ },
+ "VG": {
+  "currency": "USD",
+  "mofa_code": null
+ },
+ "VI": {
+  "currency": "USD",
+  "mofa_code": null
+ },
+ "VN": {
+  "currency": "VND",
+  "mofa_code": "0084"
+ },
+ "VU": {
+  "currency": "VUV",
+  "mofa_code": "0678"
+ },
+ "WF": {
+  "currency": "XPF",
+  "mofa_code": null
+ },
+ "WS": {
+  "currency": "WST",
+  "mofa_code": "0685"
+ },
+ "XK": {
+  "currency": "EUR",
+  "mofa_code": "9381"
+ },
+ "YE": {
+  "currency": "YER",
+  "mofa_code": "0967"
+ },
+ "YT": {
+  "currency": "EUR",
+  "mofa_code": null
+ },
+ "ZA": {
+  "currency": "ZAR",
+  "mofa_code": "0027"
+ },
+ "ZM": {
+  "currency": "ZMW",
+  "mofa_code": "0260"
+ },
+ "ZW": {
+  "currency": "BWP",
+  "mofa_code": "0263"
+ }
+}
