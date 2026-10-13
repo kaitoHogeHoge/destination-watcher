@@ -137,3 +137,15 @@ def test_main_returns_0_when_partly_failed(monkeypatch, tmp_path, config_file):
 
 def test_main_returns_1_when_config_missing(tmp_path):
     assert main_module.main(["--config", str(tmp_path / "none.json"), "--data-dir", str(tmp_path)]) == 1
+
+
+class BrokenSupportsSource(FakeSource):
+    def supports(self, dest):
+        raise RuntimeError("一覧が壊れている")
+
+
+def test_broken_supports_check_still_fetches(tmp_path):
+    source = BrokenSupportsSource("a", result={"v": 1})
+    summary = run([LONDON], [source, FakeSource("b", result={})], tmp_path, NOW)
+    assert read_record(tmp_path, "london", "a")["status"] == "ok"
+    assert summary.ok == 2
