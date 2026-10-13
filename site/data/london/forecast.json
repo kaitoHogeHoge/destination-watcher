@@ -2,8 +2,8 @@
   "source": "forecast",
   "provider": "open-meteo",
   "status": "ok",
-  "updated_at": "2026-10-13T16:24:15+09:00",
-  "attempted_at": "2026-10-13T16:24:15+09:00",
+  "updated_at": "2026-10-13T16:26:09+09:00",
+  "attempted_at": "2026-10-13T16:26:09+09:00",
   "error": null,
   "data": {
     "timezone": "Europe/London",
@@ -54,7 +54,7 @@
         "tmin": 7.6,
         "code": 51,
         "precip": 3.3,
-        "precip_prob": 10
+        "precip_prob": 16
       },
       {
         "date": "2026-10-19",
@@ -62,7 +62,7 @@
         "tmin": 10.2,
         "code": 53,
         "precip": 6.75,
-        "precip_prob": 10
+        "precip_prob": 14
       },
       {
         "date": "2026-10-20",
@@ -70,7 +70,7 @@
         "tmin": 9.2,
         "code": 53,
         "precip": 1.2,
-        "precip_prob": 14
+        "precip_prob": 8
       },
       {
         "date": "2026-10-21",
@@ -78,7 +78,7 @@
         "tmin": 11.8,
         "code": 3,
         "precip": 0.0,
-        "precip_prob": 8
+        "precip_prob": 6
       },
       {
         "date": "2026-10-22",
@@ -86,7 +86,7 @@
         "tmin": 10.2,
         "code": 3,
         "precip": 0.0,
-        "precip_prob": 12
+        "precip_prob": 10
       },
       {
         "date": "2026-10-23",
@@ -94,7 +94,7 @@
         "tmin": 8.0,
         "code": 45,
         "precip": 0.0,
-        "precip_prob": 15
+        "precip_prob": 8
       },
       {
         "date": "2026-10-24",
@@ -102,7 +102,7 @@
         "tmin": 8.1,
         "code": 3,
         "precip": 0.0,
-        "precip_prob": 16
+        "precip_prob": 11
       },
       {
         "date": "2026-10-25",
@@ -110,7 +110,7 @@
         "tmin": 7.1,
         "code": 45,
         "precip": 0.0,
-        "precip_prob": null
+        "precip_prob": 12
       },
       {
         "date": "2026-10-26",
@@ -118,7 +118,7 @@
         "tmin": 8.5,
         "code": 3,
         "precip": 0.0,
-        "precip_prob": null
+        "precip_prob": 14
       },
       {
         "date": "2026-10-27",
