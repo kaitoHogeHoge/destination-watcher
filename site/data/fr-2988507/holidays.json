@@ -1,0 +1,37 @@
+{
+  "source": "holidays",
+  "provider": "nager-date",
+  "status": "ok",
+  "updated_at": "2026-10-13T19:48:16+09:00",
+  "attempted_at": "2026-10-13T19:48:16+09:00",
+  "error": null,
+  "data": {
+    "holidays": [
+      {
+        "date": "2026-11-01",
+        "local_name": "Toussaint",
+        "name": "All Saints' Day"
+      },
+      {
+        "date": "2026-11-11",
+        "local_name": "Armistice 1918",
+        "name": "Armistice Day"
+      },
+      {
+        "date": "2026-12-25",
+        "local_name": "Noël",
+        "name": "Christmas Day"
+      },
+      {
+        "date": "2027-01-01",
+        "local_name": "Jour de l'an",
+        "name": "New Year's Day"
+      },
+      {
+        "date": "2027-03-29",
+        "local_name": "Lundi de Pâques",
+        "name": "Easter Monday"
+      }
+    ]
+  }
+}

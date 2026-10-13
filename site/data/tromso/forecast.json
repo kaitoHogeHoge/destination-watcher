@@ -1,10 +1,10 @@
 {
   "source": "forecast",
   "provider": "open-meteo",
-  "status": "error",
-  "updated_at": "2026-10-13T16:24:15+09:00",
-  "attempted_at": "2026-10-13T16:26:09+09:00",
-  "error": "通信に失敗しました（タイムアウト）",
+  "status": "ok",
+  "updated_at": "2026-10-13T19:48:16+09:00",
+  "attempted_at": "2026-10-13T19:48:16+09:00",
+  "error": null,
   "data": {
     "timezone": "Europe/Oslo",
     "days": [
@@ -18,18 +18,18 @@
       },
       {
         "date": "2026-10-14",
-        "tmax": 8.9,
+        "tmax": 9.0,
         "tmin": 4.4,
-        "code": 51,
-        "precip": 0.7,
+        "code": 53,
+        "precip": 1.5,
         "precip_prob": 59
       },
       {
         "date": "2026-10-15",
-        "tmax": 9.6,
-        "tmin": 5.4,
+        "tmax": 10.0,
+        "tmin": 7.2,
         "code": 53,
-        "precip": 1.8,
+        "precip": 2.43,
         "precip_prob": 96
       },
       {

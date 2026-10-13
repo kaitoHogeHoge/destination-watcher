@@ -1,0 +1,73 @@
+{
+  "source": "climate",
+  "provider": "open-meteo",
+  "status": "ok",
+  "updated_at": "2026-10-13T19:48:16+09:00",
+  "attempted_at": "2026-10-13T19:48:16+09:00",
+  "error": null,
+  "data": {
+    "period": "2016〜2025年の平均",
+    "months": [
+      {
+        "month": 1,
+        "temp": 4.5,
+        "precip": 72.7
+      },
+      {
+        "month": 2,
+        "temp": 6.0,
+        "precip": 52.8
+      },
+      {
+        "month": 3,
+        "temp": 8.1,
+        "precip": 69.1
+      },
+      {
+        "month": 4,
+        "temp": 10.9,
+        "precip": 50.2
+      },
+      {
+        "month": 5,
+        "temp": 14.6,
+        "precip": 77.9
+      },
+      {
+        "month": 6,
+        "temp": 18.9,
+        "precip": 75.9
+      },
+      {
+        "month": 7,
+        "temp": 20.5,
+        "precip": 59.2
+      },
+      {
+        "month": 8,
+        "temp": 20.3,
+        "precip": 63.1
+      },
+      {
+        "month": 9,
+        "temp": 17.1,
+        "precip": 60.2
+      },
+      {
+        "month": 10,
+        "temp": 13.1,
+        "precip": 71.2
+      },
+      {
+        "month": 11,
+        "temp": 8.1,
+        "precip": 68.4
+      },
+      {
+        "month": 12,
+        "temp": 5.9,
+        "precip": 75.7
+      }
+    ]
+  }
+}

@@ -2,8 +2,8 @@
   "source": "exchange",
   "provider": "frankfurter",
   "status": "ok",
-  "updated_at": "2026-10-13T16:26:09+09:00",
-  "attempted_at": "2026-10-13T16:26:09+09:00",
+  "updated_at": "2026-10-13T19:48:16+09:00",
+  "attempted_at": "2026-10-13T19:48:16+09:00",
   "error": null,
   "data": {
     "currency": "NOK",
