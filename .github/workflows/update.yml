@@ -1,0 +1,42 @@
+# 毎日1回データを取得して、変化があればリポジトリに保存する
+name: データ更新
+
+on:
+  schedule:
+    - cron: "0 21 * * *"   # 世界標準時 21:00 = 日本時間 6:00（混雑時は遅れることがある）
+  workflow_dispatch:         # Actions タブから手動でも実行できる
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: ライブラリを入れる
+        run: pip install -r requirements.txt
+
+      - name: データを取得する
+        run: python -m fetcher.main
+
+      - name: 変化があれば保存する
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data
+          if git diff --cached --quiet; then
+            echo "データに変化はありません"
+          else
+            git commit -m "データ更新 $(TZ=Asia/Tokyo date +%Y-%m-%d)"
+            git push
+          fi
