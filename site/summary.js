@@ -40,6 +40,66 @@ function average(values) {
   return nums.length ? round(nums.reduce((a, b) => a + b, 0) / nums.length, 1) : null;
 }
 
+// ---------- ベストシーズンの目安 ----------
+// 点数 = |平均気温 − 22| + 降水量 ÷ 20（低いほど過ごしやすい）。その都市の中で上位3か月
+
+const COMFORT_TEMP = 22;
+const RAIN_PER_DEGREE = 20;
+const BEST_MONTHS = 3;
+
+function bestSeason(months) {
+  if (!Array.isArray(months)) return [];
+  const scored = months
+    .filter((m) => m && typeof m.temp === "number" && typeof m.precip === "number")
+    .map((m) => ({ month: m.month, score: Math.abs(m.temp - COMFORT_TEMP) + m.precip / RAIN_PER_DEGREE }));
+  scored.sort((a, b) => a.score - b.score || a.month - b.month);
+  return scored.slice(0, BEST_MONTHS).map((m) => m.month).sort((a, b) => a - b);
+}
+
+// ---------- 現地時刻と時差 ----------
+
+// その時間帯での「壁の時計の時刻」を UTC の数値として表したもの（時差の計算用）
+function wallClockMs(timeZone, nowMs) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit",
+  }).formatToParts(new Date(nowMs));
+  const get = (type) => Number(parts.find((p) => p.type === type).value);
+  return Date.UTC(get("year"), get("month") - 1, get("day"), get("hour"), get("minute"));
+}
+
+function timeDiffText(timeZone, nowMs) {
+  if (typeof timeZone !== "string") return null;
+  let local, diffMinutes;
+  try {
+    const here = wallClockMs(timeZone, nowMs);
+    diffMinutes = Math.round((here - wallClockMs("Asia/Tokyo", nowMs)) / 60000);
+    const d = new Date(here);
+    local = `${d.getUTCHours()}:${String(d.getUTCMinutes()).padStart(2, "0")}`;
+  } catch (e) {
+    return null; // 読めない時間帯
+  }
+  if (diffMinutes === 0) return { local, diff: "日本と同じ時刻" };
+  const sign = diffMinutes > 0 ? "+" : "−";
+  const abs = Math.abs(diffMinutes);
+  const hours = Math.floor(abs / 60);
+  const minutes = abs % 60;
+  return { local, diff: `日本より${sign}${hours}時間${minutes ? `${minutes}分` : ""}` };
+}
+
+// ---------- 1時間ごとの天気（Open-Meteo の応答を読む） ----------
+
+function parseHourly(raw) {
+  const h = raw && raw.hourly;
+  if (!h || !Array.isArray(h.time)) return null;
+  const at = (key, i) => (Array.isArray(h[key]) && typeof h[key][i] === "number" ? h[key][i] : null);
+  return h.time.map((t, i) => ({
+    time: typeof t === "string" ? `${Number(t.slice(11, 13))}:${t.slice(14, 16)}` : "—",
+    temp: at("temperature_2m", i),
+    prob: at("precipitation_probability", i),
+    code: at("weather_code", i),
+  }));
+}
+
 // ---------- 情報ごとの要約（data → 表の1マス分） ----------
 
 const SUMMARIZERS = {
@@ -66,7 +126,7 @@ const SUMMARIZERS = {
   climate(data, today) {
     const month = Number(today.slice(5, 7));
     const m = data.months.find((x) => x.month === month);
-    return { temp: m ? m.temp : null, precip: m ? m.precip : null };
+    return { temp: m ? m.temp : null, precip: m ? m.precip : null, best: bestSeason(data.months) };
   },
 
   holidays(data, today) {
@@ -101,5 +161,5 @@ function summarize(records, today) {
 }
 
 if (typeof module !== "undefined") {
-  module.exports = { STALE_HOURS, isStale, ageText, summarize, daysBefore };
+  module.exports = { STALE_HOURS, isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly };
 }
