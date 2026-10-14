@@ -118,3 +118,70 @@ def test_fetch_stores_mofa_code(fake_http):
 def test_supports_false_without_mofa_code():
     assert SafetySource().supports({"mofa_code": None}) is False
     assert SafetySource().supports({"mofa_code": "0044"}) is True
+
+
+# ---------- 最近のお知らせと関連ページ ----------
+
+import xml.etree.ElementTree as ET  # noqa: E402
+
+from fetcher.sources.safety import parse_links, parse_notices  # noqa: E402
+
+
+def notices_xml(items: str) -> ET.Element:
+    return ET.fromstring(f"<opendata>{items}</opendata>".encode())
+
+
+def mail(key, date, title):
+    return f"<mail><keyCd>{key}</keyCd><leaveDate>{date}</leaveDate><title>{title}</title></mail>"
+
+
+def spot(date, title, url):
+    return f"<wideareaSpot><leaveDate>{date}</leaveDate><title>{title}</title><url>{url}</url></wideareaSpot>"
+
+
+def test_notices_from_mail_and_spot():
+    root = ET.fromstring(load_fixture("mofa_0066L.xml"))
+    notices = parse_notices(root, datetime(2026, 10, 13, 6, 0, tzinfo=JST))
+    assert notices == [
+        {"date": "2026-10-05", "title": "【注意喚起】タイ国内における気象状況について",
+         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168122", "kind": "領事メール"},
+        {"date": "2026-09-29", "title": "パスポート(旅券)の取扱いにご注意ください（交付に１ヶ月程度かかります）",
+         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=167944", "kind": "領事メール"},
+    ]  # 7/21 の広域情報は30日より前なので入らない
+
+
+def test_spot_notice_uses_its_url():
+    root = notices_xml(spot("2026/10/10 00:00:00", "広域情報", "https://example.jp/spot"))
+    assert parse_notices(root, NOW) == [
+        {"date": "2026-10-10", "title": "広域情報", "url": "https://example.jp/spot", "kind": "広域・スポット情報"}
+    ]
+
+
+def test_notices_within_30_days_newest_first_max_5():
+    items = "".join(mail(i, f"2026/10/{d:02d} 10:00:00", f"t{d}") for i, d in enumerate([1, 9, 3, 12, 5, 7, 11]))
+    items += mail(99, "2026/09/12 10:00:00", "old")  # 31日前
+    titles = [n["title"] for n in parse_notices(notices_xml(items), NOW)]
+    assert titles == ["t12", "t11", "t9", "t7", "t5"]
+
+
+def test_notice_with_bad_date_or_empty_title_skipped():
+    items = mail(1, "不明", "日付なし") + mail(2, "2026/10/10 10:00:00", "") + mail(3, "2026/10/10 10:00:00", "ok")
+    assert [n["title"] for n in parse_notices(notices_xml(items), NOW)] == ["ok"]
+
+
+def test_links_in_order_and_skip_empty():
+    root = ET.fromstring(load_fixture("mofa_0066L.xml"))
+    assert parse_links(root) == [
+        {"label": "安全対策基礎データ", "url": "https://www.anzen.mofa.go.jp/info/pcsafetymeasure_007.html"},
+        {"label": "医療事情", "url": "http://www.mofa.go.jp/mofaj/toko/medi/asia/thailand.html"},
+        {"label": "テロ・誘拐情勢", "url": "https://www.anzen.mofa.go.jp/info/pcterror_007.html"},
+    ]
+    assert parse_links(notices_xml("<safetyMeasureUrl/><medicalSituationUrl>https://m</medicalSituationUrl>")) == [
+        {"label": "医療事情", "url": "https://m"}
+    ]
+
+
+def test_fetch_includes_notices_and_links(fake_http):
+    fake_http.add("https://www.ezairyu.mofa.go.jp/opendata/country/0066L.xml", load_fixture("mofa_0066L.xml"))
+    data = SafetySource().fetch({"id": "bkk", "mofa_code": "0066"}, None, NOW)
+    assert len(data["notices"]) == 2 and len(data["links"]) == 3

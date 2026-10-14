@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<opendata dataType="L" lastModified="2026/10/13 14:35:57" mailCount="96" odType="04">
+<opendata dataType="L" lastModified="2026/10/14 14:01:01" mailCount="96" odType="04">
     <country areaCd="10" countryCd="7">
         <cd>0066</cd>
     </country>
@@ -16,32 +16,47 @@
     <riskLead>●タイ・カンボジア国境付近では重火器の撤去が進んでおらず、国境に近い地域（カンボジア国境から30km以内）では、今後も不測の事態が発生する可能性が否定できないことから、危険レベル３を継続します。どのような目的であってもこれら地域への渡航は止めてください。
 ●一方、国境から30kmを越えて50km以内の地域については、緊張状態は継続しているものの、約６か月にわたり大規模な軍事衝突は発生しておらず、状況が一時期に比べて安定していることから危険レベルを２に引き下げます。</riskLead>
     <riskUrl>https://www.anzen.mofa.go.jp/info/pchazardspecificinfo_2026T076.html</riskUrl>
+    <wideareaSpot>
+        <typeCd>C50</typeCd>
+        <leaveDate keyCd="2026C038">2026/07/21 00:00:00</leaveDate>
+        <title>中東情勢を受けた注意喚起</title>
+        <url>https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C038.html</url>
+    </wideareaSpot>
+    <safetyMeasureUrl>https://www.anzen.mofa.go.jp/info/pcsafetymeasure_007.html</safetyMeasureUrl>
+    <terroKidnapUrl>https://www.anzen.mofa.go.jp/info/pcterror_007.html</terroKidnapUrl>
+    <medicalSituationUrl>http://www.mofa.go.jp/mofaj/toko/medi/asia/thailand.html</medicalSituationUrl>
     <mail>
-        <keyCd>2026T076</keyCd>
-        <infoType>T40</infoType>
-        <contentInfo>治安情勢 戦争 一般情報</contentInfo>
-        <leaveDate>2026/07/02 00:00:00</leaveDate>
+        <keyCd>168122</keyCd>
+        <infoType>R10</infoType>
+        <leaveDate>2026/10/05 20:26:12</leaveDate>
         <area>
             <cd>10</cd>
         </area>
         <country areaCd="10">
             <cd>0066</cd>
         </country>
-        <title>タイの危険情報【一部地域の危険レベル引下げ】</title>
-        <lead>●タイ・カンボジア国境付近では重火器の撤去が進んでおらず、国境に近い地域（カンボジア国境から30km以内）では、今後も不測の事態が発生する可能性が否定できないことから、危険レベル３を継続します。どのような目的であってもこれら地域への渡航は止めてください。
-●一方、国境から30kmを越えて50km以内の地域については、緊張状態は継続しているものの、約６か月にわたり大規模な軍事衝突は発生しておらず、状況が一時期に比べて安定していることから危険レベルを２に引き下げます。</lead>
-        <infoUrl>https://www.anzen.mofa.go.jp/info/pchazardspecificinfo_2026T076.html</infoUrl>
-        <xmlAllUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/2026T076A.xml</xmlAllUrl>
-        <xmlNormalUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/2026T076.xml</xmlNormalUrl>
-        <xmlLightUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/2026T076L.xml</xmlLightUrl>
-        <riskLevel4>0</riskLevel4>
-        <riskLevel3>1</riskLevel3>
-        <riskLevel2>1</riskLevel2>
-        <riskLevel1>0</riskLevel1>
-        <infectionLevel4>0</infectionLevel4>
-        <infectionLevel3>0</infectionLevel3>
-        <infectionLevel2>0</infectionLevel2>
-        <infectionLevel1>0</infectionLevel1>
-        <mapImageUrl>https://www.anzen.mofa.go.jp/info/map/2026T076_1_Detail.html</mapImageUrl>
+        <title>【注意喚起】タイ国内における気象状況について</title>
+        <infoUrl>https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168122</infoUrl>
+        <xmlAllUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/168122A.xml</xmlAllUrl>
+        <xmlNormalUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/168122.xml</xmlNormalUrl>
+        <xmlLightUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/168122L.xml</xmlLightUrl>
+        <koukanCd>612A</koukanCd>
+    </mail>
+    <mail>
+        <keyCd>167944</keyCd>
+        <infoType>R10</infoType>
+        <leaveDate>2026/09/29 10:56:03</leaveDate>
+        <area>
+            <cd>10</cd>
+        </area>
+        <country areaCd="10">
+            <cd>0066</cd>
+        </country>
+        <title>パスポート(旅券)の取扱いにご注意ください（交付に１ヶ月程度かかります）</title>
+        <infoUrl>https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=167944</infoUrl>
+        <xmlAllUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/167944A.xml</xmlAllUrl>
+        <xmlNormalUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/167944.xml</xmlNormalUrl>
+        <xmlLightUrl>https://www.ezairyu.mofa.go.jp/opendata/mail/167944L.xml</xmlLightUrl>
+        <koukanCd>612A</koukanCd>
     </mail>
     </opendata>
