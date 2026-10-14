@@ -201,4 +201,18 @@ table.climate .current { background: color-mix(in srgb, var(--accent) 18%, trans
 .cell-warn { color: var(--warn-text); cursor: help; }
 .card { scroll-margin-top: 12px; }
 
+/* 旅行前・旅行中の情報 */
+.card-title { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.local-clock { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
+.fc-sun { color: var(--muted); font-size: 0.7rem; margin-top: 2px; white-space: nowrap; }
+.forecast-day.hourly { flex-basis: 64px; }
+.best-season { font-size: 0.85rem; margin: 6px 0 0; }
+.sub-head { font-size: 0.85rem; margin: 12px 0 4px; }
+.notice-list { list-style: none; margin: 0; padding: 0; font-size: 0.8rem; }
+.notice-list li { display: flex; gap: 8px; padding: 3px 0; border-bottom: 1px dashed var(--line); }
+.notice-list .hol-date { flex: 0 0 3.5em; }
+.notice-list a { color: var(--text); }
+.safety-links { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.8rem; margin: 10px 0 0; }
+.safety-links a { color: var(--accent); }
+
 .page-footer { color: var(--muted); font-size: 0.75rem; padding-bottom: 32px; }

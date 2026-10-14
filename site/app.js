@@ -228,7 +228,19 @@ function fmtNumber(value, suffix, digits = 0) {
   return value === null || value === undefined ? "—" : `${value.toFixed(digits)}${suffix}`;
 }
 
+function sunText(day) {
+  if (day.daylight_h === 0) return "🌑 極夜";
+  if (day.daylight_h >= 24) return "☀ 白夜";
+  if (day.sunrise && day.sunset) return `☀ ${Number(day.sunrise.slice(0, 2))}:${day.sunrise.slice(3)}–${Number(day.sunset.slice(0, 2))}:${day.sunset.slice(3)}`;
+  return null;
+}
+
 function renderForecast(data) {
+  const wrap = el("div");
+  const today = data.days.find((d) => d.date >= todayLocal()) || data.days[0];
+  if (today && typeof today.daylight_h === "number") {
+    wrap.append(el("p", "note", `今日の昼の長さ：${today.daylight_h.toFixed(1)}時間`));
+  }
   const row = el("div", "forecast-row");
   for (const day of data.days) {
     const weather = weatherOf(day.code);
@@ -241,9 +253,12 @@ function renderForecast(data) {
     const temps = el("div", "fc-temp");
     temps.append(el("span", "up", fmtNumber(day.tmax, "°")), " / ", el("span", "down", fmtNumber(day.tmin, "°")));
     cell.append(temps, el("div", "fc-prob", `☂ ${fmtNumber(day.precip_prob, "%")}`));
+    const sun = sunText(day);
+    if (sun) cell.append(el("div", "fc-sun", sun));
     row.append(cell);
   }
-  return row;
+  wrap.append(row);
+  return wrap;
 }
 
 // ---------- 月ごとの気候 ----------
@@ -253,11 +268,15 @@ function renderClimate(data) {
   const scroller = el("div", "table-scroll");
   const table = el("table", "climate");
   const thisMonth = new Date().getMonth() + 1;
+  const best = bestSeason(data.months);
   const rows = [
-    ["月", (m) => `${m.month}月`],
+    ["月", (m) => `${best.includes(m.month) ? "★" : ""}${m.month}月`],
     ["平均気温", (m) => fmtNumber(m.temp, "°", 1)],
     ["降水量", (m) => fmtNumber(m.precip, "mm")],
   ];
+  if (data.months.some((m) => typeof m.daylight === "number")) {
+    rows.push(["昼の長さ", (m) => fmtNumber(m.daylight, "h", 1)]);
+  }
   for (const [label, value] of rows) {
     const tr = el("tr");
     tr.append(el("th", null, label));
@@ -268,7 +287,11 @@ function renderClimate(data) {
     table.append(tr);
   }
   scroller.append(table);
-  wrap.append(scroller, el("p", "note", data.period));
+  wrap.append(scroller);
+  if (best.length) {
+    wrap.append(el("p", "best-season", `★ 過ごしやすい時期の目安：${best.join("・")}月（気温と雨から計算した目安です）`));
+  }
+  wrap.append(el("p", "note", data.period));
   // 今月が見えるように横スクロールしておく（左端の見出し列の分だけ手前にする）
   requestAnimationFrame(() => {
     const current = table.querySelector("th.current");
@@ -323,6 +346,37 @@ function renderSafety(data, record, card) {
   wrap.append(levelBadge("危険情報", data.level, false));
   wrap.append(levelBadge("感染症危険情報", data.infection_level, true));
   if (data.title) wrap.append(el("p", "safety-title", data.title));
+  if (Array.isArray(data.notices)) {
+    wrap.append(el("h4", "sub-head", "最近のお知らせ（30日以内）"));
+    if (data.notices.length === 0) {
+      wrap.append(el("p", "note", "30日以内のお知らせはありません"));
+    } else {
+      const list = el("ul", "notice-list");
+      for (const n of data.notices) {
+        const li = el("li");
+        li.append(el("span", "hol-date", fmtDate(n.date).replace(/（.）/, "")));
+        const a = el("a", null, n.title);
+        a.href = n.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.title = n.kind;
+        li.append(a);
+        list.append(li);
+      }
+      wrap.append(list);
+    }
+  }
+  if (Array.isArray(data.links) && data.links.length) {
+    const links = el("p", "safety-links");
+    for (const l of data.links) {
+      const a = el("a", null, `${l.label} ↗`);
+      a.href = l.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      links.append(a);
+    }
+    wrap.append(links);
+  }
   if (data.url) {
     const link = el("a", "safety-link", "外務省 海外安全ホームページで詳しく見る ↗");
     link.href = data.url;
@@ -347,6 +401,74 @@ const RENDERERS = {
 };
 
 // ---------- 全体 ----------
+
+// ---------- 現地時刻と時差 ----------
+
+function startLocalClock(target, timeZone) {
+  function tick() {
+    const t = timeDiffText(timeZone, Date.now());
+    target.textContent = t ? `現地 ${t.local}（${t.diff}）` : "";
+  }
+  tick();
+  setInterval(tick, 60 * 1000);
+}
+
+// ---------- これから12時間の天気（画面を開いたときに直接取得） ----------
+
+const HOURLY_API = "https://api.open-meteo.com/v1/forecast";
+const HOURLY_TIMEOUT_MS = 10 * 1000;
+
+function renderHourlySection(dest) {
+  const section = el("section", "section");
+  const head = el("div", "section-head");
+  head.append(el("h3", null, "これから12時間の天気"));
+  const when = el("span", "updated", "取得中…");
+  head.append(when);
+  const body = el("div");
+  body.append(el("p", "note", "読み込み中…"));
+  section.append(head, body, el("p", "provider", "出典：Open-Meteo（この画面を開いたときに取得）"));
+
+  const failed = () => {
+    when.textContent = "";
+    body.replaceChildren(el("p", "note", "今は取得できません（毎朝の予報は上に表示しています）"));
+  };
+  if (typeof dest.lat !== "number" || typeof dest.lon !== "number") {
+    failed();
+    return section;
+  }
+  const params = new URLSearchParams({
+    latitude: dest.lat, longitude: dest.lon,
+    hourly: "temperature_2m,precipitation_probability,weather_code,is_day",
+    forecast_hours: 12, timezone: "auto",
+  });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), HOURLY_TIMEOUT_MS);
+  fetch(`${HOURLY_API}?${params}`, { signal: controller.signal })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((raw) => {
+      const hours = parseHourly(raw);
+      if (!hours || hours.length === 0) return failed();
+      const row = el("div", "forecast-row");
+      for (const h of hours) {
+        const weather = weatherOf(h.code);
+        if (h.night && (h.code === 0 || h.code === 1)) weather.icon = "🌙"; // 夜の晴れは月にする
+        const cell = el("div", "forecast-day hourly");
+        cell.append(
+          el("div", "fc-date", h.time),
+          el("div", "fc-icon", weather.icon),
+          el("div", "fc-temp", fmtNumber(h.temp, "°")),
+          el("div", "fc-prob", `☂ ${fmtNumber(h.prob, "%")}`),
+        );
+        row.append(cell);
+      }
+      const now = new Date();
+      when.textContent = `取得：${now.getHours()}:${String(now.getMinutes()).padStart(2, "0")}`;
+      body.replaceChildren(row);
+    })
+    .catch(failed)
+    .finally(() => clearTimeout(timer));
+  return section;
+}
 
 // ---------- 古いデータの警告 ----------
 
@@ -418,7 +540,11 @@ const COMPARE_COLUMNS = [
   {
     label: "今月の気候",
     name: "climate",
-    render: (c) => el("span", null, `${fmtNumber(c.temp, "°", 1)}・${fmtNumber(c.precip, "mm")}`),
+    render: (c) => {
+      const span = el("span", null, `${fmtNumber(c.temp, "°", 1)}・${fmtNumber(c.precip, "mm")}`);
+      if (c.best && c.best.length) span.append(el("span", "flat", `（目安：${c.best.join("・")}月）`));
+      return span;
+    },
   },
   {
     label: "次の祝日",
@@ -498,11 +624,17 @@ async function main() {
   for (const { dest, records } of rows) {
     const card = el("article", "card");
     card.id = `dest-${dest.id}`;
-    card.append(el("h2", null, dest.name), el("p", "country", dest.country));
+    const title = el("div", "card-title");
+    const clock = el("span", "local-clock");
+    title.append(el("h2", null, dest.name), clock);
+    card.append(title, el("p", "country", dest.country));
     cards.append(card);
+    const timeZone = records.forecast && records.forecast.data && records.forecast.data.timezone;
+    if (timeZone) startLocalClock(clock, timeZone);
     for (const source of index.sources) {
       try {
         card.append(renderSection(records[source.name], source, card));
+        if (source.name === "forecast") card.append(renderHourlySection(dest));
       } catch (e) {
         // 1つの区切りが壊れていても、他の区切り・他の行き先は表示する
         console.error(dest.id, source.name, e);

@@ -97,6 +97,7 @@ function parseHourly(raw) {
     temp: at("temperature_2m", i),
     prob: at("precipitation_probability", i),
     code: at("weather_code", i),
+    night: at("is_day", i) === 0,
   }));
 }
 

@@ -188,8 +188,8 @@ test("1時間ごとの天気の読み取り", () => {
     },
   };
   assert.deepEqual(parseHourly(raw), [
-    { time: "7:00", temp: 5.2, prob: 80, code: 61 },
-    { time: "8:00", temp: null, prob: 20, code: 3 },
+    { time: "7:00", temp: 5.2, prob: 80, code: 61, night: false },
+    { time: "8:00", temp: null, prob: 20, code: 3, night: false },
   ]);
 });
 
@@ -197,4 +197,11 @@ test("1時間ごとの天気：形が違えば null", () => {
   assert.equal(parseHourly({}), null);
   assert.equal(parseHourly({ hourly: { time: "x" } }), null);
   assert.equal(parseHourly(null), null);
+});
+
+test("1時間ごとの天気：昼か夜か（is_day）も読む", () => {
+  const raw = { hourly: { time: ["2026-10-14T05:00"], temperature_2m: [9], precipitation_probability: [0], weather_code: [0], is_day: [0] } };
+  assert.equal(parseHourly(raw)[0].night, true);
+  const noFlag = { hourly: { time: ["2026-10-14T05:00"], weather_code: [0] } };
+  assert.equal(parseHourly(noFlag)[0].night, false);
 });
