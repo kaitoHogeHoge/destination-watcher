@@ -228,10 +228,14 @@ function fmtNumber(value, suffix, digits = 0) {
   return value === null || value === undefined ? "—" : `${value.toFixed(digits)}${suffix}`;
 }
 
+function hm(hhmm) {
+  return `${Number(hhmm.slice(0, 2))}:${hhmm.slice(3)}`;
+}
+
 function sunText(day) {
   if (day.daylight_h === 0) return "🌑 極夜";
   if (day.daylight_h >= 24) return "☀ 白夜";
-  if (day.sunrise && day.sunset) return `☀ ${Number(day.sunrise.slice(0, 2))}:${day.sunrise.slice(3)}–${Number(day.sunset.slice(0, 2))}:${day.sunset.slice(3)}`;
+  if (day.sunrise && day.sunset) return `☀ ${hm(day.sunrise)}–${day.sunset_next_day ? "翌" : ""}${hm(day.sunset)}`;
   return null;
 }
 
@@ -239,7 +243,8 @@ function renderForecast(data) {
   const wrap = el("div");
   const today = data.days.find((d) => d.date >= todayLocal()) || data.days[0];
   if (today && typeof today.daylight_h === "number") {
-    wrap.append(el("p", "note", `今日の昼の長さ：${today.daylight_h.toFixed(1)}時間`));
+    const polar = today.daylight_h === 0 ? "（極夜：日が昇りません）" : today.daylight_h >= 24 ? "（白夜：日が沈みません）" : "";
+    wrap.append(el("p", "note", `今日の昼の長さ：${today.daylight_h.toFixed(1)}時間${polar}`));
   }
   const row = el("div", "forecast-row");
   for (const day of data.days) {
@@ -355,12 +360,16 @@ function renderSafety(data, record, card) {
       for (const n of data.notices) {
         const li = el("li");
         li.append(el("span", "hol-date", fmtDate(n.date).replace(/（.）/, "")));
-        const a = el("a", null, n.title);
-        a.href = n.url;
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.title = n.kind;
-        li.append(a);
+        if (n.url) {
+          const a = el("a", null, n.title);
+          a.href = n.url;
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.title = n.kind;
+          li.append(a);
+        } else {
+          li.append(el("span", null, n.title));
+        }
         list.append(li);
       }
       wrap.append(list);
@@ -410,7 +419,11 @@ function startLocalClock(target, timeZone) {
     target.textContent = t ? `現地 ${t.local}（${t.diff}）` : "";
   }
   tick();
-  setInterval(tick, 60 * 1000);
+  // 分が切り替わる瞬間にそろえてから、1分ごとに更新する
+  setTimeout(() => {
+    tick();
+    setInterval(tick, 60 * 1000);
+  }, 60 * 1000 - (Date.now() % (60 * 1000)) + 50);
 }
 
 // ---------- これから12時間の天気（画面を開いたときに直接取得） ----------
@@ -419,6 +432,8 @@ const HOURLY_API = "https://api.open-meteo.com/v1/forecast";
 const HOURLY_TIMEOUT_MS = 10 * 1000;
 
 function renderHourlySection(dest) {
+  // 緯度経度の無い古いデータでは、この欄そのものを出さない
+  if (typeof dest.lat !== "number" || typeof dest.lon !== "number") return null;
   const section = el("section", "section");
   const head = el("div", "section-head");
   head.append(el("h3", null, "これから12時間の天気"));
@@ -432,10 +447,6 @@ function renderHourlySection(dest) {
     when.textContent = "";
     body.replaceChildren(el("p", "note", "今は取得できません（毎朝の予報は上に表示しています）"));
   };
-  if (typeof dest.lat !== "number" || typeof dest.lon !== "number") {
-    failed();
-    return section;
-  }
   const params = new URLSearchParams({
     latitude: dest.lat, longitude: dest.lon,
     hourly: "temperature_2m,precipitation_probability,weather_code,is_day",
@@ -634,7 +645,10 @@ async function main() {
     for (const source of index.sources) {
       try {
         card.append(renderSection(records[source.name], source, card));
-        if (source.name === "forecast") card.append(renderHourlySection(dest));
+        if (source.name === "forecast") {
+          const hourly = renderHourlySection(dest);
+          if (hourly) card.append(hourly);
+        }
       } catch (e) {
         // 1つの区切りが壊れていても、他の区切り・他の行き先は表示する
         console.error(dest.id, source.name, e);

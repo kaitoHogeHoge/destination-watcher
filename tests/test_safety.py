@@ -185,3 +185,18 @@ def test_fetch_includes_notices_and_links(fake_http):
     fake_http.add("https://www.ezairyu.mofa.go.jp/opendata/country/0066L.xml", load_fixture("mofa_0066L.xml"))
     data = SafetySource().fetch({"id": "bkk", "mofa_code": "0066"}, None, NOW)
     assert len(data["notices"]) == 2 and len(data["links"]) == 3
+
+
+def test_only_http_links_are_kept():
+    items = spot("2026/10/10 00:00:00", "危ない", "javascript:alert(1)") + spot("2026/10/10 00:00:00", "空", "")
+    notices = parse_notices(notices_xml(items), NOW)
+    assert [n["url"] for n in notices] == [None, None]
+    root = notices_xml("<safetyMeasureUrl>javascript:alert(1)</safetyMeasureUrl><medicalSituationUrl>ftp://x</medicalSituationUrl>")
+    assert parse_links(root) == []
+
+
+def test_mail_without_keycd_uses_infourl_or_none():
+    with_info = "<mail><leaveDate>2026/10/10 10:00:00</leaveDate><title>a</title><infoUrl>https://example.jp/m</infoUrl></mail>"
+    without = "<mail><leaveDate>2026/10/10 10:00:00</leaveDate><title>b</title></mail>"
+    urls = {n["title"]: n["url"] for n in parse_notices(notices_xml(with_info + without), NOW)}
+    assert urls == {"a": "https://example.jp/m", "b": None}

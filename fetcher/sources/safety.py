@@ -48,6 +48,12 @@ LINKS = [
 ]
 
 
+def _safe_url(value: str | None) -> str | None:
+    """外部データの URL は http/https のものだけ使う（javascript: などは使わない）。"""
+    url = (value or "").strip()
+    return url if url.startswith(("https://", "http://")) else None
+
+
 def _leave_date(text: str | None) -> datetime | None:
     """「2026/10/05 20:26:12」→ 日本時間の日時。読めなければ None。"""
     try:
@@ -67,9 +73,10 @@ def parse_notices(root: ET.Element, now: datetime) -> list[dict]:
         if not title or when is None or now - when > timedelta(days=NOTICE_DAYS):
             continue
         if element.tag == "mail":
-            url = MAIL_PAGE.format(key=(element.findtext("keyCd") or "").strip())
+            key = (element.findtext("keyCd") or "").strip()
+            url = MAIL_PAGE.format(key=key) if key.isdigit() else _safe_url(element.findtext("infoUrl"))
         else:
-            url = (element.findtext("url") or "").strip()
+            url = _safe_url(element.findtext("url"))
         found.append((when, {"date": when.date().isoformat(), "title": title, "url": url, "kind": kind}))
     found.sort(key=lambda pair: pair[0], reverse=True)
     return [notice for _, notice in found[:NOTICE_LIMIT]]
@@ -78,7 +85,7 @@ def parse_notices(root: ET.Element, now: datetime) -> list[dict]:
 def parse_links(root: ET.Element) -> list[dict]:
     links = []
     for tag, label in LINKS:
-        url = (root.findtext(tag) or "").strip()
+        url = _safe_url(root.findtext(tag))
         if url:
             links.append({"label": label, "url": url})
     return links

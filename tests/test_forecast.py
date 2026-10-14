@@ -16,7 +16,7 @@ def test_parses_16_days(fake_http):
     assert data["timezone"] == "Europe/London"
     assert len(data["days"]) == 16
     daily = raw["daily"]
-    first = {k: v for k, v in data["days"][0].items() if k not in ("sunrise", "sunset", "daylight_h")}
+    first = {k: v for k, v in data["days"][0].items() if k not in ("sunrise", "sunset", "sunset_next_day", "daylight_h")}
     assert first == {
         "date": daily["time"][0],
         "tmax": daily["temperature_2m_max"][0],
@@ -93,3 +93,16 @@ def test_missing_sun_fields(fake_http):
     fake_http.add(URL, raw)
     day = ForecastSource().fetch(LONDON, None, NOW)["days"][0]
     assert (day["sunrise"], day["sunset"], day["daylight_h"]) == (None, None, None)
+
+
+def test_sunset_after_midnight_marked_next_day(fake_http):
+    # 白夜の始まりの頃：日の入りが翌日の0時台になる
+    fake_http.add(URL, sun_response("2026-05-15T01:10", "2026-05-16T00:40", 84600.0))
+    day = ForecastSource().fetch(LONDON, None, NOW)["days"][0]
+    day["date"] = "2026-05-15"
+    assert (day["sunrise"], day["sunset"], day["sunset_next_day"]) == ("01:10", "00:40", True)
+
+
+def test_normal_sunset_not_next_day(fake_http):
+    fake_http.add(URL, sun_response("2026-10-13T07:50", "2026-10-13T17:08", 33464.91))
+    assert ForecastSource().fetch(LONDON, None, NOW)["days"][0]["sunset_next_day"] is False

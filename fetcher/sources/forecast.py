@@ -16,7 +16,7 @@ FIELDS = {
 SUN_FIELDS = ["sunrise", "sunset", "daylight_duration"]
 
 
-def _sun(sunrise: str | None, sunset: str | None, daylight_seconds) -> dict:
+def _sun(day: str, sunrise: str | None, sunset: str | None, daylight_seconds) -> dict:
     """日の出・日の入り（現地の HH:MM）と昼の長さ（時間）。
 
     極夜（昼の長さ 0）・白夜（24時間）の日は、API が 00:00 を返すので時刻は None にする。
@@ -27,7 +27,10 @@ def _sun(sunrise: str | None, sunset: str | None, daylight_seconds) -> dict:
     def hhmm(value):
         return value[11:16] if isinstance(value, str) and len(value) >= 16 and not polar else None
 
-    return {"sunrise": hhmm(sunrise), "sunset": hhmm(sunset), "daylight_h": hours}
+    sunset_hhmm = hhmm(sunset)
+    # 白夜の前後は、日の入りが翌日の0時台になることがある
+    next_day = sunset_hhmm is not None and sunset[:10] != day
+    return {"sunrise": hhmm(sunrise), "sunset": sunset_hhmm, "sunset_next_day": next_day, "daylight_h": hours}
 
 
 class ForecastSource(Source):
@@ -50,6 +53,6 @@ class ForecastSource(Source):
             for key, field in FIELDS.items():
                 item[key] = daily[field][i]
             sun = [daily.get(f, [None] * len(daily["time"]))[i] for f in SUN_FIELDS]
-            item.update(_sun(*sun))
+            item.update(_sun(day, *sun))
             days.append(item)
         return {"timezone": raw.get("timezone"), "days": days}
