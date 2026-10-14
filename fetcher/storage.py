@@ -91,7 +91,10 @@ def write_index(data_dir: Path, destinations: list[dict], sources: list[dict], n
         Path(data_dir) / "index.json",
         {
             "generated_at": iso(now),
-            "destinations": [{"id": d["id"], "name": d["name"], "country": d["country"]} for d in destinations],
+            "destinations": [
+                {"id": d["id"], "name": d["name"], "country": d["country"], "lat": d.get("lat"), "lon": d.get("lon")}
+                for d in destinations
+            ],
             "sources": [{"name": s["name"], "label": s["label"]} for s in sources],
         },
     )

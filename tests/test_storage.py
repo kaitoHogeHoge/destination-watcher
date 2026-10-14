@@ -71,8 +71,8 @@ def test_read_broken_json_returns_none(tmp_path):
 def test_write_index_lists_given_destinations_only(tmp_path):
     (tmp_path / "old").mkdir()
     dests = [
-        {"id": "london", "name": "ロンドン", "country": "イギリス", "lat": 1},
-        {"id": "tromso", "name": "トロムソ", "country": "ノルウェー", "lat": 2},
+        {"id": "london", "name": "ロンドン", "country": "イギリス", "lat": 1, "lon": 10, "currency": "GBP"},
+        {"id": "tromso", "name": "トロムソ", "country": "ノルウェー", "lat": 2, "lon": 20, "currency": "NOK"},
     ]
     sources = [{"name": "exchange", "label": "為替レート"}]
     write_index(tmp_path, dests, sources, NOW)
@@ -80,8 +80,8 @@ def test_write_index_lists_given_destinations_only(tmp_path):
     assert index == {
         "generated_at": "2026-10-13T06:00:00+09:00",
         "destinations": [
-            {"id": "london", "name": "ロンドン", "country": "イギリス"},
-            {"id": "tromso", "name": "トロムソ", "country": "ノルウェー"},
+            {"id": "london", "name": "ロンドン", "country": "イギリス", "lat": 1, "lon": 10},
+            {"id": "tromso", "name": "トロムソ", "country": "ノルウェー", "lat": 2, "lon": 20},
         ],
         "sources": [{"name": "exchange", "label": "為替レート"}],
     }
