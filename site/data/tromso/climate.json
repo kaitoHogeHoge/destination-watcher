@@ -2,8 +2,8 @@
   "source": "climate",
   "provider": "open-meteo",
   "status": "ok",
-  "updated_at": "2026-10-13T14:58:29+09:00",
-  "attempted_at": "2026-10-13T14:58:29+09:00",
+  "updated_at": "2026-10-14T14:35:18+09:00",
+  "attempted_at": "2026-10-14T14:35:18+09:00",
   "error": null,
   "data": {
     "period": "2016〜2025年の平均",
@@ -11,63 +11,76 @@
       {
         "month": 1,
         "temp": -5.7,
-        "precip": 148.5
+        "precip": 148.7,
+        "daylight": 1.8
       },
       {
         "month": 2,
         "temp": -4.4,
-        "precip": 117.1
+        "precip": 117.2,
+        "daylight": 7.3
       },
       {
         "month": 3,
         "temp": -3.1,
-        "precip": 133.2
+        "precip": 133.0,
+        "daylight": 11.7
       },
       {
         "month": 4,
         "temp": 0.2,
-        "precip": 104.5
+        "precip": 104.6,
+        "daylight": 16.2
       },
       {
         "month": 5,
         "temp": 5.2,
-        "precip": 106.4
+        "precip": 106.5,
+        "daylight": 22.1
       },
       {
         "month": 6,
         "temp": 10.4,
-        "precip": 107.4
+        "precip": 107.1,
+        "daylight": 24.0
       },
       {
         "month": 7,
         "temp": 14.2,
-        "precip": 103.1
+        "precip": 103.1,
+        "daylight": 23.6
       },
       {
         "month": 8,
         "temp": 12.9,
-        "precip": 130.6
+        "precip": 131.0,
+        "daylight": 18.0
       },
       {
         "month": 9,
         "temp": 9.1,
-        "precip": 118.1
+        "precip": 117.9,
+        "daylight": 13.3
       },
       {
         "month": 10,
         "temp": 2.8,
-        "precip": 105.8
+        "precip": 105.6,
+        "daylight": 9.0
       },
       {
         "month": 11,
         "temp": -1.6,
-        "precip": 111.8
+        "precip": 112.0,
+        "daylight": 3.7
       },
       {
         "month": 12,
         "temp": -4.0,
-        "precip": 111.8
+        "precip": 111.5,
+        "daylight": 0.0
       }
     ]
-  }
+  },
+  "data_version": 2
 }

@@ -2,59 +2,83 @@
   "source": "forecast",
   "provider": "open-meteo",
   "status": "ok",
-  "updated_at": "2026-10-14T09:08:38+09:00",
-  "attempted_at": "2026-10-14T09:08:38+09:00",
+  "updated_at": "2026-10-14T14:35:18+09:00",
+  "attempted_at": "2026-10-14T14:35:18+09:00",
   "error": null,
   "data": {
     "timezone": "Asia/Singapore",
     "days": [
       {
         "date": "2026-10-14",
-        "tmax": 31.0,
-        "tmin": 25.8,
-        "code": 51,
-        "precip": 2.3,
-        "precip_prob": 96
+        "tmax": 30.5,
+        "tmin": 25.2,
+        "code": 80,
+        "precip": 3.5,
+        "precip_prob": 90,
+        "sunrise": "06:48",
+        "sunset": "18:53",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-15",
-        "tmax": 32.9,
+        "tmax": 32.8,
         "tmin": 25.2,
         "code": 51,
-        "precip": 1.8,
-        "precip_prob": 100
+        "precip": 1.4,
+        "precip_prob": 92,
+        "sunrise": "06:47",
+        "sunset": "18:52",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-16",
-        "tmax": 31.4,
-        "tmin": 24.7,
-        "code": 80,
-        "precip": 2.9,
-        "precip_prob": 96
+        "tmax": 32.0,
+        "tmin": 25.1,
+        "code": 51,
+        "precip": 1.1,
+        "precip_prob": 100,
+        "sunrise": "06:47",
+        "sunset": "18:52",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-17",
-        "tmax": 30.3,
-        "tmin": 24.7,
-        "code": 51,
-        "precip": 1.9,
-        "precip_prob": 100
+        "tmax": 31.2,
+        "tmin": 25.2,
+        "code": 53,
+        "precip": 2.8,
+        "precip_prob": 94,
+        "sunrise": "06:47",
+        "sunset": "18:52",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-18",
-        "tmax": 31.3,
-        "tmin": 25.1,
+        "tmax": 31.1,
+        "tmin": 25.2,
         "code": 51,
-        "precip": 2.1,
-        "precip_prob": 92
+        "precip": 2.0,
+        "precip_prob": 94,
+        "sunrise": "06:47",
+        "sunset": "18:52",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-19",
-        "tmax": 29.9,
-        "tmin": 25.7,
+        "tmax": 29.8,
+        "tmin": 25.1,
         "code": 53,
         "precip": 3.3,
-        "precip_prob": 80
+        "precip_prob": 98,
+        "sunrise": "06:47",
+        "sunset": "18:52",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-20",
@@ -62,7 +86,11 @@
         "tmin": 24.9,
         "code": 51,
         "precip": 5.4,
-        "precip_prob": 84
+        "precip_prob": 84,
+        "sunrise": "06:47",
+        "sunset": "18:51",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-21",
@@ -70,7 +98,11 @@
         "tmin": 25.2,
         "code": 53,
         "precip": 5.4,
-        "precip_prob": 85
+        "precip_prob": 85,
+        "sunrise": "06:46",
+        "sunset": "18:51",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-22",
@@ -78,7 +110,11 @@
         "tmin": 25.1,
         "code": 53,
         "precip": 4.8,
-        "precip_prob": 73
+        "precip_prob": 73,
+        "sunrise": "06:46",
+        "sunset": "18:51",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-23",
@@ -86,7 +122,11 @@
         "tmin": 24.4,
         "code": 51,
         "precip": 0.6,
-        "precip_prob": 84
+        "precip_prob": 84,
+        "sunrise": "06:46",
+        "sunset": "18:51",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-24",
@@ -94,7 +134,11 @@
         "tmin": 24.7,
         "code": 51,
         "precip": 1.2,
-        "precip_prob": 82
+        "precip_prob": 82,
+        "sunrise": "06:46",
+        "sunset": "18:51",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-25",
@@ -102,7 +146,11 @@
         "tmin": 24.3,
         "code": 53,
         "precip": 5.0,
-        "precip_prob": 60
+        "precip_prob": 57,
+        "sunrise": "06:46",
+        "sunset": "18:50",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-26",
@@ -110,7 +158,11 @@
         "tmin": 23.8,
         "code": 53,
         "precip": 3.4,
-        "precip_prob": 59
+        "precip_prob": 61,
+        "sunrise": "06:46",
+        "sunset": "18:50",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-27",
@@ -118,7 +170,11 @@
         "tmin": 25.0,
         "code": 51,
         "precip": 1.0,
-        "precip_prob": 66
+        "precip_prob": 64,
+        "sunrise": "06:46",
+        "sunset": "18:50",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-28",
@@ -126,16 +182,25 @@
         "tmin": 24.9,
         "code": 53,
         "precip": 4.55,
-        "precip_prob": 62
+        "precip_prob": 60,
+        "sunrise": "06:46",
+        "sunset": "18:50",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       },
       {
         "date": "2026-10-29",
-        "tmax": 30.1,
-        "tmin": 25.1,
-        "code": 53,
-        "precip": 3.0,
-        "precip_prob": 53
+        "tmax": 31.1,
+        "tmin": 25.9,
+        "code": 51,
+        "precip": 1.2,
+        "precip_prob": 54,
+        "sunrise": "06:46",
+        "sunset": "18:50",
+        "sunset_next_day": false,
+        "daylight_h": 12.1
       }
     ]
-  }
+  },
+  "data_version": 1
 }

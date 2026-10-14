@@ -2,19 +2,35 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-14T09:08:38+09:00",
-  "attempted_at": "2026-10-14T09:08:38+09:00",
+  "updated_at": "2026-10-14T14:35:18+09:00",
+  "attempted_at": "2026-10-14T14:35:18+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_005.html",
-    "mofa_updated": "2026/10/14 08:50:54",
+    "mofa_updated": "2026/10/14 14:10:54",
     "mofa_code": "0065",
+    "notices": [],
+    "links": [
+      {
+        "label": "安全対策基礎データ",
+        "url": "https://www.anzen.mofa.go.jp/info/pcsafetymeasure_005.html"
+      },
+      {
+        "label": "医療事情",
+        "url": "http://www.mofa.go.jp/mofaj/toko/medi/index.html"
+      },
+      {
+        "label": "テロ・誘拐情勢",
+        "url": "https://www.anzen.mofa.go.jp/info/pcterror_005.html"
+      }
+    ],
     "changed_at": null,
     "previous_level": null,
     "previous_infection_level": null,
     "changed": false
-  }
+  },
+  "data_version": 1
 }

@@ -2,8 +2,8 @@
   "source": "climate",
   "provider": "open-meteo",
   "status": "ok",
-  "updated_at": "2026-10-13T14:55:10+09:00",
-  "attempted_at": "2026-10-13T14:55:10+09:00",
+  "updated_at": "2026-10-14T14:35:18+09:00",
+  "attempted_at": "2026-10-14T14:35:18+09:00",
   "error": null,
   "data": {
     "period": "2016〜2025年の平均",
@@ -11,63 +11,76 @@
       {
         "month": 1,
         "temp": 4.7,
-        "precip": 62.9
+        "precip": 63.0,
+        "daylight": 8.4
       },
       {
         "month": 2,
         "temp": 6.1,
-        "precip": 54.2
+        "precip": 54.1,
+        "daylight": 10.0
       },
       {
         "month": 3,
         "temp": 7.5,
-        "precip": 56.9
+        "precip": 57.0,
+        "daylight": 11.9
       },
       {
         "month": 4,
         "temp": 9.6,
-        "precip": 40.1
+        "precip": 40.1,
+        "daylight": 13.9
       },
       {
         "month": 5,
         "temp": 13.3,
-        "precip": 54.9
+        "precip": 54.8,
+        "daylight": 15.6
       },
       {
         "month": 6,
         "temp": 16.8,
-        "precip": 62.5
+        "precip": 62.5,
+        "daylight": 16.6
       },
       {
         "month": 7,
         "temp": 18.7,
-        "precip": 60.0
+        "precip": 60.0,
+        "daylight": 16.1
       },
       {
         "month": 8,
         "temp": 18.2,
-        "precip": 49.3
+        "precip": 49.3,
+        "daylight": 14.5
       },
       {
         "month": 9,
         "temp": 15.7,
-        "precip": 64.0
+        "precip": 64.0,
+        "daylight": 12.6
       },
       {
         "month": 10,
         "temp": 12.2,
-        "precip": 78.3
+        "precip": 78.5,
+        "daylight": 10.7
       },
       {
         "month": 11,
         "temp": 8.1,
-        "precip": 68.5
+        "precip": 68.2,
+        "daylight": 8.9
       },
       {
         "month": 12,
         "temp": 6.5,
-        "precip": 67.0
+        "precip": 67.0,
+        "daylight": 7.9
       }
     ]
-  }
+  },
+  "data_version": 2
 }
