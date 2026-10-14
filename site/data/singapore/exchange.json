@@ -1,10 +1,10 @@
 {
   "source": "exchange",
   "provider": "frankfurter",
-  "status": "error",
-  "updated_at": "2026-10-13T16:26:09+09:00",
-  "attempted_at": "2026-10-13T19:48:16+09:00",
-  "error": "データ元がエラーを返しました（HTTP 522）",
+  "status": "ok",
+  "updated_at": "2026-10-14T09:08:38+09:00",
+  "attempted_at": "2026-10-14T09:08:38+09:00",
+  "error": null,
   "data": {
     "currency": "SGD",
     "history": [
@@ -1027,6 +1027,10 @@
       {
         "date": "2026-10-12",
         "jpy": 123.89
+      },
+      {
+        "date": "2026-10-13",
+        "jpy": 123.55
       }
     ]
   }
