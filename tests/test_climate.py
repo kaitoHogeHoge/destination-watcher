@@ -30,11 +30,11 @@ def test_monthly_precip_is_mean_of_yearly_totals(fake_http):
 
 def test_null_days_ignored(fake_http):
     data = fetch(fake_http)
-    assert month(data, 2) == {"month": 2, "temp": 6.0, "precip": 1.5}
+    assert month(data, 2) == {"month": 2, "temp": 6.0, "precip": 1.5, "daylight": None}
 
 
 def test_month_without_data_is_none(fake_http):
-    assert month(fetch(fake_http), 7) == {"month": 7, "temp": None, "precip": None}
+    assert month(fetch(fake_http), 7) == {"month": 7, "temp": None, "precip": None, "daylight": None}
 
 
 def test_always_12_months(fake_http):
@@ -50,10 +50,28 @@ def test_requests_last_10_full_years(fake_http):
     params = fake_http.calls[0]["params"]
     assert params["start_date"] == "2016-01-01"
     assert params["end_date"] == "2025-12-31"
-    assert params["daily"] == "temperature_2m_mean,precipitation_sum"
+    assert params["daily"] == "temperature_2m_mean,precipitation_sum,daylight_duration"
     assert params["latitude"] == 51.51 and params["longitude"] == -0.13
     assert params["timezone"] == "auto"
 
 
 def test_refreshes_every_30_days():
     assert ClimateSource().refresh_days == 30
+
+
+def test_monthly_daylight(fake_http):
+    raw = load_fixture("openmeteo_archive_small.json")
+    raw["daily"]["daylight_duration"] = [3600 * 8, 3600 * 9, 3600 * 10, 3600 * 7, None, 3600 * 8]
+    fake_http.add(URL, raw)
+    data = ClimateSource().fetch(LONDON, None, NOW)
+    assert month(data, 1)["daylight"] == 8.0   # 8, 9, 7, 8 時間の平均
+    assert month(data, 2)["daylight"] == 10.0
+    assert month(data, 7)["daylight"] is None
+
+
+def test_requests_daylight():
+    assert "daylight_duration" in ClimateSource.DAILY
+
+
+def test_climate_data_version_is_2():
+    assert ClimateSource().data_version == 2

@@ -9,6 +9,7 @@ class Source:
     provider: str = ""      # データ元の名前（画面の出典表示に使う）
     label: str = ""         # 画面の見出し
     refresh_days: int = 0   # 何日ごとに取り直すか（0 = 毎回）
+    data_version: int = 1   # 保存する data の形を変えたら上げる（上がると refresh_days に関係なく取り直す）
 
     def supports(self, dest: dict) -> bool:
         """この行き先に対応しているか。"""

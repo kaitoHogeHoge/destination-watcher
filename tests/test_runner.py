@@ -186,3 +186,20 @@ def test_fetch_error_is_not_retried_without_previous(tmp_path):
     source = FakeSource("a", error=FetchError("通信に失敗しました"))
     run([LONDON], [source], tmp_path, NOW)
     assert len(source.calls) == 1
+
+
+def test_data_version_change_forces_refresh(tmp_path):
+    write_record(tmp_path, "london", ok_record("a", "fake", {"old": True}, NOW - timedelta(days=1)))  # data_version 1
+    source = FakeSource("a", result={"new": True}, refresh_days=30)
+    source.data_version = 2
+    run([LONDON], [source], tmp_path, NOW)
+    record = read_record(tmp_path, "london", "a")
+    assert record["data"] == {"new": True} and record["data_version"] == 2
+
+
+def test_same_data_version_is_kept(tmp_path):
+    write_record(tmp_path, "london", ok_record("a", "fake", {"old": True}, NOW - timedelta(days=1), data_version=2))
+    source = FakeSource("a", result={"new": True}, refresh_days=30)
+    source.data_version = 2
+    summary = run([LONDON], [source], tmp_path, NOW)
+    assert summary.kept == 1

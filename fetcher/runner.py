@@ -35,6 +35,8 @@ def needs_refresh(previous: dict | None, source: Source, now: datetime) -> bool:
         return True
     if previous.get("status") != "ok" or previous.get("provider") != source.provider:
         return True
+    if previous.get("data_version", 1) != source.data_version:  # 保存の形が変わった → 取り直す
+        return True
     try:
         updated_at = datetime.fromisoformat(previous["updated_at"])
         return now - updated_at >= timedelta(days=source.refresh_days)
@@ -105,7 +107,7 @@ def run(destinations: list[dict], sources: list[Source], data_dir: Path, now: da
                 log.warning("%s %s error: %s", dest["id"], name, message)
                 continue
 
-            storage.write_record(data_dir, dest["id"], storage.ok_record(name, source.provider, data, now))
+            storage.write_record(data_dir, dest["id"], storage.ok_record(name, source.provider, data, now, source.data_version))
             summary.ok += 1
             log.info("%s %s ok", dest["id"], name)
 

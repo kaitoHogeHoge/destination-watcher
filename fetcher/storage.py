@@ -47,7 +47,7 @@ def write_record(data_dir: Path, dest_id: str, record: dict) -> None:
     _write_json(record_path(data_dir, dest_id, record["source"]), record)
 
 
-def ok_record(name: str, provider: str, data: Any, now: datetime) -> dict:
+def ok_record(name: str, provider: str, data: Any, now: datetime, data_version: int = 1) -> dict:
     return {
         "source": name,
         "provider": provider,
@@ -56,6 +56,7 @@ def ok_record(name: str, provider: str, data: Any, now: datetime) -> dict:
         "attempted_at": iso(now),
         "error": None,
         "data": data,
+        "data_version": data_version,
     }
 
 
@@ -69,6 +70,7 @@ def error_record(name: str, provider: str | None, message: str, now: datetime, p
         "attempted_at": iso(now),
         "error": message,
         "data": previous.get("data"),
+        "data_version": previous.get("data_version", 1),
     }
 
 

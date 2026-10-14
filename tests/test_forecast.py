@@ -16,7 +16,8 @@ def test_parses_16_days(fake_http):
     assert data["timezone"] == "Europe/London"
     assert len(data["days"]) == 16
     daily = raw["daily"]
-    assert data["days"][0] == {
+    first = {k: v for k, v in data["days"][0].items() if k not in ("sunrise", "sunset", "daylight_h")}
+    assert first == {
         "date": daily["time"][0],
         "tmax": daily["temperature_2m_max"][0],
         "tmin": daily["temperature_2m_min"][0],
@@ -49,7 +50,46 @@ def test_requests_expected_params(fake_http):
     assert fake_http.calls[0]["params"] == {
         "latitude": 51.51,
         "longitude": -0.13,
-        "daily": "temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum,precipitation_probability_max",
+        "daily": "temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum,precipitation_probability_max,"
+                 "sunrise,sunset,daylight_duration",
         "forecast_days": 16,
         "timezone": "auto",
     }
+
+
+def sun_response(sunrise, sunset, daylight):
+    return {
+        "timezone": "Europe/Oslo",
+        "daily": {
+            "time": ["2026-10-13"], "temperature_2m_max": [5.0], "temperature_2m_min": [1.0],
+            "weather_code": [3], "precipitation_sum": [0.0], "precipitation_probability_max": [10],
+            "sunrise": [sunrise], "sunset": [sunset], "daylight_duration": [daylight],
+        },
+    }
+
+
+def test_parses_sun_times(fake_http):
+    fake_http.add(URL, sun_response("2026-10-13T07:50", "2026-10-13T17:08", 33464.91))
+    day = ForecastSource().fetch(LONDON, None, NOW)["days"][0]
+    assert (day["sunrise"], day["sunset"], day["daylight_h"]) == ("07:50", "17:08", 9.3)
+
+
+def test_polar_night_values(fake_http):
+    fake_http.add(URL, sun_response("2026-12-20T00:00", "2026-12-20T00:00", 0.0))
+    day = ForecastSource().fetch(LONDON, None, NOW)["days"][0]
+    assert (day["sunrise"], day["sunset"], day["daylight_h"]) == (None, None, 0.0)
+
+
+def test_midnight_sun_values(fake_http):
+    fake_http.add(URL, sun_response("2026-06-20T00:00", "2026-06-21T00:00", 86400.0))
+    day = ForecastSource().fetch(LONDON, None, NOW)["days"][0]
+    assert (day["sunrise"], day["sunset"], day["daylight_h"]) == (None, None, 24.0)
+
+
+def test_missing_sun_fields(fake_http):
+    raw = sun_response(None, None, None)
+    for key in ("sunrise", "sunset", "daylight_duration"):
+        del raw["daily"][key]
+    fake_http.add(URL, raw)
+    day = ForecastSource().fetch(LONDON, None, NOW)["days"][0]
+    assert (day["sunrise"], day["sunset"], day["daylight_h"]) == (None, None, None)

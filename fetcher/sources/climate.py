@@ -19,6 +19,8 @@ class ClimateSource(Source):
     provider = "open-meteo"
     label = "月ごとの気候"
     refresh_days = 30
+    data_version = 2  # 2：昼の長さ（daylight）を追加
+    DAILY = "temperature_2m_mean,precipitation_sum,daylight_duration"
 
     def fetch(self, dest, previous, now):
         first_year = now.year - YEARS
@@ -28,15 +30,21 @@ class ClimateSource(Source):
             "longitude": dest["lon"],
             "start_date": f"{first_year}-01-01",
             "end_date": f"{last_year}-12-31",
-            "daily": "temperature_2m_mean,precipitation_sum",
+            "daily": self.DAILY,
             "timezone": "auto",
         })
         daily = raw["daily"]
 
         temps = defaultdict(list)          # 月 → 日平均気温の一覧
+        daylights = defaultdict(list)      # 月 → 昼の長さ（時間）の一覧
+        daylight_values = daily.get("daylight_duration") or [None] * len(daily["time"])
         precip_totals = defaultdict(float)  # (年, 月) → その月の合計降水量
-        for day, temp, precip in zip(daily["time"], daily["temperature_2m_mean"], daily["precipitation_sum"]):
+        for day, temp, precip, light in zip(
+            daily["time"], daily["temperature_2m_mean"], daily["precipitation_sum"], daylight_values
+        ):
             year, month = int(day[:4]), int(day[5:7])
+            if light is not None:
+                daylights[month].append(light / 3600)
             if temp is not None:
                 temps[month].append(temp)
             if precip is not None:
@@ -49,5 +57,6 @@ class ClimateSource(Source):
                 "month": month,
                 "temp": _round(mean(temps[month])) if temps[month] else None,
                 "precip": _round(mean(yearly)) if yearly else None,
+                "daylight": _round(mean(daylights[month])) if daylights[month] else None,
             })
         return {"period": f"{first_year}〜{last_year}年の平均", "months": months}

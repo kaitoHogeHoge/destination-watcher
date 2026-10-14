@@ -13,6 +13,21 @@ FIELDS = {
     "precip": "precipitation_sum",
     "precip_prob": "precipitation_probability_max",
 }
+SUN_FIELDS = ["sunrise", "sunset", "daylight_duration"]
+
+
+def _sun(sunrise: str | None, sunset: str | None, daylight_seconds) -> dict:
+    """日の出・日の入り（現地の HH:MM）と昼の長さ（時間）。
+
+    極夜（昼の長さ 0）・白夜（24時間）の日は、API が 00:00 を返すので時刻は None にする。
+    """
+    hours = round(daylight_seconds / 3600, 1) if isinstance(daylight_seconds, (int, float)) else None
+    polar = hours is not None and (hours <= 0 or hours >= 24)
+
+    def hhmm(value):
+        return value[11:16] if isinstance(value, str) and len(value) >= 16 and not polar else None
+
+    return {"sunrise": hhmm(sunrise), "sunset": hhmm(sunset), "daylight_h": hours}
 
 
 class ForecastSource(Source):
@@ -24,7 +39,7 @@ class ForecastSource(Source):
         raw = http.get_json(API, params={
             "latitude": dest["lat"],
             "longitude": dest["lon"],
-            "daily": ",".join(FIELDS.values()),
+            "daily": ",".join([*FIELDS.values(), *SUN_FIELDS]),
             "forecast_days": 16,
             "timezone": "auto",
         })
@@ -34,5 +49,7 @@ class ForecastSource(Source):
             item = {"date": day}
             for key, field in FIELDS.items():
                 item[key] = daily[field][i]
+            sun = [daily.get(f, [None] * len(daily["time"]))[i] for f in SUN_FIELDS]
+            item.update(_sun(*sun))
             days.append(item)
         return {"timezone": raw.get("timezone"), "days": days}

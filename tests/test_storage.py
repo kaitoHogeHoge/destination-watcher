@@ -25,6 +25,7 @@ def test_ok_record_shape():
         "attempted_at": "2026-10-13T06:00:00+09:00",
         "error": None,
         "data": {"x": 1},
+        "data_version": 1,
     }
 
 
@@ -84,3 +85,13 @@ def test_write_index_lists_given_destinations_only(tmp_path):
         ],
         "sources": [{"name": "exchange", "label": "為替レート"}],
     }
+
+
+def test_ok_record_has_data_version():
+    assert ok_record("climate", "open-meteo", {}, NOW, data_version=2)["data_version"] == 2
+    assert ok_record("climate", "open-meteo", {}, NOW)["data_version"] == 1
+
+
+def test_error_record_keeps_previous_data_version():
+    prev = ok_record("climate", "open-meteo", {"x": 1}, EARLIER, data_version=2)
+    assert error_record("climate", "open-meteo", "失敗", NOW, prev)["data_version"] == 2
