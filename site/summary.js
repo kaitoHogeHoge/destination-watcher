@@ -135,6 +135,57 @@ function formatAmount(value, digits) {
   return value.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
+// ---------- 為替の「今の位置」（過去1年の中で高いか安いか） ----------
+
+const FX_WINDOW_DAYS = 365;
+const FX_MIN_POINTS = 60;
+const FX_LOW = 20;   // これ以下なら円高寄り（割安）
+const FX_HIGH = 80;  // これ以上なら円安寄り（割高）
+
+function fxPosition(history) {
+  if (!Array.isArray(history) || history.length === 0) return null;
+  const latest = history[history.length - 1];
+  const from = daysBefore(latest.date, FX_WINDOW_DAYS);
+  const values = history.filter((h) => h.date >= from && typeof h.jpy === "number").map((h) => h.jpy);
+  if (values.length < FX_MIN_POINTS) return null;
+  const below = values.filter((v) => v < latest.jpy).length;
+  const pct = Math.round((below / values.length) * 100);
+  const level = pct <= FX_LOW ? "low" : pct >= FX_HIGH ? "high" : "mid";
+  const label = { low: "円高寄り（割安）", mid: "平均的", high: "円安寄り（割高）" }[level];
+  return { min: Math.min(...values), max: Math.max(...values), pct, level, label };
+}
+
+// ---------- 比較表の並べ替え ----------
+// natural：見出しを最初に押したときの順。値の無い行はいつも一番下
+
+const SORT_KEYS = {
+  exchange: { value: (c) => c.pct, ascending: true },     // 円高（割安）が上
+  forecast: { value: (c) => c.tmax, ascending: false },   // 暖かい順
+  climate: { value: (c) => c.temp, ascending: false },    // 暖かい順
+  holidays: { value: (c) => c.date, ascending: true },    // 近い順
+  safety: { value: (c) => c.level, ascending: true },     // 低い順
+};
+
+function sortRows(rows, column, direction) {
+  const key = SORT_KEYS[column];
+  if (!key || !direction) return [...rows];
+  const ascending = direction === "natural" ? key.ascending : !key.ascending;
+  const valueOf = (r) => {
+    const cell = r.summary && r.summary[column];
+    if (!cell || (cell.status !== "ok" && cell.status !== "error")) return null;
+    const v = key.value(cell);
+    return v === undefined ? null : v;
+  };
+  return rows
+    .map((r, i) => ({ r, i, v: valueOf(r) }))
+    .sort((a, b) => {
+      if (a.v === null || b.v === null) return (a.v === null) - (b.v === null) || a.i - b.i;
+      const cmp = a.v < b.v ? -1 : a.v > b.v ? 1 : 0;
+      return (ascending ? cmp : -cmp) || a.i - b.i;
+    })
+    .map((x) => x.r);
+}
+
 // ---------- 情報ごとの要約（data → 表の1マス分） ----------
 
 const SUMMARIZERS = {
@@ -143,9 +194,10 @@ const SUMMARIZERS = {
     const latest = history[history.length - 1];
     const target = daysBefore(latest.date, 30);
     const before = [...history].reverse().find((h) => h.date <= target);
-    if (!before) return { pct: null, word: null };
+    const position = fxPosition(history);
+    if (!before) return { pct: null, word: null, position };
     const pct = round(((latest.jpy - before.jpy) / before.jpy) * 100, 2);
-    return { pct, word: pct > 0 ? "円安" : pct < 0 ? "円高" : "変化なし" };
+    return { pct, word: pct > 0 ? "円安" : pct < 0 ? "円高" : "変化なし", position };
   },
 
   forecast(data, today) {
@@ -198,6 +250,6 @@ function summarize(records, today) {
 if (typeof module !== "undefined") {
   module.exports = {
     STALE_HOURS, isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly,
-    parseAmount, currencyDigits, toYen, fromYen, formatAmount,
+    parseAmount, currencyDigits, toYen, fromYen, formatAmount, fxPosition, sortRows,
   };
 }

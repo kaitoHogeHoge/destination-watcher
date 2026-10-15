@@ -48,6 +48,80 @@ function cssVar(name) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
+// ---------- この端末に覚えておく設定（折りたたみ・並べ替え） ----------
+// 保存できない環境（プライベートブラウズなど）でも動くよう、失敗しても無視する
+
+function loadSetting(key, fallback) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key));
+    return value === null ? fallback : value;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+function saveSetting(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    /* 保存できなくても表示はそのまま使える */
+  }
+}
+
+// ---------- 区切りの折りたたみ ----------
+// 同じ種類の区切り（例：全都市の「祝日」）はまとめて開閉する
+
+const COLLAPSE_KEY = "destination-watcher.collapsed";
+const collapsedList = loadSetting(COLLAPSE_KEY, []);
+const collapsed = new Set(Array.isArray(collapsedList) ? collapsedList : []);
+
+function applyCollapsed(section) {
+  const closed = collapsed.has(section.dataset.key);
+  section.classList.toggle("collapsed", closed);
+  section.querySelector(".section-head").setAttribute("aria-expanded", String(!closed));
+}
+
+function setCollapsed(key, closed) {
+  if (closed) collapsed.add(key);
+  else collapsed.delete(key);
+  saveSetting(COLLAPSE_KEY, [...collapsed]);
+  document.querySelectorAll(".section[data-key]").forEach((section) => {
+    if (section.dataset.key === key) applyCollapsed(section);
+  });
+}
+
+function makeCollapsible(section, head, key) {
+  section.dataset.key = key;
+  head.classList.add("toggle");
+  head.setAttribute("role", "button");
+  head.tabIndex = 0;
+  const toggle = () => setCollapsed(key, !collapsed.has(key));
+  head.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return; // 見出しの中のリンクは普通に開く
+    toggle();
+  });
+  head.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggle();
+    }
+  });
+  applyCollapsed(section);
+}
+
+function renderCollapseButtons() {
+  const bar = el("div", "collapse-buttons");
+  const keys = () => [...new Set([...document.querySelectorAll(".section[data-key]")].map((s) => s.dataset.key))];
+  const openAll = el("button", null, "すべて開く");
+  const closeAll = el("button", null, "すべて閉じる");
+  openAll.type = "button";
+  closeAll.type = "button";
+  openAll.addEventListener("click", () => keys().forEach((k) => setCollapsed(k, false)));
+  closeAll.addEventListener("click", () => keys().forEach((k) => setCollapsed(k, true)));
+  bar.append(openAll, closeAll);
+  return bar;
+}
+
 // ---------- データの読み込み ----------
 
 async function loadJson(path) {
@@ -66,6 +140,7 @@ function renderSection(record, source, card) {
     head.append(el("span", "updated", `最終更新：${fmtDateTime(record.updated_at)}`));
   }
   section.append(head);
+  makeCollapsible(section, head, source.name);
 
   if (!record) {
     section.append(el("p", "note", "データがまだありません"));
@@ -145,6 +220,15 @@ function renderExchange(data) {
   changes.append(changeText("前日比", latest.jpy, previous && previous.jpy));
   changes.append(changeText("30日前比", latest.jpy, ago30 && ago30.jpy));
   wrap.append(changes);
+  const position = fxPosition(history);
+  if (position) {
+    const d = yenDigits(latest.jpy);
+    wrap.append(el(
+      "p",
+      `fx-position level-${position.level}`,
+      `過去1年（${position.min.toFixed(d)}〜${position.max.toFixed(d)}円）の中で、安い方から${position.pct}%の位置：${position.label}`,
+    ));
+  }
 
   const ranges = [
     { label: "30日", days: 30 },
@@ -447,8 +531,6 @@ const RENDERERS = {
   safety: renderSafety,
 };
 
-// ---------- 全体 ----------
-
 // ---------- 現地時刻と時差 ----------
 
 function startLocalClock(target, timeZone) {
@@ -480,6 +562,7 @@ function renderHourlySection(dest) {
   const body = el("div");
   body.append(el("p", "note", "読み込み中…"));
   section.append(head, body, el("p", "provider", "出典：Open-Meteo（この画面を開いたときに取得）"));
+  makeCollapsible(section, head, "hourly");
 
   const failed = () => {
     when.textContent = "";
@@ -569,16 +652,23 @@ const COMPARE_COLUMNS = [
   {
     label: "為替（30日前比）",
     name: "exchange",
+    sortHint: "円高（割安）の順",
     render: (c) => {
       if (c.pct === null) return el("span", "flat", "—");
       const cls = c.pct > 0 ? "up" : c.pct < 0 ? "down" : "flat";
       const sign = c.pct > 0 ? "+" : c.pct < 0 ? "−" : "±";
-      return el("span", cls, `${sign}${Math.abs(c.pct).toFixed(2)}%・${c.word}`);
+      const span = el("span", cls, `${sign}${Math.abs(c.pct).toFixed(2)}%・${c.word}`);
+      if (c.position) {
+        const word = { low: "割安", mid: "平均的", high: "割高" }[c.position.level];
+        span.append(el("span", `fx-position level-${c.position.level}`, `（1年で${word}）`));
+      }
+      return span;
     },
   },
   {
     label: "来週の天気（7日間）",
     name: "forecast",
+    sortHint: "暖かい順",
     render: (c) => {
       const span = el("span");
       span.append(el("span", "up", fmtNumber(c.tmax, "°", 1)), " / ", el("span", "down", fmtNumber(c.tmin, "°", 1)));
@@ -589,6 +679,7 @@ const COMPARE_COLUMNS = [
   {
     label: "今月の気候",
     name: "climate",
+    sortHint: "暖かい順",
     render: (c) => {
       const span = el("span", null, `${fmtNumber(c.temp, "°", 1)}・${fmtNumber(c.precip, "mm")}`);
       if (c.best && c.best.length) span.append(el("span", "flat", `（目安：${c.best.join("・")}月）`));
@@ -598,42 +689,80 @@ const COMPARE_COLUMNS = [
   {
     label: "次の祝日",
     name: "holidays",
+    sortHint: "近い順",
     render: (c) => (c.date ? el("span", null, `${fmtDate(c.date)} ${c.name}`) : el("span", "flat", "6か月内なし")),
   },
   {
     label: "危険レベル",
     name: "safety",
+    sortHint: "危険レベルの低い順",
     render: (c) => el("span", `badge small level-${c.level}`, c.level === 0 ? "なし" : `レベル${c.level}`),
   },
 ];
+
+const SORT_KEY = "destination-watcher.sort";
 
 function renderCompare(rows) {
   const section = el("section", "compare");
   section.append(el("h2", null, "比較"));
   const scroller = el("div", "table-scroll");
   const table = el("table", "compare-table");
-  const head = el("tr");
-  head.append(el("th", null, "行き先"));
-  for (const col of COMPARE_COLUMNS) head.append(el("th", null, col.label));
-  table.append(head);
+  const thead = el("thead");
+  const tbody = el("tbody");
+  table.append(thead, tbody);
 
   const today = todayLocal();
-  for (const { dest, records } of rows) {
+  const items = rows.map(({ dest, records }) => ({ id: dest.id, dest, summary: summarize(records, today) }));
+  const saved = loadSetting(SORT_KEY, null);
+  let sort = saved && typeof saved === "object" ? saved : { column: null, direction: null };
+
+  function drawHead() {
     const tr = el("tr");
-    const nameCell = el("th");
-    const link = el("a", null, dest.name);
-    link.href = `#dest-${dest.id}`;
-    nameCell.append(link);
-    tr.append(nameCell);
-    const summary = summarize(records, today);
+    tr.append(el("th", null, "行き先"));
     for (const col of COMPARE_COLUMNS) {
-      tr.append(compareCell(summary[col.name] || { status: "missing" }, col.render));
+      const th = el("th");
+      const button = el("button", "sort-button", col.label);
+      button.type = "button";
+      const active = sort.column === col.name;
+      th.setAttribute("aria-sort", active ? (sort.direction === "natural" ? "ascending" : "descending") : "none");
+      if (active) button.append(el("span", "sort-mark", sort.direction === "natural" ? " ▲" : " ▼"));
+      button.title = `${col.sortHint}（もう一度押すと逆順）`;
+      button.setAttribute("aria-label", `${col.label}で並べ替え：${col.sortHint}`);
+      button.setAttribute("aria-label", `${col.label}で並べ替え：${col.sortHint}`);
+      button.addEventListener("click", () => {
+        const direction = active && sort.direction === "natural" ? "reverse" : "natural";
+        sort = { column: col.name, direction };
+        saveSetting(SORT_KEY, sort);
+        drawHead();
+        drawBody();
+      });
+      th.append(button);
+      tr.append(th);
     }
-    table.append(tr);
+    thead.replaceChildren(tr);
   }
+
+  function drawBody() {
+    tbody.replaceChildren();
+    for (const { dest, summary } of sortRows(items, sort.column, sort.direction)) {
+      const tr = el("tr");
+      const nameCell = el("th");
+      const link = el("a", null, dest.name);
+      link.href = `#dest-${dest.id}`;
+      nameCell.append(link);
+      tr.append(nameCell);
+      for (const col of COMPARE_COLUMNS) {
+        tr.append(compareCell(summary[col.name] || { status: "missing" }, col.render));
+      }
+      tbody.append(tr);
+    }
+  }
+
+  drawHead();
+  drawBody();
   scroller.append(table);
   section.append(scroller);
-  section.append(el("p", "note", "☂ は降水確率50%以上の日数。為替は「1外貨＝何円」が30日前より上がっていれば円安です。"));
+  section.append(el("p", "note", "見出しを押すと並べ替えます。☂ は降水確率50%以上の日数。為替は「1外貨＝何円」が30日前より上がっていれば円安です。"));
   return section;
 }
 
@@ -648,6 +777,7 @@ async function main() {
     return;
   }
   generated.textContent = `最終実行：${fmtDateTime(index.generated_at)}`;
+  document.querySelector(".page-header").append(renderCollapseButtons());
   if (isStale(index.generated_at, Date.now())) {
     document.querySelector(".page-header").after(renderStaleBanner(index.generated_at));
   }

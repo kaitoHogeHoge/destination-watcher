@@ -3,7 +3,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const {
   isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly,
-  parseAmount, currencyDigits, toYen, fromYen, formatAmount,
+  parseAmount, currencyDigits, toYen, fromYen, formatAmount, fxPosition, sortRows,
 } = require("../../site/summary.js");
 
 const HOUR = 60 * 60 * 1000;
@@ -51,13 +51,13 @@ test("為替：30日前比の％と円安・円高", () => {
   ];
   const s = summarize({ exchange: ok({ currency: "GBP", history }) }, TODAY);
   // 30日前（9/13）以前で最も新しいのは 9/11 の 200 → +5%
-  assert.deepEqual(s.exchange, { status: "ok", pct: 5, word: "円安" });
+  assert.deepEqual(s.exchange, { status: "ok", pct: 5, word: "円安", position: null });
 });
 
 test("為替：30日前の値が無ければ pct は null", () => {
   const history = [{ date: "2026-10-12", jpy: 210 }];
   const s = summarize({ exchange: ok({ currency: "GBP", history }) }, TODAY);
-  assert.deepEqual(s.exchange, { status: "ok", pct: null, word: null });
+  assert.deepEqual(s.exchange, { status: "ok", pct: null, word: null, position: null });
 });
 
 test("天気：今日から7日の平均と雨の日数（降水確率50%以上）", () => {
@@ -241,4 +241,95 @@ test("換算の表示はカンマ区切り", () => {
   assert.equal(formatAmount(5248, 0), "5,248");
   assert.equal(formatAmount(47.6, 2), "47.60");
   assert.equal(formatAmount(1234567.891, 2), "1,234,567.89");
+});
+
+// ---------- 為替の「今の位置」 ----------
+
+function dailyHistory(values, lastDate = "2026-10-13") {
+  return values.map((jpy, i) => ({ date: daysBefore(lastDate, values.length - 1 - i), jpy }));
+}
+
+test("為替の位置：1年で最も高い → 円安寄り（割高）", () => {
+  const values = Array.from({ length: 100 }, (_, i) => 100 + i); // 最後が最高値
+  assert.deepEqual(fxPosition(dailyHistory(values)), { min: 100, max: 199, pct: 99, level: "high", label: "円安寄り（割高）" });
+});
+
+test("為替の位置：1年で最も安い → 円高寄り（割安）", () => {
+  const values = Array.from({ length: 100 }, (_, i) => 199 - i);
+  assert.equal(fxPosition(dailyHistory(values)).level, "low");
+  assert.equal(fxPosition(dailyHistory(values)).label, "円高寄り（割安）");
+});
+
+test("為替の位置：真ん中 → 平均的", () => {
+  const values = Array.from({ length: 101 }, (_, i) => 100 + i);
+  values.push(150);
+  const p = fxPosition(dailyHistory(values));
+  assert.equal(p.level, "mid");
+  assert.equal(p.label, "平均的");
+});
+
+test("為替の位置：境目は20%と80%", () => {
+  // 自分より安い日の割合（自分も含めた日数で割る）。20% 以下は割安、80% 以上は割高
+  const base = Array.from({ length: 100 }, (_, i) => i + 1);
+  assert.equal(fxPosition(dailyHistory([...base, 20.5])).pct, 20);
+  assert.equal(fxPosition(dailyHistory([...base, 20.5])).level, "low");
+  assert.equal(fxPosition(dailyHistory([...base, 81.5])).pct, 80);
+  assert.equal(fxPosition(dailyHistory([...base, 81.5])).level, "high");
+});
+
+test("為替の位置：1年より前の値は使わない、60日分未満なら null", () => {
+  const old = dailyHistory([999], "2025-01-01");
+  const recent = dailyHistory(Array.from({ length: 70 }, (_, i) => 100 + i));
+  assert.equal(fxPosition([...old, ...recent]).max, 169);
+  assert.equal(fxPosition(dailyHistory(Array.from({ length: 59 }, (_, i) => i))), null);
+  assert.equal(fxPosition([]), null);
+});
+
+test("比較表の要約に為替の位置が入る", () => {
+  const history = dailyHistory(Array.from({ length: 100 }, (_, i) => 100 + i));
+  const s = summarize({ exchange: ok({ currency: "GBP", history }) }, "2026-10-13");
+  assert.equal(s.exchange.position.level, "high");
+});
+
+// ---------- 比較表の並べ替え ----------
+
+function row(id, cells) {
+  return { id, summary: cells };
+}
+const ROWS = [
+  row("a", { exchange: { status: "ok", pct: 1.5 }, forecast: { status: "ok", tmax: 10 }, safety: { status: "ok", level: 2 } }),
+  row("b", { exchange: { status: "ok", pct: -0.5 }, forecast: { status: "ok", tmax: 30 }, safety: { status: "ok", level: 0 } }),
+  row("c", { exchange: { status: "unsupported" }, forecast: { status: "error", tmax: 20 }, safety: { status: "ok", level: 0 } }),
+  row("d", { exchange: { status: "ok", pct: null }, forecast: { status: "missing" }, safety: { status: "missing" } }),
+];
+const ids = (rows) => rows.map((r) => r.id);
+
+test("並べ替え：為替は円高（割安）が上、値の無いものは下", () => {
+  assert.deepEqual(ids(sortRows(ROWS, "exchange", "natural")), ["b", "a", "c", "d"]);
+  assert.deepEqual(ids(sortRows(ROWS, "exchange", "reverse")), ["a", "b", "c", "d"]);
+});
+
+test("並べ替え：天気は暖かい順、前回のデータ（error）も並べる", () => {
+  assert.deepEqual(ids(sortRows(ROWS, "forecast", "natural")), ["b", "c", "a", "d"]);
+});
+
+test("並べ替え：危険レベルは低い順、同じなら元の順", () => {
+  assert.deepEqual(ids(sortRows(ROWS, "safety", "natural")), ["b", "c", "a", "d"]);
+});
+
+test("並べ替え：気候・祝日", () => {
+  const rows = [
+    row("x", { climate: { status: "ok", temp: 5 }, holidays: { status: "ok", date: "2026-12-25" } }),
+    row("y", { climate: { status: "ok", temp: 25 }, holidays: { status: "ok", date: "2026-11-09" } }),
+    row("z", { climate: { status: "ok", temp: null }, holidays: { status: "ok", date: null } }),
+  ];
+  assert.deepEqual(ids(sortRows(rows, "climate", "natural")), ["y", "x", "z"]);
+  assert.deepEqual(ids(sortRows(rows, "holidays", "natural")), ["y", "x", "z"]);
+});
+
+test("並べ替え：知らない列や指定なしは元の順のまま、元の配列は変えない", () => {
+  assert.deepEqual(ids(sortRows(ROWS, "unknown", "natural")), ["a", "b", "c", "d"]);
+  assert.deepEqual(ids(sortRows(ROWS, null, null)), ["a", "b", "c", "d"]);
+  sortRows(ROWS, "exchange", "natural");
+  assert.deepEqual(ids(ROWS), ["a", "b", "c", "d"]);
 });
