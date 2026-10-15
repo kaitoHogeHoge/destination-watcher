@@ -1,0 +1,17 @@
+{
+  "source": "photo",
+  "provider": "wikimedia",
+  "status": "ok",
+  "updated_at": "2026-10-15T12:01:59+09:00",
+  "attempted_at": "2026-10-15T12:01:59+09:00",
+  "error": null,
+  "data": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/London_Skyline_%28125508655%29.jpeg/960px-London_Skyline_%28125508655%29.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:London_Skyline_(125508655).jpeg",
+    "artist": "Ilya Grigorik",
+    "license": "CC BY-SA 3.0",
+    "file": "File:London_Skyline_(125508655).jpeg",
+    "requested": null
+  },
+  "data_version": 1
+}

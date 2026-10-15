@@ -1,0 +1,17 @@
+{
+  "source": "photo",
+  "provider": "wikimedia",
+  "status": "ok",
+  "updated_at": "2026-10-15T12:01:59+09:00",
+  "attempted_at": "2026-10-15T12:01:59+09:00",
+  "error": null,
+  "data": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Troms%C3%B8_view.jpg/960px-Troms%C3%B8_view.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Troms%C3%B8_view.jpg",
+    "artist": "The original uploader was Fjellheisen at German Wikipedia.",
+    "license": "CC BY-SA 2.0 de",
+    "file": "File:Tromsø_view.jpg",
+    "requested": null
+  },
+  "data_version": 1
+}
