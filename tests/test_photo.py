@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pytest
 
-from conftest import load_fixture
+from conftest import Sequence, load_fixture
 from fetcher.http import FetchError, NotFoundError
 from fetcher.sources.photo import PhotoSource, file_from_url, is_photo_file, strip_html
 from fetcher.timeutil import JST
@@ -75,7 +75,7 @@ def test_uses_config_photo_first(fake_http):
 def test_no_article_returns_no_photo(fake_http):
     fake_http.add(SUMMARY, NotFoundError("データ元がエラーを返しました（HTTP 404）"))
     fake_http.add(MEDIA, NotFoundError("データ元がエラーを返しました（HTTP 404）"))
-    assert PhotoSource().fetch({"id": "x", "name": "存在しない町"}, None, NOW) == {"url": None}
+    assert PhotoSource().fetch({"id": "x", "name": "存在しない町"}, None, NOW) == {"url": None, "requested": None}
 
 
 def test_network_failure_is_an_error(fake_http):
@@ -98,9 +98,46 @@ def test_non_http_urls_are_dropped(fake_http):
     info["thumburl"] = "javascript:alert(1)"
     fake_http.add(SUMMARY, load_fixture("wiki_summary_london.json"))
     fake_http.add(COMMONS, raw)
-    assert PhotoSource().fetch({"id": "london", "name": "ロンドン"}, None, NOW) == {"url": None}
+    assert PhotoSource().fetch({"id": "london", "name": "ロンドン"}, None, NOW) == {"url": None, "requested": None}
 
 
 def test_photo_source_settings():
     s = PhotoSource()
     assert (s.name, s.provider, s.refresh_days) == ("photo", "wikimedia", 90)
+
+
+def test_records_requested_override(fake_http):
+    fake_http.add(COMMONS, commons())
+    data = PhotoSource().fetch({"id": "sg", "name": "シンガポール", "photo": "File:Marina_Bay.jpg"}, None, NOW)
+    assert data["requested"] == "File:Marina_Bay.jpg"
+    fake_http.add(SUMMARY, load_fixture("wiki_summary_london.json"))
+    assert PhotoSource().fetch({"id": "london", "name": "ロンドン"}, None, NOW)["requested"] is None
+
+
+def test_outdated_when_override_changes():
+    source = PhotoSource()
+    assert source.is_outdated({"photo": "File:New.jpg"}, {"requested": "File:Old.jpg"}) is True
+    assert source.is_outdated({}, {"requested": "File:Old.jpg"}) is True  # 指定を消した
+    assert source.is_outdated({"photo": "File:Same.jpg"}, {"requested": "File:Same.jpg"}) is False
+    assert source.is_outdated({}, {"url": None}) is False  # 古い形式（requested なし）・指定なし
+
+
+def test_override_without_file_prefix(fake_http):
+    fake_http.add(COMMONS, commons())
+    data = PhotoSource().fetch({"id": "sg", "name": "シンガポール", "photo": "Marina_Bay.jpg"}, None, NOW)
+    assert data["file"] == "File:Marina_Bay.jpg"
+
+
+def test_tries_next_candidate_when_commons_has_no_file(fake_http):
+    media = {"items": [
+        {"type": "image", "title": "ファイル:Local_only.jpg"},
+        {"type": "image", "title": "ファイル:Second_photo.jpg"},
+    ]}
+    missing = {"query": {"pages": [{"title": "File:Local_only.jpg", "missing": True}]}}
+    fake_http.add(SUMMARY, load_fixture("wiki_summary_singapore.json"))
+    fake_http.add(MEDIA, media)
+    fake_http.add(COMMONS, Sequence(missing, commons()))
+    data = PhotoSource().fetch({"id": "sg", "name": "シンガポール"}, None, NOW)
+    assert data["file"] == "File:Second_photo.jpg"
+    titles = [c["params"]["titles"] for c in fake_http.calls if c["url"] == COMMONS]
+    assert titles == ["File:Local_only.jpg", "File:Second_photo.jpg"]

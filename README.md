@@ -58,7 +58,7 @@ git pull
 | `mofa_code` | 外務省の国番号（`config/countries.json` で調べられる）。`null` なら安全情報は対象外 |
 | `lat` / `lon` | 緯度・経度 |
 | `currency` | 3文字の通貨コード（例：GBP）。`null` なら為替は対象外 |
-| `photo` | 省略可。カードの写真を指定する Wikimedia Commons のファイル名（例：`"File:Marina_Bay_at_night.jpg"`）。省略すると Wikipedia の記事から自動で選ぶ |
+| `photo` | 省略可。カードの写真を指定する Wikimedia Commons のファイル名（例：`"File:Marina_Bay_at_night.jpg"`）。省略すると Wikipedia の記事から自動で選ぶ。変えると次の取得で反映される（「File:」は省略可） |
 
 データ元が対応していない国・通貨は、その情報だけ「対象外」と表示されます。
 

@@ -122,11 +122,12 @@ body {
   background: rgba(0, 0, 0, 0.35);
   border-radius: 999px;
   padding: 2px 8px;
+  display: flex;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   text-decoration: none;
 }
+.credit-artist { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.credit-license { flex: none; }
 @media (max-width: 639px) { .hero { height: 200px; } .hero-name { font-size: 1.75rem; } }
 
 /* 要点のタイル */

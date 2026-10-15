@@ -203,3 +203,24 @@ def test_same_data_version_is_kept(tmp_path):
     source.data_version = 2
     summary = run([LONDON], [source], tmp_path, NOW)
     assert summary.kept == 1
+
+
+class OutdatedSource(FakeSource):
+    """設定が変わったら「古い」と答える部品（写真の指定を変えたときと同じ）。"""
+
+    def is_outdated(self, dest, previous_data):
+        return dest.get("photo") != (previous_data or {}).get("requested")
+
+
+def test_source_can_force_refresh_when_settings_change(tmp_path):
+    write_record(tmp_path, "london", ok_record("a", "fake", {"requested": None}, NOW - timedelta(days=1)))
+    source = OutdatedSource("a", result={"requested": "File:X.jpg"}, refresh_days=90)
+    summary = run([{**LONDON, "photo": "File:X.jpg"}], [source], tmp_path, NOW)
+    assert len(source.calls) == 1 and summary.ok == 1
+
+
+def test_source_not_outdated_is_kept(tmp_path):
+    write_record(tmp_path, "london", ok_record("a", "fake", {"requested": "File:X.jpg"}, NOW - timedelta(days=1)))
+    source = OutdatedSource("a", result={}, refresh_days=90)
+    summary = run([{**LONDON, "photo": "File:X.jpg"}], [source], tmp_path, NOW)
+    assert source.calls == [] and summary.kept == 1

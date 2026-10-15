@@ -5,6 +5,7 @@
 """
 
 import html
+import itertools
 import re
 from urllib.parse import quote, unquote, urlparse
 
@@ -49,6 +50,17 @@ def _safe_url(value) -> str | None:
     return value if isinstance(value, str) and value.startswith(("https://", "http://")) else None
 
 
+MAX_CANDIDATES = 3
+
+
+def normalize_file(name: str | None) -> str | None:
+    """設定の photo を「File:〜」の形にそろえる（「File:」を書き忘れても使えるように）。"""
+    name = (name or "").strip()
+    if not name:
+        return None
+    return name if name.startswith("File:") else f"File:{re.sub(r'^(ファイル|file):', '', name, flags=re.I)}"
+
+
 def _candidate_files(name: str):
     """記事の代表画像、次に画像一覧の写真を、順に返す。記事が無ければ何も返さない。"""
     title = quote(name, safe="")
@@ -71,7 +83,6 @@ def _candidate_files(name: str):
         file = re.sub(r"^(ファイル|File):", "File:", item.get("title") or "")
         if file.startswith("File:") and is_photo_file(file):
             yield file
-            return
 
 
 def _commons_info(file: str) -> dict:
@@ -102,8 +113,18 @@ class PhotoSource(Source):
     label = "写真"
     refresh_days = 90
 
+    def is_outdated(self, dest, previous):
+        # 設定の photo を変えた・消したときは、90日を待たずに取り直す
+        return normalize_file(dest.get("photo")) != (previous or {}).get("requested")
+
     def fetch(self, dest, previous, now):
-        file = dest.get("photo") or next(_candidate_files(dest["name"]), None)
-        if not file:
-            return {"url": None}
-        return _commons_info(file)
+        requested = normalize_file(dest.get("photo"))
+        if requested:
+            candidates = [requested]
+        else:
+            candidates = list(itertools.islice(_candidate_files(dest["name"]), MAX_CANDIDATES))
+        for file in candidates:
+            info = _commons_info(file)
+            if info.get("url"):  # Commons に無い（日本語版だけの画像など）ときは次の候補へ
+                return {**info, "requested": requested}
+        return {"url": None, "requested": requested}

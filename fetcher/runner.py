@@ -30,13 +30,19 @@ def pick_source(candidates: list[Source], dest: dict) -> Source | None:
     return None
 
 
-def needs_refresh(previous: dict | None, source: Source, now: datetime) -> bool:
+def needs_refresh(previous: dict | None, source: Source, now: datetime, dest: dict | None = None) -> bool:
     if source.refresh_days == 0 or previous is None:
         return True
     if previous.get("status") != "ok" or previous.get("provider") != source.provider:
         return True
     if previous.get("data_version", 1) != source.data_version:  # 保存の形が変わった → 取り直す
         return True
+    if dest is not None:
+        try:
+            if source.is_outdated(dest, previous.get("data")):  # 設定が変わった → 取り直す
+                return True
+        except Exception:
+            return True
     try:
         updated_at = datetime.fromisoformat(previous["updated_at"])
         return now - updated_at >= timedelta(days=source.refresh_days)
@@ -90,7 +96,7 @@ def run(destinations: list[dict], sources: list[Source], data_dir: Path, now: da
                 log.info("%s %s unsupported", dest["id"], name)
                 continue
 
-            if not needs_refresh(previous, source, now):
+            if not needs_refresh(previous, source, now, dest):
                 summary.kept += 1
                 log.info("%s %s kept", dest["id"], name)
                 continue

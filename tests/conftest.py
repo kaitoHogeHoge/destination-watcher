@@ -13,6 +13,16 @@ def load_fixture(name: str):
     return path.read_bytes()
 
 
+class Sequence:
+    """FakeHttp に登録すると、呼ばれるたびに次の値を返す。"""
+
+    def __init__(self, *values):
+        self.values = list(values)
+
+    def next(self):
+        return self.values.pop(0)
+
+
 class FakeHttp:
     """fetcher.http の get_json / get_bytes を差し替える偽物。
 
@@ -31,6 +41,8 @@ class FakeHttp:
         self.calls.append({"url": url, "params": params})
         for prefix, value in self.routes:
             if url.startswith(prefix):
+                if isinstance(value, Sequence):  # Sequence を渡すと、呼ばれるたびに順に返す
+                    value = value.next()
                 if isinstance(value, Exception):
                     raise value
                 return value

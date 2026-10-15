@@ -141,7 +141,11 @@ const SECTION_ICONS = {
 
 function sectionTitle(key, label) {
   const h3 = el("h3");
-  if (SECTION_ICONS[key]) h3.append(el("span", "section-icon", SECTION_ICONS[key]));
+  if (SECTION_ICONS[key]) {
+    const mark = icon(SECTION_ICONS[key]);
+    mark.classList.add("section-icon");
+    h3.append(mark);
+  }
   h3.append(label);
   return h3;
 }
@@ -645,23 +649,37 @@ function renderHero(dest, photo, clock) {
   return hero;
 }
 
+// 装飾の絵文字は読み上げない
+function icon(emoji) {
+  const span = el("span", "icon", emoji);
+  span.setAttribute("aria-hidden", "true");
+  return span;
+}
+
 function renderCredit(photo) {
-  const text = `📷 ${photo.artist || "不明"}${photo.license ? ` / ${photo.license}` : ""}`;
-  const credit = el(isHttpUrl(photo.page) ? "a" : "span", "hero-credit", text);
+  const artist = photo.artist || "不明";
+  const credit = el(isHttpUrl(photo.page) ? "a" : "span", "hero-credit");
+  // 撮影者名が長くても、ライセンスは必ず見えるようにする（撮影者名の方だけ省略する）
+  credit.append(icon("📷 "), el("span", "credit-artist", artist));
+  if (photo.license) credit.append(el("span", "credit-license", ` / ${photo.license}`));
   if (credit.tagName === "A") {
     credit.href = photo.page;
     credit.target = "_blank";
     credit.rel = "noopener";
-    credit.title = `${text}（押すと写真のページ：Wikimedia Commons を開く）`;
+    const text = `写真：${artist}${photo.license ? `、${photo.license}` : ""}`;
+    credit.title = `${text}（写真のページ：Wikimedia Commons を開く）`;
+    credit.setAttribute("aria-label", `${text}。写真のページを新しいタブで開く`);
   }
   return credit;
 }
 
 // ---------- 要点のタイル ----------
 
-function tile(icon, key, value, sub, options = {}) {
+function tile(emoji, key, value, sub, options = {}) {
   const box = el("div", "tile");
-  box.append(el("div", "tile-key", `${icon} ${key}`));
+  const head = el("div", "tile-key");
+  head.append(icon(`${emoji} `), key);
+  box.append(head);
   box.append(el("div", `tile-value${options.valueClass ? ` ${options.valueClass}` : ""}`, value));
   const subLine = el("div", `tile-sub${options.subClass ? ` ${options.subClass}` : ""}`);
   if (options.warn) subLine.append(el("span", "cell-warn", "⚠ "));
