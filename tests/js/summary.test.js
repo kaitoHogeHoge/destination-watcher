@@ -1,7 +1,10 @@
 // 実行方法：node --test tests/js/
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly } = require("../../site/summary.js");
+const {
+  isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly,
+  parseAmount, currencyDigits, toYen, fromYen, formatAmount,
+} = require("../../site/summary.js");
 
 const HOUR = 60 * 60 * 1000;
 const GENERATED = "2026-10-13T06:00:00+09:00";
@@ -204,4 +207,38 @@ test("1時間ごとの天気：昼か夜か（is_day）も読む", () => {
   assert.equal(parseHourly(raw)[0].night, true);
   const noFlag = { hourly: { time: ["2026-10-14T05:00"], weather_code: [0] } };
   assert.equal(parseHourly(noFlag)[0].night, false);
+});
+
+// ---------- 円換算 ----------
+
+test("金額の読み取り：半角・全角・カンマ・空白", () => {
+  assert.equal(parseAmount("25"), 25);
+  assert.equal(parseAmount("２５"), 25);
+  assert.equal(parseAmount("1,234.5"), 1234.5);
+  assert.equal(parseAmount("１，２３４．５"), 1234.5);
+  assert.equal(parseAmount(" 10 000 "), 10000);
+});
+
+test("金額の読み取り：空欄・おかしな入力は null", () => {
+  for (const bad of ["", "   ", "abc", "1.2.3", "-5", "1e3", null, undefined]) {
+    assert.equal(parseAmount(bad), null, String(bad));
+  }
+});
+
+test("通貨の普段の桁", () => {
+  assert.equal(currencyDigits("GBP"), 2);
+  assert.equal(currencyDigits("KRW"), 0);
+  assert.equal(currencyDigits("ZZZ"), 2); // 知らない通貨は2桁
+});
+
+test("換算：外貨→円は整数、円→外貨は通貨の桁", () => {
+  assert.equal(toYen(25, 209.91), 5248);
+  assert.equal(fromYen(10000, 209.91, 2), 47.64);
+  assert.equal(fromYen(10000, 0.1077, 0), 92851);
+});
+
+test("換算の表示はカンマ区切り", () => {
+  assert.equal(formatAmount(5248, 0), "5,248");
+  assert.equal(formatAmount(47.6, 2), "47.60");
+  assert.equal(formatAmount(1234567.891, 2), "1,234,567.89");
 });

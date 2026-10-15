@@ -101,6 +101,40 @@ function parseHourly(raw) {
   }));
 }
 
+// ---------- 円換算 ----------
+
+// 入力欄の文字を数値にする。全角数字・カンマ・空白を受け付ける。読めなければ null
+function parseAmount(text) {
+  if (typeof text !== "string") return null;
+  const normalized = text
+    .replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0))
+    .replace(/[．。]/g, ".")
+    .replace(/[,，\s]/g, "");
+  if (!/^\d+(\.\d+)?$/.test(normalized)) return null;
+  return Number(normalized);
+}
+
+// その通貨で普段使う小数の桁（ポンドは2、ウォンは0）
+function currencyDigits(currency) {
+  try {
+    return new Intl.NumberFormat("ja-JP", { style: "currency", currency }).resolvedOptions().maximumFractionDigits;
+  } catch (e) {
+    return 2;
+  }
+}
+
+function toYen(amount, rate) {
+  return Math.round(amount * rate);
+}
+
+function fromYen(yen, rate, digits) {
+  return round(yen / rate, digits);
+}
+
+function formatAmount(value, digits) {
+  return value.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
+
 // ---------- 情報ごとの要約（data → 表の1マス分） ----------
 
 const SUMMARIZERS = {
@@ -162,5 +196,8 @@ function summarize(records, today) {
 }
 
 if (typeof module !== "undefined") {
-  module.exports = { STALE_HOURS, isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly };
+  module.exports = {
+    STALE_HOURS, isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly,
+    parseAmount, currencyDigits, toYen, fromYen, formatAmount,
+  };
 }

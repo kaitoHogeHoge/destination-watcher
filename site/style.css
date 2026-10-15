@@ -215,4 +215,24 @@ table.climate .current { background: color-mix(in srgb, var(--accent) 18%, trans
 .safety-links { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.8rem; margin: 10px 0 0; }
 .safety-links a { color: var(--accent); }
 
+/* 円換算 */
+.converter { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.converter-head { font-size: 0.85rem; font-weight: 600; margin: 0 0 6px; }
+.converter-row { display: flex; align-items: center; gap: 6px; }
+.converter-field { flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 4px; }
+.converter-field input {
+  width: 100%;
+  min-width: 0;
+  font: inherit;
+  font-size: 1rem; /* 16px 未満だと iPhone で入力時に画面が拡大される */
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  text-align: right;
+}
+.converter-unit { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
+.converter-arrow { color: var(--muted); }
+
 .page-footer { color: var(--muted); font-size: 0.75rem; padding-bottom: 32px; }

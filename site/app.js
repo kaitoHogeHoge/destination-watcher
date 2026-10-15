@@ -201,7 +201,45 @@ function renderExchange(data) {
   }
   // Chart.js は defer で読み込むので、描画は要素が画面に入った後に行う
   requestAnimationFrame(() => draw(90));
+  wrap.append(renderConverter(data.currency, latest));
   return wrap;
+}
+
+// ---------- 円換算の計算機 ----------
+
+function renderConverter(currency, latest) {
+  const box = el("div", "converter");
+  box.append(el("p", "converter-head", `円換算（${fmtDate(latest.date)} のレートで計算）`));
+  const digits = currencyDigits(currency);
+  const row = el("div", "converter-row");
+
+  function field(unit, label) {
+    const wrap = el("label", "converter-field");
+    const input = el("input");
+    input.type = "text";
+    input.inputMode = "decimal";
+    input.autocomplete = "off";
+    input.placeholder = "0";
+    input.setAttribute("aria-label", label);
+    wrap.append(input, el("span", "converter-unit", unit));
+    return { wrap, input };
+  }
+  const foreign = field(currency, `${currency} の金額`);
+  const yen = field("円", "円の金額");
+  row.append(foreign.wrap, el("span", "converter-arrow", "⇄"), yen.wrap);
+
+  // 入力した側を元に、もう片方を書き換える
+  foreign.input.addEventListener("input", () => {
+    const amount = parseAmount(foreign.input.value);
+    yen.input.value = amount === null ? "" : formatAmount(toYen(amount, latest.jpy), 0);
+  });
+  yen.input.addEventListener("input", () => {
+    const amount = parseAmount(yen.input.value);
+    foreign.input.value = amount === null ? "" : formatAmount(fromYen(amount, latest.jpy, digits), digits);
+  });
+
+  box.append(row, el("p", "note", "※ 両替やカードの手数料は含みません"));
+  return box;
 }
 
 // ---------- 天気予報 ----------
