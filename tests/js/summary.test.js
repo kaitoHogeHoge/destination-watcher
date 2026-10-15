@@ -3,7 +3,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const {
   isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly,
-  parseAmount, currencyDigits, toYen, fromYen, formatAmount, fxPosition, sortRows,
+  parseAmount, currencyDigits, toYen, fromYen, formatAmount, fxPosition, sortRows, formatMonths,
 } = require("../../site/summary.js");
 
 const HOUR = 60 * 60 * 1000;
@@ -105,7 +105,7 @@ test("祝日：無ければ date は null", () => {
 
 test("安全情報：危険レベル", () => {
   const s = summarize({ safety: ok({ level: 3, infection_level: 0 }) }, TODAY);
-  assert.deepEqual(s.safety, { status: "ok", level: 3 });
+  assert.deepEqual(s.safety, { status: "ok", level: 3, notices: null, changed: false });
 });
 
 test("記録が無い・対象外・失敗の扱い", () => {
@@ -120,7 +120,7 @@ test("記録が無い・対象外・失敗の扱い", () => {
   );
   assert.deepEqual(s.exchange, { status: "missing" });
   assert.deepEqual(s.holidays, { status: "unsupported" });
-  assert.deepEqual(s.safety, { status: "error", level: 1 }); // 前回のデータで計算し、失敗の印を残す
+  assert.deepEqual(s.safety, { status: "error", level: 1, notices: null, changed: false }); // 前回のデータで計算し、失敗の印を残す
   assert.deepEqual(s.forecast, { status: "missing" });
   assert.deepEqual(s.climate, { status: "missing" });
 });
@@ -332,4 +332,25 @@ test("並べ替え：知らない列や指定なしは元の順のまま、元�
   assert.deepEqual(ids(sortRows(ROWS, null, null)), ["a", "b", "c", "d"]);
   sortRows(ROWS, "exchange", "natural");
   assert.deepEqual(ids(ROWS), ["a", "b", "c", "d"]);
+});
+
+// ---------- タイル ----------
+
+test("ベストシーズンの月の書き方", () => {
+  assert.equal(formatMonths([6, 7, 8]), "6〜8月");
+  assert.equal(formatMonths([2, 3, 7]), "2・3・7月");
+  assert.equal(formatMonths([1, 2, 12]), "12〜2月"); // 年をまたぐ
+  assert.equal(formatMonths([1, 11, 12]), "11〜1月");
+  assert.equal(formatMonths([5]), "5月");
+  assert.equal(formatMonths([4, 5]), "4・5月");
+  assert.equal(formatMonths([]), "—");
+  assert.equal(formatMonths(undefined), "—");
+});
+
+test("安全のタイル：お知らせの件数と変化", () => {
+  const recent = new Date(Date.now() - 2 * 24 * 3600 * 1000).toISOString();
+  const s = summarize({ safety: ok({ level: 0, notices: [{}, {}, {}], changed: true, changed_at: recent }) }, TODAY);
+  assert.deepEqual(s.safety, { status: "ok", level: 0, notices: 3, changed: true });
+  const old = summarize({ safety: ok({ level: 0, notices: [], changed: true, changed_at: "2026-01-01T06:00:00+09:00" }) }, TODAY);
+  assert.equal(old.safety.changed, false); // 7日より前の変化は出さない
 });

@@ -56,6 +56,19 @@ function bestSeason(months) {
   return scored.slice(0, BEST_MONTHS).map((m) => m.month).sort((a, b) => a - b);
 }
 
+// 月の並びを短く書く。3か月以上続いていれば「6〜8月」（年またぎは「12〜2月」）、それ以外は「2・3・7月」
+function formatMonths(months) {
+  if (!Array.isArray(months) || months.length === 0) return "—";
+  const sorted = [...new Set(months)].sort((a, b) => a - b);
+  if (sorted.length >= 3) {
+    for (const start of sorted) {
+      const run = sorted.map((_, i) => ((start - 1 + i) % 12) + 1);
+      if (run.every((m) => sorted.includes(m))) return `${start}〜${run[run.length - 1]}月`;
+    }
+  }
+  return `${sorted.join("・")}月`;
+}
+
 // ---------- 現地時刻と時差 ----------
 
 // その時間帯での「壁の時計の時刻」を UTC の数値として表したもの（時差の計算用）
@@ -222,7 +235,12 @@ const SUMMARIZERS = {
   },
 
   safety(data) {
-    return { level: data.level };
+    const recent = Date.now() - Date.parse(data.changed_at) <= 7 * 24 * 60 * 60 * 1000;
+    return {
+      level: data.level,
+      notices: Array.isArray(data.notices) ? data.notices.length : null,
+      changed: Boolean(data.changed) && recent,
+    };
   },
 };
 
@@ -250,6 +268,6 @@ function summarize(records, today) {
 if (typeof module !== "undefined") {
   module.exports = {
     STALE_HOURS, isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly,
-    parseAmount, currencyDigits, toYen, fromYen, formatAmount, fxPosition, sortRows,
+    parseAmount, currencyDigits, toYen, fromYen, formatAmount, fxPosition, sortRows, formatMonths,
   };
 }
