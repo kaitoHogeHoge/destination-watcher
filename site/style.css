@@ -159,7 +159,8 @@ body {
 .section { border-top: 1px solid var(--line); padding: 11px 0; }
 .card-details > .section:first-child { border-top: 0; }
 .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-.section-head h3 { margin: 0; font-size: 0.95rem; }
+.section-head h3 { margin: 0; font-size: 0.95rem; display: flex; align-items: baseline; min-width: 0; }
+.section-head .updated { flex: none; }
 .section:not(.collapsed) > .section-head { margin-bottom: 8px; }
 .updated { color: var(--muted); font-size: 0.75rem; white-space: nowrap; }
 .provider { color: var(--muted); font-size: 0.7rem; margin: 6px 0 0; }
