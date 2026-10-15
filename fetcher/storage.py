@@ -92,7 +92,8 @@ def write_index(data_dir: Path, destinations: list[dict], sources: list[dict], n
         {
             "generated_at": iso(now),
             "destinations": [
-                {"id": d["id"], "name": d["name"], "country": d["country"], "lat": d.get("lat"), "lon": d.get("lon")}
+                {"id": d["id"], "name": d["name"], "country": d["country"], "country_code": d.get("country_code"),
+                 "lat": d.get("lat"), "lon": d.get("lon")}
                 for d in destinations
             ],
             "sources": [{"name": s["name"], "label": s["label"]} for s in sources],

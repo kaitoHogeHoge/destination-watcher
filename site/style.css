@@ -1,9 +1,11 @@
 :root {
-  --bg: #f4f5f7;
+  --bg: #f3f1ec;
   --card: #ffffff;
-  --text: #1f2328;
-  --muted: #667085;
-  --line: #e4e7ec;
+  --text: #23211d;
+  --muted: #6f6a60;
+  --line: #e6e1d6;
+  --hero-empty: #6b6457; /* 写真が無いときの帯。白い文字が読める濃さにする */
+  --shadow: 0 6px 24px rgba(40, 32, 20, 0.08);
   --accent: #2463eb;
   --up: #d92d20;     /* 円安（外貨が高くなった） */
   --down: #1570ef;   /* 円高（外貨が安くなった） */
@@ -11,16 +13,19 @@
   --warn-text: #93370d;
   --alert: #d92d20;
   --radius: 12px;
+  --card-radius: 22px;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #111418;
-    --card: #1b1f24;
-    --text: #e6e8eb;
-    --muted: #98a2b3;
-    --line: #2d333b;
+    --bg: #15171a;
+    --card: #1e2125;
+    --text: #ecebe7;
+    --muted: #a29d93;
+    --line: #30343a;
+    --hero-empty: #2b3036;
+    --shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
     --accent: #6ea8fe;
     --up: #f97066;
     --down: #6ea8fe;
@@ -64,18 +69,97 @@ body {
 
 .card {
   background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px;
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
   min-width: 0;
 }
-.card.alert { border: 3px solid var(--alert); }
-.card h2 { margin: 0; font-size: 1.25rem; }
-.card .country { margin: 0 0 8px; color: var(--muted); font-size: 0.9rem; }
+.card.alert { outline: 3px solid var(--alert); outline-offset: -3px; }
 
-.section { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 12px; }
+/* 写真の帯 */
+.hero {
+  position: relative;
+  height: 230px;
+  background-color: var(--hero-empty);
+  background-size: cover;
+  background-position: center;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.05) 60%);
+  pointer-events: none;
+}
+.hero.no-photo::after { background: linear-gradient(to top, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0) 70%); }
+.hero-title {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 50px;
+  z-index: 1;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65), 0 0 12px rgba(0, 0, 0, 0.35); /* 明るい写真でも読めるように */
+}
+.hero-country { margin: 0; font-size: 0.72rem; letter-spacing: 0.18em; opacity: 0.9; }
+.hero-name {
+  margin: 0;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.hero .local-clock { margin: 2px 0 0; font-size: 0.8rem; opacity: 0.92; }
+.hero-credit {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 1;
+  max-width: 70%;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}
+@media (max-width: 639px) { .hero { height: 200px; } .hero-name { font-size: 1.75rem; } }
+
+/* 要点のタイル */
+.tiles {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: -30px;
+  padding: 0 16px;
+}
+.tile { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; min-width: 0; }
+.tile-key { font-size: 0.72rem; color: var(--muted); }
+.tile-value { font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.tile-sub { font-size: 0.72rem; color: var(--muted); }
+.tile-sub.up { color: var(--up); }
+.tile-sub.down { color: var(--down); }
+.tile-sub.alert-text { color: var(--alert); font-weight: 700; }
+.safety-level-1 { color: #b58a00; }
+.safety-level-2 { color: #d97f00; }
+.safety-level-3 { color: #e60012; }
+.safety-level-4 { color: #a00000; }
+
+/* 詳しい情報（区切りの一覧） */
+.card-details { padding: 6px 16px 14px; }
+.section-icon { margin-right: 6px; }
+
+.section { border-top: 1px solid var(--line); padding: 11px 0; }
+.card-details > .section:first-child { border-top: 0; }
 .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-.section-head h3 { margin: 0; font-size: 1rem; }
+.section-head h3 { margin: 0; font-size: 0.95rem; }
+.section:not(.collapsed) > .section-head { margin-bottom: 8px; }
 .updated { color: var(--muted); font-size: 0.75rem; white-space: nowrap; }
 .provider { color: var(--muted); font-size: 0.7rem; margin: 6px 0 0; }
 .note { color: var(--muted); font-size: 0.85rem; margin: 6px 0; }
@@ -202,7 +286,6 @@ table.climate .current { background: color-mix(in srgb, var(--accent) 18%, trans
 .card { scroll-margin-top: 12px; }
 
 /* 旅行前・旅行中の情報 */
-.card-title { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .local-clock { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
 .fc-sun { color: var(--muted); font-size: 0.7rem; margin-top: 2px; white-space: nowrap; }
 .forecast-day.hourly { flex-basis: 64px; }
@@ -271,5 +354,16 @@ table.climate .current { background: color-mix(in srgb, var(--accent) 18%, trans
 p.fx-position { margin: 6px 0 0; }
 .fx-position.level-low { color: var(--down); }
 .fx-position.level-high { color: var(--up); }
+
+/* 比較表の写真 */
+.compare-name { display: inline-flex; align-items: center; gap: 8px; }
+.compare-thumb {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--hero-empty) center / cover;
+}
+.compare-table { border-radius: 16px; overflow: hidden; }
 
 .page-footer { color: var(--muted); font-size: 0.75rem; padding-bottom: 32px; }

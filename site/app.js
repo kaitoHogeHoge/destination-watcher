@@ -72,8 +72,10 @@ function saveSetting(key, value) {
 // 同じ種類の区切り（例：全都市の「祝日」）はまとめて開閉する
 
 const COLLAPSE_KEY = "destination-watcher.collapsed";
-const collapsedList = loadSetting(COLLAPSE_KEY, []);
-const collapsed = new Set(Array.isArray(collapsedList) ? collapsedList : []);
+const collapsedList = loadSetting(COLLAPSE_KEY, null);
+// まだ一度も開閉していない端末では、すべて閉じた状態から始める
+const firstVisit = !Array.isArray(collapsedList);
+const collapsed = new Set(firstVisit ? [] : collapsedList);
 
 function applyCollapsed(section) {
   const closed = collapsed.has(section.dataset.key);
@@ -92,6 +94,7 @@ function setCollapsed(key, closed) {
 
 function makeCollapsible(section, head, key) {
   section.dataset.key = key;
+  if (firstVisit) collapsed.add(key);
   head.classList.add("toggle");
   head.setAttribute("role", "button");
   head.tabIndex = 0;
@@ -132,10 +135,21 @@ async function loadJson(path) {
 
 // ---------- 区切り（情報1つ分）の共通部分 ----------
 
+const SECTION_ICONS = {
+  exchange: "💱", forecast: "🌤", hourly: "🕐", climate: "📅", holidays: "🎌", safety: "🛡",
+};
+
+function sectionTitle(key, label) {
+  const h3 = el("h3");
+  if (SECTION_ICONS[key]) h3.append(el("span", "section-icon", SECTION_ICONS[key]));
+  h3.append(label);
+  return h3;
+}
+
 function renderSection(record, source, card) {
   const section = el("section", "section");
   const head = el("div", "section-head");
-  head.append(el("h3", null, source.label));
+  head.append(sectionTitle(source.name, source.label));
   if (record && record.updated_at) {
     head.append(el("span", "updated", `最終更新：${fmtDateTime(record.updated_at)}`));
   }
@@ -536,7 +550,7 @@ const RENDERERS = {
 function startLocalClock(target, timeZone) {
   function tick() {
     const t = timeDiffText(timeZone, Date.now());
-    target.textContent = t ? `現地 ${t.local}（${t.diff}）` : "";
+    target.textContent = t ? `現地 ${t.local} ・ ${t.diff}` : "";
   }
   tick();
   // 分が切り替わる瞬間にそろえてから、1分ごとに更新する
@@ -556,7 +570,7 @@ function renderHourlySection(dest) {
   if (typeof dest.lat !== "number" || typeof dest.lon !== "number") return null;
   const section = el("section", "section");
   const head = el("div", "section-head");
-  head.append(el("h3", null, "これから12時間の天気"));
+  head.append(sectionTitle("hourly", "これから12時間の天気"));
   const when = el("span", "updated", "取得中…");
   head.append(when);
   const body = el("div");
@@ -600,6 +614,114 @@ function renderHourlySection(dest) {
     .catch(failed)
     .finally(() => clearTimeout(timer));
   return section;
+}
+
+// ---------- 写真の帯 ----------
+
+function isHttpUrl(value) {
+  return typeof value === "string" && /^https?:\/\//.test(value);
+}
+
+function photoOf(records) {
+  const data = records.photo && records.photo.data;
+  return data && isHttpUrl(data.url) ? data : null;
+}
+
+function renderHero(dest, photo, clock) {
+  const hero = el("div", "hero no-photo");
+  const title = el("div", "hero-title");
+  const country = [dest.country_code, dest.country].filter(Boolean).join(" ・ ");
+  title.append(el("p", "hero-country", country), el("h2", "hero-name", dest.name), clock);
+  hero.append(title);
+  if (!photo) return hero;
+  // 読み込めたときだけ写真と出典を出す（読み込めなければ色の帯のまま）
+  const img = new Image();
+  img.onload = () => {
+    hero.style.backgroundImage = `url(${JSON.stringify(photo.url)})`;
+    hero.classList.remove("no-photo");
+    hero.append(renderCredit(photo));
+  };
+  img.src = photo.url;
+  return hero;
+}
+
+function renderCredit(photo) {
+  const text = `📷 ${photo.artist || "不明"}${photo.license ? ` / ${photo.license}` : ""}`;
+  const credit = el(isHttpUrl(photo.page) ? "a" : "span", "hero-credit", text);
+  if (credit.tagName === "A") {
+    credit.href = photo.page;
+    credit.target = "_blank";
+    credit.rel = "noopener";
+    credit.title = `${text}（押すと写真のページ：Wikimedia Commons を開く）`;
+  }
+  return credit;
+}
+
+// ---------- 要点のタイル ----------
+
+function tile(icon, key, value, sub, options = {}) {
+  const box = el("div", "tile");
+  box.append(el("div", "tile-key", `${icon} ${key}`));
+  box.append(el("div", `tile-value${options.valueClass ? ` ${options.valueClass}` : ""}`, value));
+  const subLine = el("div", `tile-sub${options.subClass ? ` ${options.subClass}` : ""}`);
+  if (options.warn) subLine.append(el("span", "cell-warn", "⚠ "));
+  subLine.append(sub || "");
+  box.append(subLine);
+  return box;
+}
+
+// 状態ごとの共通の出し方。null を返したら、呼び出し側で中身を作る
+function tileFallback(cell, icon, key) {
+  if (!cell || cell.status === "missing" || cell.status === "broken") return tile(icon, key, "—", "データがまだありません");
+  if (cell.status === "unsupported") return tile(icon, key, "対象外", "データ元が未対応");
+  return null;
+}
+
+function renderTiles(records, summary) {
+  const grid = el("div", "tiles");
+
+  const fx = summary.exchange;
+  const history = records.exchange && records.exchange.data && records.exchange.data.history;
+  const currency = records.exchange && records.exchange.data && records.exchange.data.currency;
+  let fxTile = tileFallback(fx, "💱", currency ? `1 ${currency}` : "為替");
+  if (!fxTile) {
+    const latest = history[history.length - 1];
+    const parts = [];
+    if (fx.pct !== null) parts.push(`30日 ${fx.pct > 0 ? "+" : fx.pct < 0 ? "−" : "±"}${Math.abs(fx.pct).toFixed(2)}%`);
+    if (fx.position) parts.push({ low: "割安", mid: "平均的", high: "割高" }[fx.position.level]);
+    fxTile = tile("💱", `1 ${currency}`, `${latest.jpy.toFixed(yenDigits(latest.jpy))}円`, parts.join(" ・ "), {
+      subClass: fx.pct > 0 ? "up" : fx.pct < 0 ? "down" : "", warn: fx.status === "error",
+    });
+  }
+
+  const fc = summary.forecast;
+  let fcTile = tileFallback(fc, "🌤", "来週の気温");
+  if (!fcTile) {
+    fcTile = tile("🌤", "来週の気温", `${fmtNumber(fc.tmax, "°")} / ${fmtNumber(fc.tmin, "°")}`, `雨の日 ${fc.rainyDays}日`, {
+      warn: fc.status === "error",
+    });
+  }
+
+  const sf = summary.safety;
+  let sfTile = tileFallback(sf, "🛡", "安全");
+  if (!sfTile) {
+    const value = sf.level === 0 ? "情報なし" : `レベル${sf.level}`;
+    const sub = sf.changed ? "⚠ 変化あり" : sf.notices !== null ? `お知らせ ${sf.notices}件` : "";
+    sfTile = tile("🛡", "安全", value, sub, {
+      valueClass: `safety-level-${sf.level}`, subClass: sf.changed ? "alert-text" : "", warn: sf.status === "error",
+    });
+  }
+
+  const cl = summary.climate;
+  let clTile = tileFallback(cl, "★", "ベストシーズン");
+  if (!clTile) {
+    clTile = tile("★", "ベストシーズン", formatMonths(cl.best), `今月 ${fmtNumber(cl.temp, "°", 1)} ・ ${fmtNumber(cl.precip, "mm")}`, {
+      warn: cl.status === "error",
+    });
+  }
+
+  grid.append(fxTile, fcTile, sfTile, clTile);
+  return grid;
 }
 
 // ---------- 古いデータの警告 ----------
@@ -712,7 +834,7 @@ function renderCompare(rows) {
   table.append(thead, tbody);
 
   const today = todayLocal();
-  const items = rows.map(({ dest, records }) => ({ id: dest.id, dest, summary: summarize(records, today) }));
+  const items = rows.map(({ dest, records }) => ({ id: dest.id, dest, photo: photoOf(records), summary: summarize(records, today) }));
   const saved = loadSetting(SORT_KEY, null);
   let sort = saved && typeof saved === "object" ? saved : { column: null, direction: null };
 
@@ -744,10 +866,13 @@ function renderCompare(rows) {
 
   function drawBody() {
     tbody.replaceChildren();
-    for (const { dest, summary } of sortRows(items, sort.column, sort.direction)) {
+    for (const { dest, photo, summary } of sortRows(items, sort.column, sort.direction)) {
       const tr = el("tr");
       const nameCell = el("th");
-      const link = el("a", null, dest.name);
+      const link = el("a", "compare-name");
+      const thumb = el("span", "compare-thumb");
+      if (photo) thumb.style.backgroundImage = `url(${JSON.stringify(photo.url)})`;
+      link.append(thumb, dest.name);
       link.href = `#dest-${dest.id}`;
       nameCell.append(link);
       tr.append(nameCell);
@@ -800,29 +925,36 @@ async function main() {
     console.error("compare", e);
   }
 
+  const today = todayLocal();
   for (const { dest, records } of rows) {
     const card = el("article", "card");
     card.id = `dest-${dest.id}`;
-    const title = el("div", "card-title");
-    const clock = el("span", "local-clock");
-    title.append(el("h2", null, dest.name), clock);
-    card.append(title, el("p", "country", dest.country));
+    const clock = el("p", "local-clock");
+    card.append(renderHero(dest, photoOf(records), clock));
+    try {
+      card.append(renderTiles(records, summarize(records, today)));
+    } catch (e) {
+      console.error(dest.id, "tiles", e);
+    }
+    const details = el("div", "card-details");
+    card.append(details);
     cards.append(card);
     const timeZone = records.forecast && records.forecast.data && records.forecast.data.timezone;
     if (timeZone) startLocalClock(clock, timeZone);
     for (const source of index.sources) {
+      if (source.name === "photo") continue; // 写真は帯に使う
       try {
-        card.append(renderSection(records[source.name], source, card));
+        details.append(renderSection(records[source.name], source, card));
         if (source.name === "forecast") {
           const hourly = renderHourlySection(dest);
-          if (hourly) card.append(hourly);
+          if (hourly) details.append(hourly);
         }
       } catch (e) {
         // 1つの区切りが壊れていても、他の区切り・他の行き先は表示する
         console.error(dest.id, source.name, e);
         const section = el("section", "section");
         section.append(el("h3", null, source.label), el("p", "note", "表示中に問題が起きました"));
-        card.append(section);
+        details.append(section);
       }
     }
   }
