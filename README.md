@@ -4,6 +4,7 @@
 
 - 公開ページ：https://kaitohogehoge.github.io/destination-watcher/
 - データの取得：GitHub Actions が毎日 日本時間 6:00 ごろに実行（`.github/workflows/update.yml`）
+- 自動テストが通らないときは、取得も公開も行わず、Actions のページに ❌ が出ます（公開ページは前の版のまま）
 - 設計書：`docs/superpowers/specs/2026-10-13-destination-watcher-design.md`
 
 ## 行き先を足す・消す（おすすめ：GitHub のボタンから）

@@ -1,4 +1,4 @@
-# 毎日1回データを取得して、変化があればリポジトリに保存し、画面を GitHub Pages に公開する
+# 自動テストが通ったら、データを取得して変化があればリポジトリに保存し、画面を GitHub Pages に公開する（毎日1回）
 name: データ更新
 
 on:
@@ -18,7 +18,31 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # 自動テスト。通らなければ、取得も公開もしない（壊れた画面を公開しないため）
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: ライブラリを入れる
+        run: pip install -r requirements.txt
+
+      - name: 自動テスト（取得）
+        run: python -m pytest -q
+
+      - name: 自動テスト（画面の計算）
+        run: node --test tests/js/*.test.js
+
   update:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
