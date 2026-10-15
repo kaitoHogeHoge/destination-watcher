@@ -58,6 +58,7 @@ git pull
 | `mofa_code` | 外務省の国番号（`config/countries.json` で調べられる）。`null` なら安全情報は対象外 |
 | `lat` / `lon` | 緯度・経度 |
 | `currency` | 3文字の通貨コード（例：GBP）。`null` なら為替は対象外 |
+| `photo` | 省略可。カードの写真を指定する Wikimedia Commons のファイル名（例：`"File:Marina_Bay_at_night.jpg"`）。省略すると Wikipedia の記事から自動で選ぶ |
 
 データ元が対応していない国・通貨は、その情報だけ「対象外」と表示されます。
 
@@ -85,4 +86,5 @@ git restore site/data
 - 祝日：[Nager.Date](https://date.nager.at/)
 - 海外安全情報：[外務省 海外安全情報オープンデータ](https://www.ezairyu.mofa.go.jp/html/opendata/)
 - 地名検索：[Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api)
+- 都市の写真：[Wikimedia Commons](https://commons.wikimedia.org/)（撮影者とライセンスは各写真の上に表示）
 - 国と通貨の対応表（`config/countries.json`）：[mledoze/countries](https://github.com/mledoze/countries) 5.1.0（ODbL-1.0）と外務省の国コード一覧から `scripts/build_countries.py` で作成

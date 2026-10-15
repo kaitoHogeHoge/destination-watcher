@@ -8,6 +8,7 @@ from fetcher.sources.climate import ClimateSource
 from fetcher.sources.exchange import ExchangeSource
 from fetcher.sources.forecast import ForecastSource
 from fetcher.sources.holidays import HolidaysSource
+from fetcher.sources.photo import PhotoSource
 from fetcher.sources.safety import SafetySource
 
 SOURCES = [
@@ -16,4 +17,5 @@ SOURCES = [
     ClimateSource(),
     HolidaysSource(),
     SafetySource(),
+    PhotoSource(),
 ]

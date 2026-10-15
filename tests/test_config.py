@@ -71,3 +71,9 @@ def test_non_dict_entry_skipped(tmp_path):
 def test_top_level_not_list_raises(tmp_path):
     with pytest.raises(ValueError):
         load_destinations(write(tmp_path, {"london": LONDON}))
+
+
+def test_photo_must_be_string_if_present(tmp_path):
+    ok = {**LONDON, "id": "a", "photo": "File:London.jpg"}
+    bad = {**LONDON, "id": "b", "photo": 123}
+    assert [d["id"] for d in load_destinations(write(tmp_path, [ok, bad]))] == ["a"]

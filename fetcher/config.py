@@ -29,6 +29,8 @@ def _type_problem(item: dict) -> str | None:
     for f in NULLABLE_STRING_FIELDS:
         if item[f] is not None and not isinstance(item[f], str):
             return f"{f} は文字列（\"0044\" のように引用符付き）か null で書いてください"
+    if "photo" in item and not isinstance(item["photo"], str):
+        return "photo は Wikimedia Commons のファイル名（\"File:〜.jpg\"）で書いてください"
     return None
 
 

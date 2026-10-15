@@ -74,3 +74,14 @@ def test_client_error_is_not_retried(calls):
 def test_get_bytes_returns_raw_body(calls):
     calls["responses"] = [FakeResponse(body="<x>日本</x>".encode())]
     assert http.get_bytes("https://example.com") == "<x>日本</x>".encode()
+
+
+def test_404_raises_not_found_error(calls):
+    calls["responses"] = [FakeResponse(status_code=404)]
+    with pytest.raises(http.NotFoundError):
+        http.get_json("https://example.com")
+    assert issubclass(http.NotFoundError, http.FetchError)
+
+
+def test_user_agent_has_contact_url():
+    assert "github.com/kaitoHogeHoge/destination-watcher" in http.HEADERS["User-Agent"]

@@ -12,11 +12,16 @@ import requests
 
 TIMEOUT_SECONDS = 20
 RETRY_WAIT_SECONDS = 2
-HEADERS = {"User-Agent": "destination-watcher"}
+# Wikimedia の利用ルールに合わせて、連絡先（リポジトリの URL）を入れる
+HEADERS = {"User-Agent": "destination-watcher (https://github.com/kaitoHogeHoge/destination-watcher)"}
 
 
 class FetchError(Exception):
     """取得に失敗したことを表す。メッセージは画面にそのまま出せる日本語。"""
+
+
+class NotFoundError(FetchError):
+    """データ元に、そのデータが無かった（HTTP 404）。"""
 
 
 def _is_retryable_status(status: int) -> bool:
@@ -39,6 +44,8 @@ def _get(url: str, params: dict | None) -> requests.Response:
         if response.status_code < 400:
             return response
         last_error = f"データ元がエラーを返しました（HTTP {response.status_code}）"
+        if response.status_code == 404:
+            raise NotFoundError(last_error)
         if not _is_retryable_status(response.status_code):
             break
     raise FetchError(last_error)
