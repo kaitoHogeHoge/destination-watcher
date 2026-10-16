@@ -3,7 +3,7 @@
   "provider": "open-meteo",
   "status": "error",
   "updated_at": "2026-10-15T12:04:50+09:00",
-  "attempted_at": "2026-10-16T08:33:02+09:00",
+  "attempted_at": "2026-10-17T08:15:02+09:00",
   "error": "通信に失敗しました（タイムアウト）",
   "data": {
     "timezone": "Europe/Paris",
