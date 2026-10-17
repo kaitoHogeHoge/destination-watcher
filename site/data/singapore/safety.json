@@ -2,15 +2,15 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-17T08:15:02+09:00",
-  "attempted_at": "2026-10-17T08:15:02+09:00",
+  "updated_at": "2026-10-18T07:53:06+09:00",
+  "attempted_at": "2026-10-18T07:53:06+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_005.html",
-    "mofa_updated": "2026/10/17 07:50:55",
+    "mofa_updated": "2026/10/18 07:35:54",
     "mofa_code": "0065",
     "notices": [
       {
