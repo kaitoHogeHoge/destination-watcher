@@ -2,8 +2,8 @@
   "source": "exchange",
   "provider": "frankfurter",
   "status": "ok",
-  "updated_at": "2026-10-21T14:31:45+09:00",
-  "attempted_at": "2026-10-21T14:31:45+09:00",
+  "updated_at": "2026-10-22T08:54:11+09:00",
+  "attempted_at": "2026-10-22T08:54:11+09:00",
   "error": null,
   "data": {
     "currency": "SGD",
@@ -1051,6 +1051,10 @@
       {
         "date": "2026-10-20",
         "jpy": 123.69
+      },
+      {
+        "date": "2026-10-21",
+        "jpy": 123.61
       }
     ]
   },

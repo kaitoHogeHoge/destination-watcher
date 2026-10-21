@@ -2,17 +2,41 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-21T14:31:45+09:00",
-  "attempted_at": "2026-10-21T14:31:45+09:00",
+  "updated_at": "2026-10-22T08:54:11+09:00",
+  "attempted_at": "2026-10-22T08:54:11+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_166.html",
-    "mofa_updated": "2026/10/21 14:18:05",
+    "mofa_updated": "2026/10/22 08:33:37",
     "mofa_code": "0047",
     "notices": [
+      {
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "kind": "広域・スポット情報"
+      },
+      {
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "kind": "広域・スポット情報"
+      },
       {
         "date": "2026-10-02",
         "title": "２０２６年７月から９月にオスロ市中心部において発生した凶器使用犯罪の状況",

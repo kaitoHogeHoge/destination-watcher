@@ -2,33 +2,45 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-21T14:31:45+09:00",
-  "attempted_at": "2026-10-21T14:31:45+09:00",
+  "updated_at": "2026-10-22T08:54:11+09:00",
+  "attempted_at": "2026-10-22T08:54:11+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_154.html",
-    "mofa_updated": "2026/10/21 14:17:40",
+    "mofa_updated": "2026/10/22 08:33:04",
     "mofa_code": "0044",
     "notices": [
+      {
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "kind": "広域・スポット情報"
+      },
+      {
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "kind": "広域・スポット情報"
+      },
       {
         "date": "2026-10-10",
         "title": "（再送）【注意喚起】ロンドン市内中心部でのパレスチナ連合の抗議活動の実施（10月10日）",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168264",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-10",
-        "title": "【注意喚起】ロンドン市内中心部でのパレスチナ連合の抗議活動の実施（10月10日）",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168262",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-10",
-        "title": "電話回線の不通（10月12日（月・休館日）09:00-13:00）",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168258",
         "kind": "領事メール"
       }
     ],

@@ -2,15 +2,15 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-21T14:31:45+09:00",
-  "attempted_at": "2026-10-21T14:31:45+09:00",
+  "updated_at": "2026-10-22T08:54:11+09:00",
+  "attempted_at": "2026-10-22T08:54:11+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_170.html",
-    "mofa_updated": "2026/10/21 14:18:09",
+    "mofa_updated": "2026/10/22 08:33:43",
     "mofa_code": "0033",
     "notices": [
       {
@@ -32,15 +32,15 @@
         "kind": "領事メール"
       },
       {
-        "date": "2026-10-20",
-        "title": "夜間外出禁止令の発令",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168452",
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
         "kind": "領事メール"
       },
       {
-        "date": "2026-10-20",
-        "title": "夜間外出禁止令の発令",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168451",
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
         "kind": "領事メール"
       }
     ],
