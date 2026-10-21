@@ -1,0 +1,67 @@
+{
+  "source": "safety",
+  "provider": "mofa",
+  "status": "ok",
+  "updated_at": "2026-10-21T14:31:45+09:00",
+  "attempted_at": "2026-10-21T14:31:45+09:00",
+  "error": null,
+  "data": {
+    "level": 3,
+    "infection_level": 0,
+    "title": "タイの危険情報【一部地域の危険レベル引下げ】",
+    "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_007.html",
+    "mofa_updated": "2026/10/21 14:15:59",
+    "mofa_code": "0066",
+    "notices": [
+      {
+        "date": "2026-10-21",
+        "title": "【電話回線の不通について】日本大使館からのお知らせ",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168474",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-15",
+        "title": "海外安全対策情報（令和８年度第２四半期（７－９月））",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168354",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-15",
+        "title": "ＩＭＦ・世銀年次総会に関する抗議活動に伴う交通規制について（10月15日（木））",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168348",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-05",
+        "title": "【注意喚起】タイ国内における気象状況について",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168122",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-09-29",
+        "title": "パスポート(旅券)の取扱いにご注意ください（交付に１ヶ月程度かかります）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=167944",
+        "kind": "領事メール"
+      }
+    ],
+    "links": [
+      {
+        "label": "安全対策基礎データ",
+        "url": "https://www.anzen.mofa.go.jp/info/pcsafetymeasure_007.html"
+      },
+      {
+        "label": "医療事情",
+        "url": "http://www.mofa.go.jp/mofaj/toko/medi/asia/thailand.html"
+      },
+      {
+        "label": "テロ・誘拐情勢",
+        "url": "https://www.anzen.mofa.go.jp/info/pcterror_007.html"
+      }
+    ],
+    "changed": false,
+    "changed_at": null,
+    "previous_level": null,
+    "previous_infection_level": null
+  },
+  "data_version": 1
+}

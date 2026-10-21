@@ -1,0 +1,17 @@
+{
+  "source": "photo",
+  "provider": "wikimedia",
+  "status": "ok",
+  "updated_at": "2026-10-21T14:31:45+09:00",
+  "attempted_at": "2026-10-21T14:31:45+09:00",
+  "error": null,
+  "data": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/The_Grand_Palace_of_Thailand_2.jpg/960px-The_Grand_Palace_of_Thailand_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:The_Grand_Palace_of_Thailand_2.jpg",
+    "artist": "ผู้สร้างสรรค์ผลงาน/ส่งข้อมูลเก็บในคลังข้อมูลเสรีวิกิมีเดียคอมมอนส์ - เทวประภาส มากคล้าย",
+    "license": "CC BY 3.0",
+    "file": "File:The_Grand_Palace_of_Thailand_2.jpg",
+    "requested": null
+  },
+  "data_version": 1
+}

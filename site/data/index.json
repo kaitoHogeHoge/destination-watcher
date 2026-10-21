@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T08:37:14+09:00",
+  "generated_at": "2026-10-21T14:31:45+09:00",
   "destinations": [
     {
       "id": "london",
@@ -32,6 +32,14 @@
       "country_code": "FR",
       "lat": 48.85,
       "lon": 2.35
+    },
+    {
+      "id": "th-1609350",
+      "name": "バンコク",
+      "country": "タイ",
+      "country_code": "TH",
+      "lat": 13.75,
+      "lon": 100.5
     }
   ],
   "sources": [
