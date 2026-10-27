@@ -2,18 +2,24 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-26T08:00:45+09:00",
-  "attempted_at": "2026-10-26T08:00:45+09:00",
+  "updated_at": "2026-10-27T09:14:12+09:00",
+  "attempted_at": "2026-10-27T09:14:12+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_154.html",
-    "mofa_updated": "2026/10/26 07:47:39",
+    "mofa_updated": "2026/10/27 08:57:51",
     "mofa_code": "0044",
     "notices": [
       {
+        "date": "2026-10-27",
+        "title": "【注意喚起】緊急事態に備えた水及び食料品などの備蓄について（英政府の発表）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168569",
+        "kind": "領事メール"
+      },
+      {
         "date": "2026-10-21",
         "title": "欧州での抗議活動を受けた注意喚起",
         "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
@@ -36,12 +42,6 @@
         "title": "欧州での抗議活動を受けた注意喚起",
         "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
         "kind": "広域・スポット情報"
-      },
-      {
-        "date": "2026-10-10",
-        "title": "（再送）【注意喚起】ロンドン市内中心部でのパレスチナ連合の抗議活動の実施（10月10日）",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168264",
-        "kind": "領事メール"
       }
     ],
     "links": [
