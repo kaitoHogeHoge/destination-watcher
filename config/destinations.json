@@ -59,5 +59,15 @@
     "lat": 37.57,
     "lon": 126.98,
     "currency": "KRW"
+  },
+  {
+    "id": "de-2950159",
+    "name": "ベルリン",
+    "country": "ドイツ",
+    "country_code": "DE",
+    "mofa_code": "0049",
+    "lat": 52.52,
+    "lon": 13.41,
+    "currency": "EUR"
   }
 ]
