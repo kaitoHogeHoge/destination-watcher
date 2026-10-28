@@ -1,0 +1,67 @@
+{
+  "source": "safety",
+  "provider": "mofa",
+  "status": "ok",
+  "updated_at": "2026-10-28T13:52:32+09:00",
+  "attempted_at": "2026-10-28T13:52:32+09:00",
+  "error": null,
+  "data": {
+    "level": 0,
+    "infection_level": 0,
+    "title": "",
+    "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_165.html",
+    "mofa_updated": "2026/10/28 13:33:09",
+    "mofa_code": "0049",
+    "notices": [
+      {
+        "date": "2026-10-26",
+        "title": "【安全情報】１０月３１日（土）ドイツ全土における大規模抗議デモに関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168565",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-26",
+        "title": "【安全情報】１０月３１日（土）ドイツ全土における大規模デモに関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168563",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-23",
+        "title": "【安全情報】１０月３１日（土）ドイツ全土における大規模デモに関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168528",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-21",
+        "title": "欧州での抗議活動を受けた注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "kind": "領事メール"
+      }
+    ],
+    "links": [
+      {
+        "label": "安全対策基礎データ",
+        "url": "https://www.anzen.mofa.go.jp/info/pcsafetymeasure_165.html"
+      },
+      {
+        "label": "医療事情",
+        "url": "https://www.mofa.go.jp/mofaj/toko/medi/europe/germany.html"
+      },
+      {
+        "label": "テロ・誘拐情勢",
+        "url": "https://www.anzen.mofa.go.jp/info/pcterror_165.html"
+      }
+    ],
+    "changed": false,
+    "changed_at": null,
+    "previous_level": null,
+    "previous_infection_level": null
+  },
+  "data_version": 1
+}

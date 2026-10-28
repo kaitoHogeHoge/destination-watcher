@@ -1,0 +1,17 @@
+{
+  "source": "photo",
+  "provider": "wikimedia",
+  "status": "ok",
+  "updated_at": "2026-10-28T13:52:32+09:00",
+  "attempted_at": "2026-10-28T13:52:32+09:00",
+  "error": null,
+  "data": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Sunrise_Berlin_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "page": "https://commons.wikimedia.org/wiki/File:Sunrise_Berlin_2014.jpg",
+    "artist": "Lear 21",
+    "license": "CC BY-SA 4.0",
+    "file": "File:Sunrise_Berlin_2014.jpg",
+    "requested": null
+  },
+  "data_version": 1
+}

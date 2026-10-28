@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T13:50:05+09:00",
+  "generated_at": "2026-10-28T13:52:32+09:00",
   "destinations": [
     {
       "id": "london",
@@ -48,6 +48,14 @@
       "country_code": "KR",
       "lat": 37.57,
       "lon": 126.98
+    },
+    {
+      "id": "de-2950159",
+      "name": "ベルリン",
+      "country": "ドイツ",
+      "country_code": "DE",
+      "lat": 52.52,
+      "lon": 13.41
     }
   ],
   "sources": [

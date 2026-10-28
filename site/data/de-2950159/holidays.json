@@ -1,0 +1,38 @@
+{
+  "source": "holidays",
+  "provider": "nager-date",
+  "status": "ok",
+  "updated_at": "2026-10-28T13:52:32+09:00",
+  "attempted_at": "2026-10-28T13:52:32+09:00",
+  "error": null,
+  "data": {
+    "holidays": [
+      {
+        "date": "2026-12-25",
+        "local_name": "Erster Weihnachtstag",
+        "name": "Christmas Day"
+      },
+      {
+        "date": "2026-12-26",
+        "local_name": "Zweiter Weihnachtstag",
+        "name": "St. Stephen's Day"
+      },
+      {
+        "date": "2027-01-01",
+        "local_name": "Neujahr",
+        "name": "New Year's Day"
+      },
+      {
+        "date": "2027-03-26",
+        "local_name": "Karfreitag",
+        "name": "Good Friday"
+      },
+      {
+        "date": "2027-03-29",
+        "local_name": "Ostermontag",
+        "name": "Easter Monday"
+      }
+    ]
+  },
+  "data_version": 1
+}
