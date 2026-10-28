@@ -2,17 +2,23 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-27T09:14:12+09:00",
-  "attempted_at": "2026-10-27T09:14:12+09:00",
+  "updated_at": "2026-10-28T09:15:14+09:00",
+  "attempted_at": "2026-10-28T09:15:14+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_170.html",
-    "mofa_updated": "2026/10/27 08:58:25",
+    "mofa_updated": "2026/10/28 08:58:01",
     "mofa_code": "0033",
     "notices": [
+      {
+        "date": "2026-10-27",
+        "title": "当館電話回線の不通（復旧）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168592",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-10-27",
         "title": "当館電話回線の不通",
@@ -35,12 +41,6 @@
         "date": "2026-10-23",
         "title": "10月24日の大規模抗議デモの呼びかけに伴う注意喚起",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168533",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-23",
-        "title": "10月24日の大規模抗議デモの呼びかけに伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168530",
         "kind": "領事メール"
       }
     ],
