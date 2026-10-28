@@ -49,5 +49,15 @@
     "lat": 13.75,
     "lon": 100.5,
     "currency": "THB"
+  },
+  {
+    "id": "kr-1835848",
+    "name": "ソウル特別市",
+    "country": "大韓民国",
+    "country_code": "KR",
+    "mofa_code": "0082",
+    "lat": 37.57,
+    "lon": 126.98,
+    "currency": "KRW"
   }
 ]
