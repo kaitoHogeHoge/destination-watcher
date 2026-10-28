@@ -1,0 +1,67 @@
+{
+  "source": "safety",
+  "provider": "mofa",
+  "status": "ok",
+  "updated_at": "2026-10-28T13:50:05+09:00",
+  "attempted_at": "2026-10-28T13:50:05+09:00",
+  "error": null,
+  "data": {
+    "level": 0,
+    "infection_level": 0,
+    "title": "",
+    "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_003.html",
+    "mofa_updated": "2026/10/28 13:31:02",
+    "mofa_code": "0082",
+    "notices": [
+      {
+        "date": "2026-10-23",
+        "title": "台風３０号（チャンパー）の接近",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168516",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-23",
+        "title": "（お知らせ）台風３０号（チャンパー）の接近について",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168515",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-23",
+        "title": "（お知らせ）台風３０号（チャンパー）の接近について",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168512",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-12",
+        "title": "北朝鮮によるミサイル発射について(第2報)",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168284",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-12",
+        "title": "北朝鮮によるミサイル発射（第２報）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168283",
+        "kind": "領事メール"
+      }
+    ],
+    "links": [
+      {
+        "label": "安全対策基礎データ",
+        "url": "https://www.anzen.mofa.go.jp/info/pcsafetymeasure_003.html"
+      },
+      {
+        "label": "医療事情",
+        "url": "http://www.mofa.go.jp/mofaj/toko/medi/index.html"
+      },
+      {
+        "label": "テロ・誘拐情勢",
+        "url": "https://www.anzen.mofa.go.jp/info/pcterror_003.html"
+      }
+    ],
+    "changed": false,
+    "changed_at": null,
+    "previous_level": null,
+    "previous_infection_level": null
+  },
+  "data_version": 1
+}

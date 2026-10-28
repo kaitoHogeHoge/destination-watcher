@@ -1,0 +1,17 @@
+{
+  "source": "photo",
+  "provider": "wikimedia",
+  "status": "ok",
+  "updated_at": "2026-10-28T13:50:05+09:00",
+  "attempted_at": "2026-10-28T13:50:05+09:00",
+  "error": null,
+  "data": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Seoul_%28175734251%29.jpeg/960px-Seoul_%28175734251%29.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Seoul_(175734251).jpeg",
+    "artist": "Joon Kyu Park",
+    "license": "CC BY-SA 3.0",
+    "file": "File:Seoul_(175734251).jpeg",
+    "requested": null
+  },
+  "data_version": 1
+}

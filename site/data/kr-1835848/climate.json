@@ -1,0 +1,86 @@
+{
+  "source": "climate",
+  "provider": "open-meteo",
+  "status": "ok",
+  "updated_at": "2026-10-28T13:50:05+09:00",
+  "attempted_at": "2026-10-28T13:50:05+09:00",
+  "error": null,
+  "data": {
+    "period": "2016〜2025年の平均",
+    "months": [
+      {
+        "month": 1,
+        "temp": -2.9,
+        "precip": 18.0,
+        "daylight": 9.9
+      },
+      {
+        "month": 2,
+        "temp": -0.7,
+        "precip": 24.6,
+        "daylight": 10.8
+      },
+      {
+        "month": 3,
+        "temp": 5.5,
+        "precip": 42.7,
+        "daylight": 12.0
+      },
+      {
+        "month": 4,
+        "temp": 11.7,
+        "precip": 64.1,
+        "daylight": 13.2
+      },
+      {
+        "month": 5,
+        "temp": 16.9,
+        "precip": 111.2,
+        "daylight": 14.2
+      },
+      {
+        "month": 6,
+        "temp": 21.9,
+        "precip": 126.1,
+        "daylight": 14.7
+      },
+      {
+        "month": 7,
+        "temp": 25.4,
+        "precip": 313.4,
+        "daylight": 14.5
+      },
+      {
+        "month": 8,
+        "temp": 25.7,
+        "precip": 276.0,
+        "daylight": 13.6
+      },
+      {
+        "month": 9,
+        "temp": 21.0,
+        "precip": 160.1,
+        "daylight": 12.4
+      },
+      {
+        "month": 10,
+        "temp": 13.7,
+        "precip": 84.7,
+        "daylight": 11.2
+      },
+      {
+        "month": 11,
+        "temp": 6.1,
+        "precip": 51.3,
+        "daylight": 10.2
+      },
+      {
+        "month": 12,
+        "temp": -1.6,
+        "precip": 27.7,
+        "daylight": 9.6
+      }
+    ]
+  },
+  "data_version": 2
+}

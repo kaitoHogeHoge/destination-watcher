@@ -1,0 +1,43 @@
+{
+  "source": "holidays",
+  "provider": "nager-date",
+  "status": "ok",
+  "updated_at": "2026-10-28T13:50:05+09:00",
+  "attempted_at": "2026-10-28T13:50:05+09:00",
+  "error": null,
+  "data": {
+    "holidays": [
+      {
+        "date": "2026-12-25",
+        "local_name": "크리스마스",
+        "name": "Christmas Day"
+      },
+      {
+        "date": "2027-01-01",
+        "local_name": "새해",
+        "name": "New Year's Day"
+      },
+      {
+        "date": "2027-02-06",
+        "local_name": "설날",
+        "name": "Lunar New Year"
+      },
+      {
+        "date": "2027-02-08",
+        "local_name": "설날",
+        "name": "Lunar New Year"
+      },
+      {
+        "date": "2027-02-09",
+        "local_name": "설날",
+        "name": "Lunar New Year"
+      },
+      {
+        "date": "2027-03-01",
+        "local_name": "3·1절",
+        "name": "Independence Movement Day"
+      }
+    ]
+  },
+  "data_version": 1
+}

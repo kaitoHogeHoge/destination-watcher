@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T09:15:14+09:00",
+  "generated_at": "2026-10-28T13:50:05+09:00",
   "destinations": [
     {
       "id": "london",
@@ -40,6 +40,14 @@
       "country_code": "TH",
       "lat": 13.75,
       "lon": 100.5
+    },
+    {
+      "id": "kr-1835848",
+      "name": "ソウル特別市",
+      "country": "大韓民国",
+      "country_code": "KR",
+      "lat": 37.57,
+      "lon": 126.98
     }
   ],
   "sources": [
