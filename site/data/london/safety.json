@@ -2,15 +2,15 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-28T13:52:32+09:00",
-  "attempted_at": "2026-10-28T13:52:32+09:00",
+  "updated_at": "2026-10-29T09:36:26+09:00",
+  "attempted_at": "2026-10-29T09:36:26+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_154.html",
-    "mofa_updated": "2026/10/28 13:32:45",
+    "mofa_updated": "2026/10/29 09:17:43",
     "mofa_code": "0044",
     "notices": [
       {
