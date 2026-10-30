@@ -1,10 +1,10 @@
 {
   "source": "forecast",
   "provider": "open-meteo",
-  "status": "ok",
+  "status": "error",
   "updated_at": "2026-10-29T09:36:26+09:00",
-  "attempted_at": "2026-10-29T09:36:26+09:00",
-  "error": null,
+  "attempted_at": "2026-10-30T09:36:54+09:00",
+  "error": "通信に失敗しました（タイムアウト）",
   "data": {
     "timezone": "Europe/Berlin",
     "days": [

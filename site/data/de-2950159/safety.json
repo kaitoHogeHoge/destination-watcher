@@ -2,17 +2,23 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-29T09:36:26+09:00",
-  "attempted_at": "2026-10-29T09:36:26+09:00",
+  "updated_at": "2026-10-30T09:36:54+09:00",
+  "attempted_at": "2026-10-30T09:36:54+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_165.html",
-    "mofa_updated": "2026/10/29 09:18:07",
+    "mofa_updated": "2026/10/30 09:23:24",
     "mofa_code": "0049",
     "notices": [
+      {
+        "date": "2026-10-29",
+        "title": "【安全情報】大規模デモに伴う注意喚起（10月31日）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168643",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-10-28",
         "title": "【安全情報】10月31日（土）ドイツ全土における大規模デモに関する注意喚起",
@@ -35,12 +41,6 @@
         "date": "2026-10-23",
         "title": "【安全情報】１０月３１日（土）ドイツ全土における大規模デモに関する注意喚起",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168528",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-21",
-        "title": "欧州での抗議活動を受けた注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
         "kind": "領事メール"
       }
     ],

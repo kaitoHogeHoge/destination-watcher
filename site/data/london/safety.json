@@ -2,17 +2,23 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-29T09:36:26+09:00",
-  "attempted_at": "2026-10-29T09:36:26+09:00",
+  "updated_at": "2026-10-30T09:36:54+09:00",
+  "attempted_at": "2026-10-30T09:36:54+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_154.html",
-    "mofa_updated": "2026/10/29 09:17:43",
+    "mofa_updated": "2026/10/30 09:22:57",
     "mofa_code": "0044",
     "notices": [
+      {
+        "date": "2026-10-29",
+        "title": "英国安全対策情報（2026年7月～9月期）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168642",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-10-28",
         "title": "【注意喚起】緊急事態に備えた水や食料品などの備蓄について（英政府の発表）",
@@ -36,12 +42,6 @@
         "title": "欧州での抗議活動を受けた注意喚起",
         "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
         "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-21",
-        "title": "欧州での抗議活動を受けた注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
-        "kind": "広域・スポット情報"
       }
     ],
     "links": [

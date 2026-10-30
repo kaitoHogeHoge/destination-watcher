@@ -2,8 +2,8 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-10-29T09:36:26+09:00",
-  "attempted_at": "2026-10-29T09:36:26+09:00",
+  "updated_at": "2026-10-30T09:36:54+09:00",
+  "attempted_at": "2026-10-30T09:36:54+09:00",
   "error": null,
   "data": {
     "holidays": [
@@ -31,6 +31,11 @@
         "date": "2027-03-29",
         "local_name": "Ostermontag",
         "name": "Easter Monday"
+      },
+      {
+        "date": "2027-05-01",
+        "local_name": "Tag der Arbeit",
+        "name": "Labour Day"
       }
     ]
   },
