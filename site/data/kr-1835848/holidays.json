@@ -1,10 +1,10 @@
 {
   "source": "holidays",
   "provider": "nager-date",
-  "status": "error",
-  "updated_at": "2026-10-30T09:36:54+09:00",
-  "attempted_at": "2026-10-31T09:22:13+09:00",
-  "error": "通信に失敗しました（タイムアウト）",
+  "status": "ok",
+  "updated_at": "2026-11-01T08:56:28+09:00",
+  "attempted_at": "2026-11-01T08:56:28+09:00",
+  "error": null,
   "data": {
     "holidays": [
       {
@@ -36,6 +36,11 @@
         "date": "2027-03-01",
         "local_name": "3·1절",
         "name": "Independence Movement Day"
+      },
+      {
+        "date": "2027-05-03",
+        "local_name": "노동절",
+        "name": "Labour Day"
       }
     ]
   },
