@@ -2,45 +2,45 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-30T09:36:54+09:00",
-  "attempted_at": "2026-10-30T09:36:54+09:00",
+  "updated_at": "2026-10-31T09:22:13+09:00",
+  "attempted_at": "2026-10-31T09:22:13+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_170.html",
-    "mofa_updated": "2026/10/30 09:23:33",
+    "mofa_updated": "2026/10/31 09:13:33",
     "mofa_code": "0033",
     "notices": [
+      {
+        "date": "2026-10-31",
+        "title": "10月31日（土）の抗議行動の呼びかけに伴う注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168680",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-31",
+        "title": "抗議デモの呼びかけ等に伴う注意喚起（10月31日）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168679",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-31",
+        "title": "抗議デモの呼びかけ等に伴う注意喚起（10月30日及び31日）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168678",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-31",
+        "title": "抗議デモの呼びかけ等に伴う注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168677",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-10-27",
         "title": "当館電話回線の不通（復旧）",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168592",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-27",
-        "title": "当館電話回線の不通",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168570",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-24",
-        "title": "10月24日（土）の大規模デモの呼びかけに伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168535",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-24",
-        "title": "10月24日の大規模抗議デモの呼びかけに伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168534",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-23",
-        "title": "10月24日の大規模抗議デモの呼びかけに伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168533",
         "kind": "領事メール"
       }
     ],

@@ -2,17 +2,35 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-30T09:36:54+09:00",
-  "attempted_at": "2026-10-30T09:36:54+09:00",
+  "updated_at": "2026-10-31T09:22:13+09:00",
+  "attempted_at": "2026-10-31T09:22:13+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_165.html",
-    "mofa_updated": "2026/10/30 09:23:24",
+    "mofa_updated": "2026/10/31 09:13:24",
     "mofa_code": "0049",
     "notices": [
+      {
+        "date": "2026-10-30",
+        "title": "【安全情報】１０月３１日（土）ドイツ全土における大規模抗議デモに関する注意喚起 (続報)",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168670",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-30",
+        "title": "【安全情報・続報】１０月３１日（土）ドイツ全土における大規模デモに関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168664",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-30",
+        "title": "【安全情報】10月31日（土）ドイツ全土における大規模デモに関する注意喚起 （続報）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168663",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-10-29",
         "title": "【安全情報】大規模デモに伴う注意喚起（10月31日）",
@@ -23,24 +41,6 @@
         "date": "2026-10-28",
         "title": "【安全情報】10月31日（土）ドイツ全土における大規模デモに関する注意喚起",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168613",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-26",
-        "title": "【安全情報】１０月３１日（土）ドイツ全土における大規模抗議デモに関する注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168565",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-26",
-        "title": "【安全情報】１０月３１日（土）ドイツ全土における大規模デモに関する注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168563",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-23",
-        "title": "【安全情報】１０月３１日（土）ドイツ全土における大規模デモに関する注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168528",
         "kind": "領事メール"
       }
     ],

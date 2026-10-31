@@ -2,17 +2,23 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-10-30T09:36:54+09:00",
-  "attempted_at": "2026-10-30T09:36:54+09:00",
+  "updated_at": "2026-10-31T09:22:13+09:00",
+  "attempted_at": "2026-10-31T09:22:13+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_154.html",
-    "mofa_updated": "2026/10/30 09:22:57",
+    "mofa_updated": "2026/10/31 09:12:57",
     "mofa_code": "0044",
     "notices": [
+      {
+        "date": "2026-10-30",
+        "title": "在英国日本国大使館の電話回線の不通（10/31（土曜・閉館日）08:00～19:00）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168668",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-10-29",
         "title": "英国安全対策情報（2026年7月～9月期）",
@@ -29,12 +35,6 @@
         "date": "2026-10-27",
         "title": "【注意喚起】緊急事態に備えた水及び食料品などの備蓄について（英政府の発表）",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168569",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-21",
-        "title": "欧州での抗議活動を受けた注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
         "kind": "領事メール"
       },
       {
