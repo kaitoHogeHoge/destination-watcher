@@ -2,16 +2,11 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-11-01T08:56:28+09:00",
-  "attempted_at": "2026-11-01T08:56:28+09:00",
+  "updated_at": "2026-11-02T09:13:33+09:00",
+  "attempted_at": "2026-11-02T09:13:33+09:00",
   "error": null,
   "data": {
     "holidays": [
-      {
-        "date": "2026-11-01",
-        "local_name": "Toussaint",
-        "name": "All Saints' Day"
-      },
       {
         "date": "2026-11-11",
         "local_name": "Armistice 1918",

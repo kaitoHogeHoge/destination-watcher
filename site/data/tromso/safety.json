@@ -2,15 +2,15 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-01T08:56:28+09:00",
-  "attempted_at": "2026-11-01T08:56:28+09:00",
+  "updated_at": "2026-11-02T09:13:33+09:00",
+  "attempted_at": "2026-11-02T09:13:33+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_166.html",
-    "mofa_updated": "2026/11/01 08:38:23",
+    "mofa_updated": "2026/11/02 08:58:25",
     "mofa_code": "0047",
     "notices": [
       {
@@ -36,12 +36,6 @@
         "title": "欧州での抗議活動を受けた注意喚起",
         "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
         "kind": "広域・スポット情報"
-      },
-      {
-        "date": "2026-10-02",
-        "title": "２０２６年７月から９月にオスロ市中心部において発生した凶器使用犯罪の状況",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168082",
-        "kind": "領事メール"
       }
     ],
     "links": [

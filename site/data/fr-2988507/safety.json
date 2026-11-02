@@ -2,15 +2,15 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-01T08:56:28+09:00",
-  "attempted_at": "2026-11-01T08:56:28+09:00",
+  "updated_at": "2026-11-02T09:13:33+09:00",
+  "attempted_at": "2026-11-02T09:13:33+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_170.html",
-    "mofa_updated": "2026/11/01 08:38:28",
+    "mofa_updated": "2026/11/02 08:58:30",
     "mofa_code": "0033",
     "notices": [
       {
