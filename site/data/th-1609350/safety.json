@@ -2,15 +2,15 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-04T10:02:39+09:00",
-  "attempted_at": "2026-11-04T10:02:39+09:00",
+  "updated_at": "2026-11-05T10:17:40+09:00",
+  "attempted_at": "2026-11-05T10:17:40+09:00",
   "error": null,
   "data": {
     "level": 3,
     "infection_level": 0,
     "title": "タイの危険情報【一部地域の危険レベル引下げ】",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_007.html",
-    "mofa_updated": "2026/11/04 09:45:59",
+    "mofa_updated": "2026/11/05 10:01:04",
     "mofa_code": "0066",
     "notices": [
       {
@@ -35,12 +35,6 @@
         "date": "2026-10-15",
         "title": "ＩＭＦ・世銀年次総会に関する抗議活動に伴う交通規制について（10月15日（木））",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168348",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-05",
-        "title": "【注意喚起】タイ国内における気象状況について",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168122",
         "kind": "領事メール"
       }
     ],
