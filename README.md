@@ -9,7 +9,7 @@
 
 ## 行き先を足す・消す（おすすめ：GitHub のボタンから）
 
-スマホのブラウザからもできます。
+スマホのブラウザからもできます。アプリの画面の右上（スマホでは見出しの下）にある「＋ 行き先を追加」「− 削除」を押すと、下の GitHub のページがすぐ開きます。
 
 **追加**
 1. https://github.com/kaitoHogeHoge/destination-watcher/actions を開く

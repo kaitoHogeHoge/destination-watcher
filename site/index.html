@@ -21,7 +21,16 @@
 </head>
 <body>
   <header class="page-header">
-    <h1>行き先ウォッチャー</h1>
+    <div class="header-row">
+      <h1>行き先ウォッチャー</h1>
+      <!-- 行き先の追加・削除は GitHub の画面で行う（実行できるのはリポジトリの持ち主だけ） -->
+      <nav class="manage-links" aria-label="行き先の管理（GitHub）">
+        <a href="https://github.com/kaitoHogeHoge/destination-watcher/actions/workflows/add-destination.yml"
+           target="_blank" rel="noopener" title="GitHub の「行き先を追加」を開く（持ち主のみ実行できます）">＋ 行き先を追加</a>
+        <a href="https://github.com/kaitoHogeHoge/destination-watcher/actions/workflows/remove-destination.yml"
+           target="_blank" rel="noopener" title="GitHub の「行き先を削除」を開く（持ち主のみ実行できます）">− 削除</a>
+      </nav>
+    </div>
     <p class="generated" id="generated">読み込み中…</p>
   </header>
   <main id="cards" class="cards"></main>
