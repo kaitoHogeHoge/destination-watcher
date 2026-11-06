@@ -54,7 +54,20 @@ body {
 }
 
 .page-header { padding-top: 20px; padding-bottom: 8px; }
-.page-header h1 { margin: 0; font-size: 1.5rem; }
+.page-header h1 {
+  margin: 0;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  font-size: 1.7rem;
+  letter-spacing: 0.04em;
+}
+.page-header h1 .tagline {
+  font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--muted);
+  margin-left: 6px;
+}
 .generated { margin: 4px 0 0; color: var(--muted); font-size: 0.85rem; }
 
 .cards {

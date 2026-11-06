@@ -1,5 +1,5 @@
 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <title>行き先ウォッチャー</title>
+  <title>Mirador</title>
   <rect width="512" height="512" fill="#e9dcc4"/>
   <circle cx="256" cy="200" r="96" fill="#f2a24b"/>
   <path d="M0 360 Q128 300 256 350 T512 340 V512 H0z" fill="#2f6f8f"/>

@@ -1,6 +1,6 @@
 {
-  "name": "行き先ウォッチャー",
-  "short_name": "行き先ウォッチャー",
+  "name": "Mirador",
+  "short_name": "Mirador",
   "description": "気になる旅行先の為替・天気・気候・祝日・安全情報を毎日まとめて比べる",
   "lang": "ja",
   "start_url": "./",
