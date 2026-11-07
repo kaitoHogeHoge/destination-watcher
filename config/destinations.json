@@ -69,5 +69,15 @@
     "lat": 52.52,
     "lon": 13.41,
     "currency": "EUR"
+  },
+  {
+    "id": "us-4155701",
+    "name": "フロリダキーズ",
+    "country": "アメリカ",
+    "country_code": "US",
+    "mofa_code": "1000",
+    "lat": 24.67,
+    "lon": -81.58,
+    "currency": "USD"
   }
 ]
