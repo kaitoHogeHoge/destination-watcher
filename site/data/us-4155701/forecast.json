@@ -1,0 +1,10 @@
+{
+  "source": "forecast",
+  "provider": "open-meteo",
+  "status": "error",
+  "updated_at": null,
+  "attempted_at": "2026-11-07T18:03:46+09:00",
+  "error": "通信に失敗しました（タイムアウト）",
+  "data": null,
+  "data_version": 1
+}

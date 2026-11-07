@@ -1,0 +1,17 @@
+{
+  "source": "photo",
+  "provider": "wikimedia",
+  "status": "ok",
+  "updated_at": "2026-11-07T18:03:46+09:00",
+  "attempted_at": "2026-11-07T18:03:46+09:00",
+  "error": null,
+  "data": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Florida_Keys_SPOT_1283.jpg/960px-Florida_Keys_SPOT_1283.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Florida_Keys_SPOT_1283.jpg",
+    "artist": "Cnes - Spot Image",
+    "license": "CC BY-SA 3.0",
+    "file": "File:Florida_Keys_SPOT_1283.jpg",
+    "requested": null
+  },
+  "data_version": 1
+}

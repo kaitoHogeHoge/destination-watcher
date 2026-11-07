@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T09:37:08+09:00",
+  "generated_at": "2026-11-07T18:03:46+09:00",
   "destinations": [
     {
       "id": "london",
@@ -56,6 +56,14 @@
       "country_code": "DE",
       "lat": 52.52,
       "lon": 13.41
+    },
+    {
+      "id": "us-4155701",
+      "name": "フロリダキーズ",
+      "country": "アメリカ",
+      "country_code": "US",
+      "lat": 24.67,
+      "lon": -81.58
     }
   ],
   "sources": [

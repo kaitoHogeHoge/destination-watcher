@@ -1,0 +1,67 @@
+{
+  "source": "safety",
+  "provider": "mofa",
+  "status": "ok",
+  "updated_at": "2026-11-07T18:03:46+09:00",
+  "attempted_at": "2026-11-07T18:03:46+09:00",
+  "error": null,
+  "data": {
+    "level": 0,
+    "infection_level": 0,
+    "title": "",
+    "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_221.html",
+    "mofa_updated": "2026/11/07 17:41:41",
+    "mofa_code": "1000",
+    "notices": [
+      {
+        "date": "2026-10-29",
+        "title": "【注意喚起】ニューヨークシティマラソン開催に伴う交通規制等（１１月１日）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168622",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-28",
+        "title": "【お知らせ】米国到着便搭乗者に対する宣誓書提出（2026年11月3日施行）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168599",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-26",
+        "title": "【注意喚起】フロリダ州タラハシー市における銃撃事件の発生",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168552",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-18",
+        "title": "外出禁止解除、開館予定のお知らせ（第４報）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168429",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-10-18",
+        "title": "【台風情報】台風警報解除（サイパン、テニアン）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168428",
+        "kind": "領事メール"
+      }
+    ],
+    "links": [
+      {
+        "label": "安全対策基礎データ",
+        "url": "https://www.anzen.mofa.go.jp/info/pcsafetymeasure_221.html"
+      },
+      {
+        "label": "医療事情",
+        "url": "http://www.anzen.mofa.go.jp/medi/usa_medi.html"
+      },
+      {
+        "label": "テロ・誘拐情勢",
+        "url": "https://www.anzen.mofa.go.jp/info/pcterror_221.html"
+      }
+    ],
+    "changed": false,
+    "changed_at": null,
+    "previous_level": null,
+    "previous_infection_level": null
+  },
+  "data_version": 1
+}
