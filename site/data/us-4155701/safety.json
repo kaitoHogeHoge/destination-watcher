@@ -2,15 +2,15 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-07T18:03:46+09:00",
-  "attempted_at": "2026-11-07T18:03:46+09:00",
+  "updated_at": "2026-11-08T09:11:31+09:00",
+  "attempted_at": "2026-11-08T09:11:31+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_221.html",
-    "mofa_updated": "2026/11/07 17:41:41",
+    "mofa_updated": "2026/11/08 08:56:41",
     "mofa_code": "1000",
     "notices": [
       {
@@ -58,10 +58,10 @@
         "url": "https://www.anzen.mofa.go.jp/info/pcterror_221.html"
       }
     ],
-    "changed": false,
     "changed_at": null,
     "previous_level": null,
-    "previous_infection_level": null
+    "previous_infection_level": null,
+    "changed": false
   },
   "data_version": 1
 }
