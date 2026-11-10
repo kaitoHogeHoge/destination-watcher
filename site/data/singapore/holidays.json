@@ -2,16 +2,11 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-11-09T09:32:27+09:00",
-  "attempted_at": "2026-11-09T09:32:27+09:00",
+  "updated_at": "2026-11-10T12:09:30+09:00",
+  "attempted_at": "2026-11-10T12:09:30+09:00",
   "error": null,
   "data": {
     "holidays": [
-      {
-        "date": "2026-11-09",
-        "local_name": "Deepavali",
-        "name": "Deepavali"
-      },
       {
         "date": "2026-12-25",
         "local_name": "Christmas Day",

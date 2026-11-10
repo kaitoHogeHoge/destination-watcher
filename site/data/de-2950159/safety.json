@@ -2,17 +2,23 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-09T09:32:27+09:00",
-  "attempted_at": "2026-11-09T09:32:27+09:00",
+  "updated_at": "2026-11-10T12:09:30+09:00",
+  "attempted_at": "2026-11-10T12:09:30+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_165.html",
-    "mofa_updated": "2026/11/09 09:08:24",
+    "mofa_updated": "2026/11/10 11:48:32",
     "mofa_code": "0049",
     "notices": [
+      {
+        "date": "2026-11-09",
+        "title": "【安全情報】クリスマス・マーケット開催に伴う注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168837",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-11-04",
         "title": "当館電話回線の不具合（復旧）",
@@ -35,12 +41,6 @@
         "date": "2026-10-30",
         "title": "【安全情報】１０月３１日（土）ドイツ全土における大規模抗議デモに関する注意喚起 (続報)",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168670",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-30",
-        "title": "【安全情報・続報】１０月３１日（土）ドイツ全土における大規模デモに関する注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168664",
         "kind": "領事メール"
       }
     ],
