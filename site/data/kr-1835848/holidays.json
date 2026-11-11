@@ -2,8 +2,8 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-11-10T12:09:30+09:00",
-  "attempted_at": "2026-11-10T12:09:30+09:00",
+  "updated_at": "2026-11-11T09:59:47+09:00",
+  "attempted_at": "2026-11-11T09:59:47+09:00",
   "error": null,
   "data": {
     "holidays": [
@@ -46,6 +46,11 @@
         "date": "2027-05-05",
         "local_name": "어린이날",
         "name": "Children's Day"
+      },
+      {
+        "date": "2027-05-13",
+        "local_name": "부처님 오신 날",
+        "name": "Buddha's Birthday"
       }
     ]
   },

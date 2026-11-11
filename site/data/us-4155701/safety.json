@@ -2,45 +2,45 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-10T12:09:30+09:00",
-  "attempted_at": "2026-11-10T12:09:30+09:00",
+  "updated_at": "2026-11-11T09:59:47+09:00",
+  "attempted_at": "2026-11-11T09:59:47+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_221.html",
-    "mofa_updated": "2026/11/10 11:46:59",
+    "mofa_updated": "2026/11/11 09:46:47",
     "mofa_code": "1000",
     "notices": [
+      {
+        "date": "2026-11-11",
+        "title": "米国行き国際線航空機搭乗者に対するコンゴ民主共和国滞在歴の有無に関する宣誓書提出義務について",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168871",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-11",
+        "title": "米国行き国際線航空機搭乗者に対するコンゴ民主共和国滞在歴の有無に関する宣誓書提出義務について",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168869",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-11",
+        "title": "【お知らせ】米国のエボラ出血熱水際対策（米国行き国際線航空便搭乗者による宣誓書の提出）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168868",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-11",
+        "title": "米国行き国際線航空機搭乗者に対するコンゴ民主共和国滞在歴の有無に関する宣誓書提出義務について",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168863",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-11-10",
         "title": "米国行き国際線航空機搭乗者に対するコンゴ民主共和国滞在歴の有無に関する宣誓書提出義務について",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168851",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-10",
-        "title": "米国行き国際線航空機搭乗者に対するコンゴ民主共和国滞在歴の有無に関する宣誓書提出義務について",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168850",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-10",
-        "title": "米国行き国際線航空機搭乗者に対するコンゴ民主共和国滞在歴の有無に関する宣誓書提出義務について",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168849",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-10",
-        "title": "米国行き国際線航空機搭乗者に対するコンゴ民主共和国滞在歴の有無に関する宣誓書提出義務について",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168848",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-10",
-        "title": "米国行き国際線航空機搭乗者に対するコンゴ民主共和国滞在歴の有無に関する宣誓書提出義務について",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168847",
         "kind": "領事メール"
       }
     ],
