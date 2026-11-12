@@ -2,17 +2,29 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-11T09:59:47+09:00",
-  "attempted_at": "2026-11-11T09:59:47+09:00",
+  "updated_at": "2026-11-12T11:07:07+09:00",
+  "attempted_at": "2026-11-12T11:07:07+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_165.html",
-    "mofa_updated": "2026/11/11 09:48:07",
+    "mofa_updated": "2026/11/12 10:58:24",
     "mofa_code": "0049",
     "notices": [
+      {
+        "date": "2026-11-12",
+        "title": "【安全情報】１１月２０日（金）ドイツ全土における大規模デモに関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168883",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-11",
+        "title": "【安全情報】クリスマス・マーケット開催に伴う注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168876",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-11-10",
         "title": "【安全情報】クリスマス・マーケット開催に伴う注意喚起",
@@ -29,18 +41,6 @@
         "date": "2026-11-10",
         "title": "【安全情報】クリスマス・マーケット開催に伴う注意喚起",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168858",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-10",
-        "title": "「在留邦人の健康のためのオンライン講演会」のご紹介（１１月２２日（日））",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168857",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-09",
-        "title": "【安全情報】クリスマス・マーケット開催に伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168837",
         "kind": "領事メール"
       }
     ],
