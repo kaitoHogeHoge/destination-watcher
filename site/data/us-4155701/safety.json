@@ -2,17 +2,23 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-13T10:40:31+09:00",
-  "attempted_at": "2026-11-13T10:40:31+09:00",
+  "updated_at": "2026-11-14T01:31:58+09:00",
+  "attempted_at": "2026-11-14T01:31:58+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_221.html",
-    "mofa_updated": "2026/11/13 10:26:52",
+    "mofa_updated": "2026/11/14 01:16:46",
     "mofa_code": "1000",
     "notices": [
+      {
+        "date": "2026-11-13",
+        "title": "Microsoft365の大規模障害について",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168993",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-11-12",
         "title": "ワシントンＤＣ北西地区で銃撃事件発生",
@@ -35,12 +41,6 @@
         "date": "2026-11-11",
         "title": "米国行き国際線航空機搭乗者に対するコンゴ民主共和国滞在歴の有無に関する宣誓書提出義務について",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168869",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-11",
-        "title": "【お知らせ】米国のエボラ出血熱水際対策（米国行き国際線航空便搭乗者による宣誓書の提出）",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168868",
         "kind": "領事メール"
       }
     ],

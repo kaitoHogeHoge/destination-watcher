@@ -2,8 +2,8 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-11-13T10:40:31+09:00",
-  "attempted_at": "2026-11-13T10:40:31+09:00",
+  "updated_at": "2026-11-14T01:31:58+09:00",
+  "attempted_at": "2026-11-14T01:31:58+09:00",
   "error": null,
   "data": {
     "holidays": [
@@ -41,6 +41,26 @@
         "date": "2027-05-01",
         "local_name": "Labour Day",
         "name": "Labour Day"
+      },
+      {
+        "date": "2027-05-17",
+        "local_name": "Hari Raya Haji",
+        "name": "Hari Raya Haji"
+      },
+      {
+        "date": "2027-05-20",
+        "local_name": "Vesak Day",
+        "name": "Vesak Day"
+      },
+      {
+        "date": "2027-08-09",
+        "local_name": "National Day",
+        "name": "National Day"
+      },
+      {
+        "date": "2027-10-28",
+        "local_name": "Deepavali",
+        "name": "Deepavali"
       }
     ]
   },

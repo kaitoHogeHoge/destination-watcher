@@ -2,8 +2,8 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-11-13T10:40:31+09:00",
-  "attempted_at": "2026-11-13T10:40:31+09:00",
+  "updated_at": "2026-11-14T01:31:58+09:00",
+  "attempted_at": "2026-11-14T01:31:58+09:00",
   "error": null,
   "data": {
     "holidays": [
@@ -36,6 +36,31 @@
         "date": "2027-05-08",
         "local_name": "Victoire 1945",
         "name": "Victory in Europe Day"
+      },
+      {
+        "date": "2027-05-17",
+        "local_name": "Lundi de Pentecôte",
+        "name": "Whit Monday"
+      },
+      {
+        "date": "2027-07-14",
+        "local_name": "Fête nationale",
+        "name": "Bastille Day"
+      },
+      {
+        "date": "2027-08-15",
+        "local_name": "Assomption",
+        "name": "Assumption Day"
+      },
+      {
+        "date": "2027-11-01",
+        "local_name": "Toussaint",
+        "name": "All Saints' Day"
+      },
+      {
+        "date": "2027-11-11",
+        "local_name": "Armistice 1918",
+        "name": "Armistice Day"
       }
     ]
   },

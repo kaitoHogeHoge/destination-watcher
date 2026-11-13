@@ -2,8 +2,8 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-11-13T10:40:31+09:00",
-  "attempted_at": "2026-11-13T10:40:31+09:00",
+  "updated_at": "2026-11-14T01:31:58+09:00",
+  "attempted_at": "2026-11-14T01:31:58+09:00",
   "error": null,
   "data": {
     "holidays": [
@@ -56,6 +56,21 @@
         "date": "2027-05-06",
         "local_name": "Kristi himmelfartsdag",
         "name": "Ascension Day"
+      },
+      {
+        "date": "2027-05-16",
+        "local_name": "Første pinsedag",
+        "name": "Pentecost"
+      },
+      {
+        "date": "2027-05-17",
+        "local_name": "Syttende mai",
+        "name": "Constitution Day"
+      },
+      {
+        "date": "2027-05-17",
+        "local_name": "Andre pinsedag",
+        "name": "Whit Monday"
       }
     ]
   },

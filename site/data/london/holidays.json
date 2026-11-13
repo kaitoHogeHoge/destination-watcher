@@ -2,8 +2,8 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-11-13T10:40:31+09:00",
-  "attempted_at": "2026-11-13T10:40:31+09:00",
+  "updated_at": "2026-11-14T01:31:58+09:00",
+  "attempted_at": "2026-11-14T01:31:58+09:00",
   "error": null,
   "data": {
     "holidays": [
@@ -36,6 +36,16 @@
         "date": "2027-05-03",
         "local_name": "Early May Bank Holiday",
         "name": "Early May Bank Holiday"
+      },
+      {
+        "date": "2027-05-31",
+        "local_name": "Spring Bank Holiday",
+        "name": "Spring Bank Holiday"
+      },
+      {
+        "date": "2027-08-30",
+        "local_name": "Summer Bank Holiday",
+        "name": "Summer Bank Holiday"
       }
     ]
   },

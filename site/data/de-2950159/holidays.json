@@ -2,8 +2,8 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-11-13T10:40:31+09:00",
-  "attempted_at": "2026-11-13T10:40:31+09:00",
+  "updated_at": "2026-11-14T01:31:58+09:00",
+  "attempted_at": "2026-11-14T01:31:58+09:00",
   "error": null,
   "data": {
     "holidays": [
@@ -41,6 +41,16 @@
         "date": "2027-05-06",
         "local_name": "Christi Himmelfahrt",
         "name": "Ascension Day"
+      },
+      {
+        "date": "2027-05-17",
+        "local_name": "Pfingstmontag",
+        "name": "Whit Monday"
+      },
+      {
+        "date": "2027-10-03",
+        "local_name": "Tag der Deutschen Einheit",
+        "name": "German Unity Day"
       }
     ]
   },

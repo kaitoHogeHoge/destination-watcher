@@ -2,8 +2,8 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-11-13T10:40:31+09:00",
-  "attempted_at": "2026-11-13T10:40:31+09:00",
+  "updated_at": "2026-11-14T01:31:58+09:00",
+  "attempted_at": "2026-11-14T01:31:58+09:00",
   "error": null,
   "data": {
     "holidays": [
@@ -31,6 +31,36 @@
         "date": "2027-02-15",
         "local_name": "Washington's Birthday",
         "name": "Presidents Day"
+      },
+      {
+        "date": "2027-05-31",
+        "local_name": "Memorial Day",
+        "name": "Memorial Day"
+      },
+      {
+        "date": "2027-06-18",
+        "local_name": "Juneteenth National Independence Day",
+        "name": "Juneteenth National Independence Day"
+      },
+      {
+        "date": "2027-07-05",
+        "local_name": "Independence Day",
+        "name": "Independence Day"
+      },
+      {
+        "date": "2027-09-06",
+        "local_name": "Labor Day",
+        "name": "Labour Day"
+      },
+      {
+        "date": "2027-10-11",
+        "local_name": "Columbus Day",
+        "name": "Columbus Day"
+      },
+      {
+        "date": "2027-11-11",
+        "local_name": "Veterans Day",
+        "name": "Veterans Day"
       }
     ]
   },

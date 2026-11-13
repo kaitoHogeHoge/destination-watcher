@@ -2,8 +2,8 @@
   "source": "holidays",
   "provider": "nager-date",
   "status": "ok",
-  "updated_at": "2026-11-13T10:40:31+09:00",
-  "attempted_at": "2026-11-13T10:40:31+09:00",
+  "updated_at": "2026-11-14T01:31:58+09:00",
+  "attempted_at": "2026-11-14T01:31:58+09:00",
   "error": null,
   "data": {
     "holidays": [
@@ -51,6 +51,46 @@
         "date": "2027-05-13",
         "local_name": "부처님 오신 날",
         "name": "Buddha's Birthday"
+      },
+      {
+        "date": "2027-06-06",
+        "local_name": "현충일",
+        "name": "Memorial Day"
+      },
+      {
+        "date": "2027-07-19",
+        "local_name": "제헌절",
+        "name": "Constitution Day"
+      },
+      {
+        "date": "2027-08-16",
+        "local_name": "광복절",
+        "name": "Liberation Day"
+      },
+      {
+        "date": "2027-09-14",
+        "local_name": "추석",
+        "name": "Chuseok"
+      },
+      {
+        "date": "2027-09-15",
+        "local_name": "추석",
+        "name": "Chuseok"
+      },
+      {
+        "date": "2027-09-16",
+        "local_name": "추석",
+        "name": "Chuseok"
+      },
+      {
+        "date": "2027-10-04",
+        "local_name": "개천절",
+        "name": "National Foundation Day"
+      },
+      {
+        "date": "2027-10-11",
+        "local_name": "한글날",
+        "name": "Hangul Day"
       }
     ]
   },
