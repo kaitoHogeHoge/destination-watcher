@@ -1,4 +1,4 @@
-"""祝日（Nager.Date）。今日から6か月（183日）先までの祝日（設計書 5.5）。"""
+"""祝日（Nager.Date）。今日から12か月（365日）先までの祝日。カードには6か月分だけ出す（画面側で絞る）。"""
 
 import functools
 from datetime import date, timedelta
@@ -7,7 +7,7 @@ from fetcher import http
 from fetcher.sources.base import Source
 
 API = "https://date.nager.at/api/v3"
-WINDOW_DAYS = 183
+WINDOW_DAYS = 365
 
 
 @functools.cache

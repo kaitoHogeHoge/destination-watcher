@@ -449,9 +449,11 @@ function renderClimate(data) {
 // ---------- 祝日 ----------
 
 function renderHolidays(data) {
-  if (data.holidays.length === 0) return el("p", "note", "今後6か月の祝日はありません");
+  // データは12か月分（行きたい月で比べるため）。カードには6か月分だけ出す
+  const holidays = holidaysWithin(data.holidays, todayLocal(), 183);
+  if (holidays.length === 0) return el("p", "note", "今後6か月の祝日はありません");
   const list = el("ul", "holiday-list");
-  for (const h of data.holidays) {
+  for (const h of holidays) {
     const li = el("li");
     li.append(el("span", "hol-date", fmtDate(h.date)));
     const names = el("span", "hol-name", h.local_name);
@@ -636,6 +638,10 @@ function renderHero(dest, photo, clock) {
   const title = el("div", "hero-title");
   const country = [dest.country_code, dest.country].filter(Boolean).join(" ・ ");
   title.append(el("p", "hero-country", country), el("h2", "hero-name", dest.name), clock);
+  const flight = flightInfo(dest.lat, dest.lon);
+  if (flight) {
+    title.append(el("p", "hero-flight", `✈ 関空から約${flight.km.toLocaleString("en-US")}km・直行便なら約${flight.hours}時間（目安）`));
+  }
   hero.append(title);
   if (!photo) return hero;
   // 読み込めたときだけ写真と出典を出す（読み込めなければ色の帯のまま）
@@ -838,13 +844,71 @@ const COMPARE_COLUMNS = [
     sortHint: "危険レベルの低い順",
     render: (c) => el("span", `badge small level-${c.level}`, c.level === 0 ? "なし" : `レベル${c.level}`),
   },
+  {
+    label: "飛行時間（関空から）",
+    name: "flight",
+    sortHint: "近い順",
+    render: (c) => el("span", null, `約${c.value}時間`),
+  },
 ];
+
+// 月を選んだときの列（値は monthCells で作る { status, value, ... }）
+const MONTH_COLUMNS = [
+  { label: "平均気温", name: "month_temp", sortHint: "暖かい順", render: (c) => el("span", null, fmtNumber(c.value, "°", 1)) },
+  { label: "降水量", name: "month_precip", sortHint: "雨が少ない順", render: (c) => el("span", null, fmtNumber(c.value, "mm")) },
+  { label: "昼の長さ", name: "month_daylight", sortHint: "昼が長い順", render: (c) => el("span", null, fmtNumber(c.value, "時間", 1)) },
+  {
+    label: "過ごしやすさ",
+    name: "month_best",
+    sortHint: "ベストシーズンが上",
+    render: (c) => (c.value ? el("span", "best-mark", "★ ベストシーズン") : el("span", "flat", "—")),
+  },
+  {
+    label: "その月の祝日",
+    name: "month_holidays",
+    sortHint: "祝日が少ない順",
+    render: (c) => {
+      if (c.value === 0) return el("span", "flat", "なし");
+      const more = c.names.length > 1 ? ` ほか${c.names.length - 1}日` : "";
+      const span = el("span", null, `${c.names[0]}${more}`);
+      span.title = c.names.join("\n");
+      return span;
+    },
+  },
+];
+
+// monthSummary の結果を、表のマス（列の名前ごと）にする
+function monthCells(records, month) {
+  const m = monthSummary(records, month);
+  const fromClimate = (key) => (m.climate.status === "ok" || m.climate.status === "error"
+    ? { status: m.climate.status, value: m.climate[key] }
+    : { status: m.climate.status });
+  const cells = {
+    month_temp: fromClimate("temp"),
+    month_precip: fromClimate("precip"),
+    month_daylight: fromClimate("daylight"),
+    month_best: fromClimate("best"),
+  };
+  cells.month_holidays = m.holidays.status === "ok" || m.holidays.status === "error"
+    ? { status: m.holidays.status, value: m.holidays.count, names: m.holidays.names }
+    : { status: m.holidays.status };
+  return cells;
+}
+
+const COMPARE_MONTH_KEY = "destination-watcher.compare-month";
 
 const SORT_KEY = "destination-watcher.sort";
 
 function renderCompare(rows) {
   const section = el("section", "compare");
-  section.append(el("h2", null, "比較"));
+  const head = el("div", "compare-head");
+  head.append(el("h2", null, "比較"));
+  const picker = el("select", "month-picker");
+  picker.setAttribute("aria-label", "比べる時期");
+  picker.append(new Option("今の状況", "now"));
+  for (let m = 1; m <= 12; m++) picker.append(new Option(`${m}月に行くなら`, String(m)));
+  head.append(picker);
+  section.append(head);
   const scroller = el("div", "table-scroll");
   const table = el("table", "compare-table");
   const thead = el("thead");
@@ -852,14 +916,42 @@ function renderCompare(rows) {
   table.append(thead, tbody);
 
   const today = todayLocal();
-  const items = rows.map(({ dest, records }) => ({ id: dest.id, dest, photo: photoOf(records), summary: summarize(records, today) }));
+  const savedMonth = String(loadSetting(COMPARE_MONTH_KEY, "now"));
+  let mode = savedMonth === "now" || /^(1[0-2]|[1-9])$/.test(savedMonth) ? savedMonth : "now";
+  picker.value = mode;
+  const baseItems = rows.map(({ dest, records }) => {
+    const summary = summarize(records, today);
+    const flight = flightInfo(dest.lat, dest.lon);
+    summary.flight = flight ? { status: "ok", value: flight.hours } : { status: "missing" };
+    return { id: dest.id, dest, records, photo: photoOf(records), summary };
+  });
+  let items = baseItems;
+  let columns = COMPARE_COLUMNS;
+  function applyMode() {
+    if (mode === "now") {
+      items = baseItems;
+      columns = COMPARE_COLUMNS;
+    } else {
+      items = baseItems.map((it) => ({ ...it, summary: monthCells(it.records, Number(mode)) }));
+      columns = MONTH_COLUMNS;
+    }
+  }
+  applyMode();
+  picker.addEventListener("change", () => {
+    mode = picker.value;
+    saveSetting(COMPARE_MONTH_KEY, mode);
+    applyMode();
+    drawHead();
+    drawBody();
+    note.textContent = noteText();
+  });
   const saved = loadSetting(SORT_KEY, null);
   let sort = saved && typeof saved === "object" ? saved : { column: null, direction: null };
 
   function drawHead() {
     const tr = el("tr");
     tr.append(el("th", null, "行き先"));
-    for (const col of COMPARE_COLUMNS) {
+    for (const col of columns) {
       const th = el("th");
       const button = el("button", "sort-button", col.label);
       button.type = "button";
@@ -867,7 +959,6 @@ function renderCompare(rows) {
       th.setAttribute("aria-sort", active ? (sort.direction === "natural" ? "ascending" : "descending") : "none");
       if (active) button.append(el("span", "sort-mark", sort.direction === "natural" ? " ▲" : " ▼"));
       button.title = `${col.sortHint}（もう一度押すと逆順）`;
-      button.setAttribute("aria-label", `${col.label}で並べ替え：${col.sortHint}`);
       button.setAttribute("aria-label", `${col.label}で並べ替え：${col.sortHint}`);
       button.addEventListener("click", () => {
         const direction = active && sort.direction === "natural" ? "reverse" : "natural";
@@ -894,7 +985,7 @@ function renderCompare(rows) {
       link.href = `#dest-${dest.id}`;
       nameCell.append(link);
       tr.append(nameCell);
-      for (const col of COMPARE_COLUMNS) {
+      for (const col of columns) {
         tr.append(compareCell(summary[col.name] || { status: "missing" }, col.render));
       }
       tbody.append(tr);
@@ -905,7 +996,13 @@ function renderCompare(rows) {
   drawBody();
   scroller.append(table);
   section.append(scroller);
-  section.append(el("p", "note", "見出しを押すと並べ替えます。☂ は降水確率50%以上の日数。為替は「1外貨＝何円」が30日前より上がっていれば円安です。"));
+  function noteText() {
+    return mode === "now"
+      ? "見出しを押すと並べ替えます。☂ は降水確率50%以上の日数。為替は「1外貨＝何円」が30日前より上がっていれば円安です。飛行時間は関空からの直線距離で計算した直行便の目安です（乗り継ぎ・便の有無・風向きは含みません）。"
+      : "見出しを押すと並べ替えます。気温・降水量・昼の長さは過去10年の平均、祝日は今後12か月の予定です。★ はその都市で気温と雨から見て過ごしやすい上位3か月です。";
+  }
+  const note = el("p", "note", noteText());
+  section.append(note);
   return section;
 }
 

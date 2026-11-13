@@ -395,4 +395,19 @@ p.fx-position { margin: 6px 0 0; }
 }
 .compare-table { border-radius: 16px; overflow: hidden; }
 
+/* 行きたい月で比べる・飛行時間 */
+.compare-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.compare-head h2 { margin: 0; }
+.month-picker {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.best-mark { color: #b07a10; font-weight: 700; }
+.hero .hero-flight { margin: 2px 0 0; font-size: 0.75rem; opacity: 0.9; }
+
 .page-footer { color: var(--muted); font-size: 0.75rem; padding-bottom: 32px; }

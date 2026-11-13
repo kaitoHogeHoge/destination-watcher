@@ -4,6 +4,7 @@ const assert = require("node:assert/strict");
 const {
   isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly,
   parseAmount, currencyDigits, toYen, fromYen, formatAmount, fxPosition, sortRows, formatMonths,
+  flightInfo, monthSummary, holidaysWithin,
 } = require("../../site/summary.js");
 
 const HOUR = 60 * 60 * 1000;
@@ -353,4 +354,69 @@ test("安全のタイル：お知らせの件数と変化", () => {
   assert.deepEqual(s.safety, { status: "ok", level: 0, notices: 3, changed: true });
   const old = summarize({ safety: ok({ level: 0, notices: [], changed: true, changed_at: "2026-01-01T06:00:00+09:00" }) }, TODAY);
   assert.equal(old.safety.changed, false); // 7日より前の変化は出さない
+});
+
+// ---------- 関空からの飛行時間の目安 ----------
+
+test("飛行時間：関空からの距離と直行便の目安", () => {
+  const london = flightInfo(51.51, -0.13);
+  assert.ok(london.km > 9400 && london.km < 9700, String(london.km)); // 関空〜ロンドンは約9,500km
+  assert.equal(london.hours, 12.5); // 9,5xx ÷ 800 + 0.5 → 0.5時間きざみに丸める
+  const seoul = flightInfo(37.57, 126.98);
+  assert.ok(seoul.km > 800 && seoul.km < 900, String(seoul.km));
+  assert.equal(seoul.hours, 1.5);
+});
+
+test("飛行時間：緯度経度が無ければ null", () => {
+  assert.equal(flightInfo(undefined, 1), null);
+  assert.equal(flightInfo(null, null), null);
+});
+
+// ---------- 行きたい月で比べる ----------
+
+const MONTHS = Array.from({ length: 12 }, (_, i) => ({ month: i + 1, temp: 10 + i, precip: 50 + i, daylight: 10 }));
+MONTHS[5] = { month: 6, temp: 22, precip: 10, daylight: 16.5 };
+
+test("月の比較：その月の気温・雨・昼の長さとベストシーズン", () => {
+  const records = { climate: ok({ months: MONTHS }), holidays: ok({ holidays: [] }) };
+  const m = monthSummary(records, 6);
+  assert.deepEqual(m.climate, { status: "ok", temp: 22, precip: 10, daylight: 16.5, best: true });
+  const m2 = monthSummary(records, 1);
+  assert.equal(m2.climate.best, false);
+});
+
+test("月の比較：その月の祝日（年はまたいでもよい）", () => {
+  const holidays = [
+    { date: "2026-12-25", local_name: "Christmas Day" },
+    { date: "2027-01-01", local_name: "New Year's Day" },
+    { date: "2027-12-31", local_name: "範囲外ではない" },
+  ];
+  const records = { climate: ok({ months: MONTHS }), holidays: ok({ holidays }) };
+  assert.deepEqual(monthSummary(records, 12).holidays, {
+    status: "ok", count: 2, names: ["12/25 Christmas Day", "12/31 範囲外ではない"],
+  });
+  assert.deepEqual(monthSummary(records, 3).holidays, { status: "ok", count: 0, names: [] });
+});
+
+test("月の比較：対象外・データなし", () => {
+  const m = monthSummary({ holidays: { status: "unsupported", data: null } }, 4);
+  assert.deepEqual(m.holidays, { status: "unsupported" });
+  assert.deepEqual(m.climate, { status: "missing" });
+});
+
+test("並べ替え：月の比較と飛行時間", () => {
+  const rows = [
+    { id: "a", summary: { month_temp: { status: "ok", value: 5 }, flight: { status: "ok", value: 12.5 } } },
+    { id: "b", summary: { month_temp: { status: "ok", value: 25 }, flight: { status: "ok", value: 7 } } },
+    { id: "c", summary: { month_temp: { status: "missing" }, flight: { status: "missing" } } },
+  ];
+  assert.deepEqual(sortRows(rows, "month_temp", "natural").map((r) => r.id), ["b", "a", "c"]); // 暖かい順
+  assert.deepEqual(sortRows(rows, "flight", "natural").map((r) => r.id), ["b", "a", "c"]); // 近い順
+});
+
+// ---------- カードの祝日は6か月分 ----------
+
+test("カードの祝日は今日から183日以内だけ", () => {
+  const list = [{ date: "2026-10-01" }, { date: "2026-12-25" }, { date: "2027-04-14" }, { date: "2027-04-16" }];
+  assert.deepEqual(holidaysWithin(list, "2026-10-13", 183).map((h) => h.date), ["2026-12-25", "2027-04-14"]);
 });

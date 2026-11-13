@@ -177,6 +177,12 @@ const SORT_KEYS = {
   climate: { value: (c) => c.temp, ascending: false },    // 暖かい順
   holidays: { value: (c) => c.date, ascending: true },    // 近い順
   safety: { value: (c) => c.level, ascending: true },     // 低い順
+  flight: { value: (c) => c.value, ascending: true },     // 近い順
+  month_temp: { value: (c) => c.value, ascending: false },     // 暖かい順
+  month_precip: { value: (c) => c.value, ascending: true },    // 雨が少ない順
+  month_daylight: { value: (c) => c.value, ascending: false }, // 昼が長い順
+  month_best: { value: (c) => c.value, ascending: false },     // ベストシーズンが上
+  month_holidays: { value: (c) => c.value, ascending: true },  // 祝日が少ない順
 };
 
 function sortRows(rows, column, direction) {
@@ -197,6 +203,60 @@ function sortRows(rows, column, direction) {
       return (ascending ? cmp : -cmp) || a.i - b.i;
     })
     .map((x) => x.r);
+}
+
+// ---------- 関空からの飛行時間の目安 ----------
+// 直線距離 ÷ 時速800km + 離着陸の30分。0.5時間きざみに丸める。便の有無・乗り継ぎ・風は考えない
+
+const KIX = { lat: 34.4347, lon: 135.244 };
+const CRUISE_KMH = 800;
+const TAKEOFF_LANDING_H = 0.5;
+
+function flightInfo(lat, lon) {
+  if (typeof lat !== "number" || typeof lon !== "number") return null;
+  const rad = (d) => (d * Math.PI) / 180;
+  const dLat = rad(lat - KIX.lat);
+  const dLon = rad(lon - KIX.lon);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(rad(KIX.lat)) * Math.cos(rad(lat)) * Math.sin(dLon / 2) ** 2;
+  const km = Math.round(2 * 6371 * Math.asin(Math.sqrt(a)));
+  const hours = Math.round((km / CRUISE_KMH + TAKEOFF_LANDING_H) * 2) / 2;
+  return { km, hours };
+}
+
+// ---------- 行きたい月で比べる ----------
+
+function holidaysWithin(holidays, today, days) {
+  const end = daysBefore(today, -days);
+  return (holidays || []).filter((h) => h.date >= today && h.date <= end);
+}
+
+function monthSummary(records, month) {
+  const result = {};
+  const climate = records.climate;
+  if (climate && climate.status === "unsupported") result.climate = { status: "unsupported" };
+  else if (!climate || !climate.data || !Array.isArray(climate.data.months)) result.climate = { status: "missing" };
+  else {
+    const m = climate.data.months.find((x) => x.month === month) || {};
+    result.climate = {
+      status: climate.status === "error" ? "error" : "ok",
+      temp: typeof m.temp === "number" ? m.temp : null,
+      precip: typeof m.precip === "number" ? m.precip : null,
+      daylight: typeof m.daylight === "number" ? m.daylight : null,
+      best: bestSeason(climate.data.months).includes(month),
+    };
+  }
+  const holidays = records.holidays;
+  if (holidays && holidays.status === "unsupported") result.holidays = { status: "unsupported" };
+  else if (!holidays || !holidays.data || !Array.isArray(holidays.data.holidays)) result.holidays = { status: "missing" };
+  else {
+    const inMonth = holidays.data.holidays.filter((h) => Number(String(h.date).slice(5, 7)) === month);
+    result.holidays = {
+      status: holidays.status === "error" ? "error" : "ok",
+      count: inMonth.length,
+      names: inMonth.map((h) => `${Number(h.date.slice(5, 7))}/${Number(h.date.slice(8, 10))} ${h.local_name}`),
+    };
+  }
+  return result;
 }
 
 // ---------- 情報ごとの要約（data → 表の1マス分） ----------
@@ -269,5 +329,6 @@ if (typeof module !== "undefined") {
   module.exports = {
     STALE_HOURS, isStale, ageText, summarize, daysBefore, bestSeason, timeDiffText, parseHourly,
     parseAmount, currencyDigits, toYen, fromYen, formatAmount, fxPosition, sortRows, formatMonths,
+    flightInfo, monthSummary, holidaysWithin,
   };
 }

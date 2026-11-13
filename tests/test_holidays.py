@@ -19,6 +19,7 @@ GB_2027 = [
     {"date": "2027-03-26", "localName": "Good Friday", "name": "Good Friday", "global": True, "counties": None},
     {"date": "2027-05-03", "localName": "Early May Bank Holiday", "name": "Early May Bank Holiday",
      "global": True, "counties": None},
+    {"date": "2027-12-25", "localName": "Christmas Day", "name": "Christmas Day", "global": True, "counties": None},
 ]
 
 
@@ -50,13 +51,14 @@ def test_filters_to_england_for_gb_eng(gb):
 
 def test_without_region_only_global(gb):
     data = HolidaysSource().fetch({"id": "x", "country_code": "GB"}, None, NOW)
-    assert dates(data) == ["2026-12-25", "2026-12-28", "2027-03-26"]
+    assert dates(data) == ["2026-12-25", "2026-12-28", "2027-03-26", "2027-05-03"]
 
 
-def test_window_is_today_to_183_days(gb):
+def test_window_is_today_to_365_days(gb):
+    # 「行きたい月で比べる」のために12か月分を取る（カードには6か月分だけ出す）
     data = HolidaysSource().fetch(LONDON, None, NOW)
-    assert dates(data) == ["2026-12-25", "2026-12-28", "2027-01-01", "2027-03-26"]
-    assert "2027-05-03" not in dates(data)  # 183日より先
+    assert dates(data) == ["2026-12-25", "2026-12-28", "2027-01-01", "2027-03-26", "2027-05-03"]
+    assert "2027-12-25" not in dates(data)  # 365日より先
     assert "2026-08-31" not in dates(data)  # 過去
 
 
@@ -68,12 +70,6 @@ def test_keeps_local_and_english_names(gb):
 def test_fetches_two_years_when_window_crosses_new_year(gb):
     HolidaysSource().fetch(LONDON, None, NOW)
     assert [c["url"] for c in gb.calls] == [f"{API}/PublicHolidays/2026/GB", f"{API}/PublicHolidays/2027/GB"]
-
-
-def test_fetches_one_year_when_window_inside_year(fake_http):
-    fake_http.add(f"{API}/PublicHolidays/2026/GB", load_fixture("nager_gb_2026.json"))
-    HolidaysSource().fetch(LONDON, None, datetime(2026, 2, 1, 6, 0, tzinfo=JST))
-    assert len(fake_http.calls) == 1
 
 
 def test_supports_uses_available_countries(fake_http):
