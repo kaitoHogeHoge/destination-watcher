@@ -2,15 +2,15 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-14T01:31:58+09:00",
-  "attempted_at": "2026-11-14T01:31:58+09:00",
+  "updated_at": "2026-11-14T10:17:19+09:00",
+  "attempted_at": "2026-11-14T10:17:19+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_003.html",
-    "mofa_updated": "2026/11/14 01:16:00",
+    "mofa_updated": "2026/11/14 09:55:55",
     "mofa_code": "0082",
     "notices": [
       {

@@ -1,10 +1,10 @@
 {
   "source": "exchange",
   "provider": "frankfurter",
-  "status": "error",
-  "updated_at": "2026-11-13T10:40:31+09:00",
-  "attempted_at": "2026-11-14T01:31:58+09:00",
-  "error": "データ元がエラーを返しました（HTTP 522）",
+  "status": "ok",
+  "updated_at": "2026-11-14T10:17:19+09:00",
+  "attempted_at": "2026-11-14T10:17:19+09:00",
+  "error": null,
   "data": {
     "currency": "GBP",
     "history": [
@@ -1119,6 +1119,10 @@
       {
         "date": "2026-11-12",
         "jpy": 211.69
+      },
+      {
+        "date": "2026-11-13",
+        "jpy": 211.62
       }
     ]
   },

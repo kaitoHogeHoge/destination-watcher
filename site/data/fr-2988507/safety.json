@@ -2,45 +2,45 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-14T01:31:58+09:00",
-  "attempted_at": "2026-11-14T01:31:58+09:00",
+  "updated_at": "2026-11-14T10:17:19+09:00",
+  "attempted_at": "2026-11-14T10:17:19+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_170.html",
-    "mofa_updated": "2026/11/14 01:29:08",
+    "mofa_updated": "2026/11/14 10:08:07",
     "mofa_code": "0033",
     "notices": [
+      {
+        "date": "2026-11-14",
+        "title": "11月14日の大規模抗議デモ等の呼びかけに伴う注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169016",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-14",
+        "title": "抗議デモ等の呼びかけに伴う注意喚起（11月14日）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169015",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-14",
+        "title": "11月14日の大規模抗議デモ等の呼びかけに伴う注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169014",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-14",
+        "title": "11月14日（土）の抗議デモ等の呼びかけに伴う注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169013",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-11-07",
         "title": "11月7日（土）の大規模抗議デモ等の呼びかけに伴う注意喚起",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168824",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-07",
-        "title": "抗議デモ等の呼びかけに伴う注意喚起（11月7日）",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168822",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-07",
-        "title": "11月7日の大規模抗議デモ等の呼びかけに伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168821",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-07",
-        "title": "デモにご注意ください（11月7日）",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168820",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-05",
-        "title": "11月5日（木）の大規模抗議デモ等の呼びかけに伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168772",
         "kind": "領事メール"
       }
     ],
