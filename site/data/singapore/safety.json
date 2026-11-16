@@ -2,24 +2,17 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-15T09:46:01+09:00",
-  "attempted_at": "2026-11-15T09:46:01+09:00",
+  "updated_at": "2026-11-16T09:45:44+09:00",
+  "attempted_at": "2026-11-16T09:45:44+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_005.html",
-    "mofa_updated": "2026/11/15 09:25:52",
+    "mofa_updated": "2026/11/16 09:25:54",
     "mofa_code": "0065",
-    "notices": [
-      {
-        "date": "2026-10-16",
-        "title": "煙害（ヘイズ（haze））による大気汚染に伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168387",
-        "kind": "領事メール"
-      }
-    ],
+    "notices": [],
     "links": [
       {
         "label": "安全対策基礎データ",
