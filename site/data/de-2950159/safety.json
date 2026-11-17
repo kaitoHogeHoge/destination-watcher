@@ -2,45 +2,45 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-16T09:45:44+09:00",
-  "attempted_at": "2026-11-16T09:45:44+09:00",
+  "updated_at": "2026-11-17T12:23:43+09:00",
+  "attempted_at": "2026-11-17T12:23:43+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_165.html",
-    "mofa_updated": "2026/11/16 09:28:03",
+    "mofa_updated": "2026/11/17 11:58:06",
     "mofa_code": "0049",
     "notices": [
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "広域・スポット情報"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "広域・スポット情報"
+      },
       {
         "date": "2026-11-13",
         "title": "Microsoft 365の大規模障害",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168976",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-12",
-        "title": "【安全情報】１１月２０日（金）ドイツ全土における大規模デモに関する注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168883",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-11",
-        "title": "【安全情報】クリスマス・マーケット開催に伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168876",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-10",
-        "title": "【安全情報】クリスマス・マーケット開催に伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168860",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-10",
-        "title": "【安全情報】クリスマス・マーケット開催に伴う注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168859",
         "kind": "領事メール"
       }
     ],

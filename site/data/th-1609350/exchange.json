@@ -2,8 +2,8 @@
   "source": "exchange",
   "provider": "frankfurter",
   "status": "ok",
-  "updated_at": "2026-11-16T09:45:44+09:00",
-  "attempted_at": "2026-11-16T09:45:44+09:00",
+  "updated_at": "2026-11-17T12:23:43+09:00",
+  "attempted_at": "2026-11-17T12:23:43+09:00",
   "error": null,
   "data": {
     "currency": "THB",
@@ -1099,6 +1099,10 @@
       {
         "date": "2026-11-13",
         "jpy": 4.7176
+      },
+      {
+        "date": "2026-11-16",
+        "jpy": 4.7093
       }
     ]
   },

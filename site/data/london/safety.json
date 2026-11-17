@@ -2,45 +2,45 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-16T09:45:44+09:00",
-  "attempted_at": "2026-11-16T09:45:44+09:00",
+  "updated_at": "2026-11-17T12:23:43+09:00",
+  "attempted_at": "2026-11-17T12:23:43+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_154.html",
-    "mofa_updated": "2026/11/16 09:27:40",
+    "mofa_updated": "2026/11/17 11:57:40",
     "mofa_code": "0044",
     "notices": [
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "広域・スポット情報"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "広域・スポット情報"
+      },
       {
         "date": "2026-11-14",
         "title": "大使館メールの復旧",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169020",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-13",
-        "title": "Microsoft 365大規模障害による大使館メール送受信の不具合",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168984",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-13",
-        "title": "Microsoft365の大規模障害",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168957",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-05",
-        "title": "【安全情報】ボンファイヤー・ナイトに対する注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168768",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-30",
-        "title": "在英国日本国大使館の電話回線の不通（10/31（土曜・閉館日）08:00～19:00）",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168668",
         "kind": "領事メール"
       }
     ],

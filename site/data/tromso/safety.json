@@ -2,40 +2,46 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-16T09:45:44+09:00",
-  "attempted_at": "2026-11-16T09:45:44+09:00",
+  "updated_at": "2026-11-17T12:23:43+09:00",
+  "attempted_at": "2026-11-17T12:23:43+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_166.html",
-    "mofa_updated": "2026/11/16 09:28:06",
+    "mofa_updated": "2026/11/17 11:58:09",
     "mofa_code": "0047",
     "notices": [
       {
-        "date": "2026-10-21",
-        "title": "欧州での抗議活動を受けた注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
         "kind": "領事メール"
       },
       {
-        "date": "2026-10-21",
-        "title": "欧州での抗議活動を受けた注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
         "kind": "領事メール"
       },
       {
-        "date": "2026-10-21",
-        "title": "欧州での抗議活動を受けた注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "広域・スポット情報"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
         "kind": "広域・スポット情報"
       },
       {
         "date": "2026-10-21",
         "title": "欧州での抗議活動を受けた注意喚起",
         "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C052.html",
-        "kind": "広域・スポット情報"
+        "kind": "領事メール"
       }
     ],
     "links": [

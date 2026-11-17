@@ -2,45 +2,45 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-16T09:45:44+09:00",
-  "attempted_at": "2026-11-16T09:45:44+09:00",
+  "updated_at": "2026-11-17T12:23:43+09:00",
+  "attempted_at": "2026-11-17T12:23:43+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_221.html",
-    "mofa_updated": "2026/11/16 09:26:45",
+    "mofa_updated": "2026/11/17 11:56:45",
     "mofa_code": "1000",
     "notices": [
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "広域・スポット情報"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "欧米等でのテロ等に関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "kind": "広域・スポット情報"
+      },
       {
         "date": "2026-11-14",
         "title": "米連邦航空局（FAA）による全米規模の航空機地上待機命令の発令について",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169041",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-14",
-        "title": "【注意喚起】件名：米連邦航空局（FAA）による全米規模の航空機地上待機命令の解除について",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169040",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-14",
-        "title": "米連邦航空局（FAA）による全米規模の航空機地上待機命令の解除について",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169038",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-14",
-        "title": "注意喚起：米連邦航空局（FAA）による全米規模の航空機地上待機命令（米国における航空便の大幅な遅延・欠航の可能性）",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169037",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-14",
-        "title": "米連邦航空局（FAA）による全米規模の航空機地上待機命令について（米国における航空便の大幅な遅延・欠航）",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169036",
         "kind": "領事メール"
       }
     ],
