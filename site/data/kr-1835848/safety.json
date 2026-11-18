@@ -2,17 +2,23 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-17T12:23:43+09:00",
-  "attempted_at": "2026-11-17T12:23:43+09:00",
+  "updated_at": "2026-11-18T11:43:44+09:00",
+  "attempted_at": "2026-11-18T11:43:44+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_003.html",
-    "mofa_updated": "2026/11/17 11:55:57",
+    "mofa_updated": "2026/11/18 11:16:05",
     "mofa_code": "0082",
     "notices": [
+      {
+        "date": "2026-11-17",
+        "title": "当館代表電話の不通（11月21日（土）午前9時～10時半）",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169084",
+        "kind": "領事メール"
+      },
       {
         "date": "2026-11-04",
         "title": "北朝鮮によるミサイル発射",
@@ -35,12 +41,6 @@
         "date": "2026-10-29",
         "title": "北朝鮮によるミサイル発射（第２報）",
         "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168631",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-10-29",
-        "title": "北朝鮮によるミサイル発射について(第2報)",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168630",
         "kind": "領事メール"
       }
     ],
