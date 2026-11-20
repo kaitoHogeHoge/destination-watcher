@@ -2,45 +2,45 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-19T11:16:18+09:00",
-  "attempted_at": "2026-11-19T11:16:18+09:00",
+  "updated_at": "2026-11-20T11:00:35+09:00",
+  "attempted_at": "2026-11-20T11:00:35+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_165.html",
-    "mofa_updated": "2026/11/19 11:08:29",
+    "mofa_updated": "2026/11/20 10:33:11",
     "mofa_code": "0049",
     "notices": [
       {
-        "date": "2026-11-16",
-        "title": "欧米等でのテロ等に関する注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
+        "date": "2026-11-20",
+        "title": "【安全情報】１１月２０日（金）ドイツ全土における大規模デモに関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169134",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-20",
+        "title": "【安全情報】11月20日（金）デモに関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169133",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-19",
+        "title": "【安全情報・続報】１１月２０日（金）ドイツ全土における大規模デモに関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169130",
+        "kind": "領事メール"
+      },
+      {
+        "date": "2026-11-19",
+        "title": "【安全情報】１１月２０日（金）Z世代デモに関する注意喚起",
+        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=169124",
         "kind": "領事メール"
       },
       {
         "date": "2026-11-16",
         "title": "欧米等でのテロ等に関する注意喚起",
         "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
-        "kind": "領事メール"
-      },
-      {
-        "date": "2026-11-16",
-        "title": "欧米等でのテロ等に関する注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
-        "kind": "広域・スポット情報"
-      },
-      {
-        "date": "2026-11-16",
-        "title": "欧米等でのテロ等に関する注意喚起",
-        "url": "https://www.anzen.mofa.go.jp/info/pcwideareaspecificinfo_2026C053.html",
-        "kind": "広域・スポット情報"
-      },
-      {
-        "date": "2026-11-13",
-        "title": "Microsoft 365の大規模障害",
-        "url": "https://www.anzen.mofa.go.jp/od/ryojiMailDetail.html?keyCd=168976",
         "kind": "領事メール"
       }
     ],
