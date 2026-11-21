@@ -2,15 +2,15 @@
   "source": "safety",
   "provider": "mofa",
   "status": "ok",
-  "updated_at": "2026-11-20T11:00:35+09:00",
-  "attempted_at": "2026-11-20T11:00:35+09:00",
+  "updated_at": "2026-11-21T10:58:03+09:00",
+  "attempted_at": "2026-11-21T10:58:03+09:00",
   "error": null,
   "data": {
     "level": 0,
     "infection_level": 0,
     "title": "",
     "url": "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_221.html",
-    "mofa_updated": "2026/11/20 10:31:51",
+    "mofa_updated": "2026/11/21 10:46:47",
     "mofa_code": "1000",
     "notices": [
       {
