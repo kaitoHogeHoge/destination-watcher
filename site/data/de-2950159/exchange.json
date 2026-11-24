@@ -2,8 +2,8 @@
   "source": "exchange",
   "provider": "frankfurter",
   "status": "ok",
-  "updated_at": "2026-11-23T10:23:55+09:00",
-  "attempted_at": "2026-11-23T10:23:55+09:00",
+  "updated_at": "2026-11-24T14:08:34+09:00",
+  "attempted_at": "2026-11-24T14:08:34+09:00",
   "error": null,
   "data": {
     "currency": "EUR",
@@ -1099,6 +1099,10 @@
       {
         "date": "2026-11-20",
         "jpy": 174.35
+      },
+      {
+        "date": "2026-11-23",
+        "jpy": 174.01
       }
     ]
   },
