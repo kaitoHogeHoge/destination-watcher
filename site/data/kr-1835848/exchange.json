@@ -2,8 +2,8 @@
   "source": "exchange",
   "provider": "frankfurter",
   "status": "ok",
-  "updated_at": "2026-11-26T12:22:22+09:00",
-  "attempted_at": "2026-11-26T12:22:22+09:00",
+  "updated_at": "2026-11-27T12:29:02+09:00",
+  "attempted_at": "2026-11-27T12:29:02+09:00",
   "error": null,
   "data": {
     "currency": "KRW",
@@ -1111,6 +1111,10 @@
       {
         "date": "2026-11-25",
         "jpy": 0.11842
+      },
+      {
+        "date": "2026-11-26",
+        "jpy": 0.11844
       }
     ]
   },
