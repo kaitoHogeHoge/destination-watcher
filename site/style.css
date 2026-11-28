@@ -123,7 +123,18 @@ body {
   line-height: 1.2;
   overflow-wrap: anywhere;
 }
-.hero .local-clock { margin: 2px 0 0; font-size: 0.8rem; opacity: 0.92; }
+.hero .local-clock {
+  display: inline-block;
+  margin: 6px 0 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5); /* 明るい写真の上でも読めるように、暗い札の上に白い文字 */
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-shadow: none;
+  font-variant-numeric: tabular-nums;
+}
 .hero-credit {
   position: absolute;
   top: 10px;
@@ -301,7 +312,6 @@ table.climate .current { background: color-mix(in srgb, var(--accent) 18%, trans
 .card { scroll-margin-top: 12px; }
 
 /* 旅行前・旅行中の情報 */
-.local-clock { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
 .fc-sun { color: var(--muted); font-size: 0.7rem; margin-top: 2px; white-space: nowrap; }
 .forecast-day.hourly { flex-basis: 64px; }
 .best-season { font-size: 0.85rem; margin: 6px 0 0; }
@@ -408,6 +418,6 @@ p.fx-position { margin: 6px 0 0; }
   padding: 3px 10px;
 }
 .best-mark { color: #b07a10; font-weight: 700; }
-.hero .hero-flight { margin: 2px 0 0; font-size: 0.75rem; opacity: 0.9; }
+.hero .hero-flight { margin: 4px 0 0; font-size: 0.75rem; }
 
 .page-footer { color: var(--muted); font-size: 0.75rem; padding-bottom: 32px; }
